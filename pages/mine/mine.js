@@ -14,19 +14,23 @@ Page({
     mines:
     [
       {
-        src:"../../images/mine/myRelease.png",
+        hasNewMsg:false,
+        value:"0",
         title:"我的发布"
       },
       {
-        src: "../../images/mine/myLetter.png",
+        hasNewMsg: true,
+        value: "12",
         title: "我的私信"
       },
       {
-        src: "../../images/mine/myFollow.png",
+        hasNewMsg: false,
+        value: "120",
         title: "我的关注"
       },
       {
-        src: "../../images/mine/myLove.png",
+        hasNewMsg: false,
+        value: "121",
         title: "我的收藏"
       }
     ]

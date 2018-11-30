@@ -31,30 +31,29 @@
 }
 
 .mineListItem{
-  width: 66px;
+  width: 80px;
   height: 82px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
-.mineListItem image{
-  width: 30px;
+.mineListItem .number{
+  width: 80px;
   height: 30px;
-  margin-top: 10px;
-}
-
-.mineListItem view{
-width: 66px;
-height: 30px;
-margin-top: 10px;
-}
-
-.mineListItem text{
-  width: 66px;
   text-align: center;
   line-height: 30px;
-  font-size: 12pt;
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+.mineListItem .title{
+  width: 80px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 11pt;
+  display: flex;
+  justify-content: center;
 }
 
 .numberAddressV{

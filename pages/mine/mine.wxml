@@ -5,11 +5,17 @@
     <view><text style='font-size:16pt;line-height:50px;'>{{userName}}</text></view>
   </view>
   <view class='mineList'>
-    <view style='width:700rpx;height:100%;display: flex;justify-content:space-between;margin-left:25rpx;'>
+    <view style='width:750rpx;height:100%;display: flex;justify-content:space-between;'>
       <view wx:for='{{mines}}' wx:key='{{index}}' class='mineListItem' bindtap='clickedOnMineList' data-index='{{index}}'>
-        <image src='{{item.src}}'>
-        </image>
-        <view><text>{{item.title}}</text></view>
+        <view class='number'>
+        {{item.value}}
+        </view>
+        <view class='title'>
+          <view style='display:flex;align-items: center;'>
+            <view wx:if='{{item.hasNewMsg}}' style='width:8px;height:8px;background-color:red;border-radius: 4px;' />
+            <view>{{item.title}}</view>
+          </view>
+        </view>
       </view>
     </view>
   </view>
