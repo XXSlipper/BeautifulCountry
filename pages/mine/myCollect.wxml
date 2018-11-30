@@ -1,0 +1,35 @@
+<!--pages/mine/myCollect.wxml-->
+<view class='collecteContainer'>
+
+  <template is='cell' data='{{title:"收藏的新闻",index:0,number:12}}' />
+
+  <template is='cell' data='{{title:"收藏的问答",index:1,number:6}}' />
+  
+  <template is='cell' data='{{title:"收藏的供求",index:2,number:123}}' />
+
+</view>
+
+<template name='cell'>
+  <view class='cell'>
+
+    <view class='cellContainer' bindtap='clickedCell' data-index='{{index}}'>
+
+      <view class='cellLeft'>
+        <image style='width:40px;height:40px;' src='../../images/mine/dir.png' />
+        <view style='line-height:40px;height:40px;font-size:14pt;margin-left:6px;'>
+        {{title}}
+        </view>
+      </view>
+
+      <view class='cellRight'>
+          <image style='width:18px;height:36px;' src='../../images/mine/ triangleRight.png' />
+          <view style='height:36px;line-height:36px;color:#959595;font-size:12pt;margin-right:8px;'>{{number}}</view>
+      </view>
+
+    </view>
+
+    <view style='width:725rpx;height:1px;background-color:#959595;align-self:flex-end;'>
+    </view>
+
+  </view>
+</template>

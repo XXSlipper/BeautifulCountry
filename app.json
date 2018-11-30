@@ -1,0 +1,76 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/community/community",
+    "pages/mine/mine",
+    "pages/release/release",
+    "pages/market/market",
+    "pages/home/newsDetail",
+    "pages/mine/addressList",
+    "pages/mine/selecteAddress",
+    "pages/mine/areaList",
+    "pages/mine/myCrops",
+    "pages/mine/selecteCrop",
+    "pages/mine/login",
+    "pages/mine/phoneNumber",
+    "pages/mine/changePhoneNumber",
+    "pages/mine/myAssets",
+    "pages/mine/addNewAsset",
+    "pages/release/question",
+    "pages/release/work",
+    "pages/release/supply",
+    "pages/home/questionDetail",
+    "pages/home/answerQuestion",
+    "pages/market/buyAndPayDetail",
+    "pages/mine/myCollect",
+    "pages/mine/myMark",
+    "pages/mine/myLetter",
+    "pages/mine/myRelease",
+    "pages/mine/myCollectNews",
+    "pages/mine/myCollectQuestions",
+    "pages/mine/myCollectBuyAndPay"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#929292",
+    "selectedColor": "#73b900",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "咨讯",
+        "iconPath": "images/home/main_unselected.png",
+        "selectedIconPath": "images/home/main_selected.png"
+      },
+      {
+        "pagePath": "pages/market/market",
+        "text": "集市",
+        "iconPath": "images/market/trade_unselected.png",
+        "selectedIconPath": "images/market/trade_selected.png"
+      },
+      {
+        "pagePath": "pages/release/release",
+        "text": "发布",
+        "iconPath": "images/release/show_unselected.png",
+        "selectedIconPath": "images/release/show_selected.png"
+      },
+      {
+        "pagePath": "pages/community/community",
+        "text": "社区",
+        "iconPath": "images/community/noun_unselected.png",
+        "selectedIconPath": "images/community/noun_selected.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/mine/my_unselected.png",
+        "selectedIconPath": "images/mine/my_selected.png"
+      }
+    ]
+  }
+}

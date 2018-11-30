@@ -1,0 +1,135 @@
+/* pages/community/community.wxss */
+
+.communitySearchBar{
+  display: flex;
+  width: 750rpx;
+  height: 62px;
+  background: white;
+  
+}
+
+.positionSelecte{
+  width: 270rpx;
+  height: 62px;
+  display: flex;
+  align-items: center;
+}
+.positionSelecte text{
+  text-align: center;
+  margin-left: 20rpx;
+  font-size: 16pt;
+  width: 160rpx;
+  color: #83b637;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+.positionSelecte image{
+  margin-left: 2px;
+  width: 24px;
+  height: 24px;
+}
+
+.searchView{
+  width: 530rpx;
+  height: 62px;
+  display: flex;
+  align-items: center;
+   justify-content: center;
+}
+
+.searchLabelContainer{
+  width: 450rpx;
+  height: 32px;
+  border-radius: 5px;
+  border: 1px solid #8a8a8a;
+  display: flex;
+  align-items: center;
+}
+.searchLabelContainer input{
+  width: 360rpx;
+  margin-left: 32px;
+}
+
+.searchLabelContainer movable-view{
+  width: 32px;
+  height: 32px;
+}
+
+.communityUserList{
+  margin-top: 63px;
+  width: 750rpx;
+}
+
+.userListCell{
+  height: 81px;
+  width: 100%
+}
+
+.userListContent{
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.userListContent image{
+  width: 64px;
+  height: 64px;
+  margin-left: 40rpx;
+}
+
+.titleContainer{
+  height: 64px;
+  width: 500rpx;
+  margin-left: 40rpx;
+}
+
+.titleContainer .nameTitleV{
+  width: 500rpx;
+  height: 30px;
+}
+.titleContainer .nameTitleV text{
+  font-size: 15pt;
+  width: 100%;
+  line-height: 30px;
+
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+
+.titleContainer .subTitleV{
+  width: 500rpx;
+  height: 30px;
+  margin-top: 4px;
+}
+
+.titleContainer .subTitleV text{
+  font-size: 12pt;
+  width: 100%;
+  line-height: 30px;
+
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+
+}

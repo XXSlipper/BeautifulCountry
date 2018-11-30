@@ -1,0 +1,35 @@
+<!--pages/community/community.wxml-->
+<view style='position: fixed;z-index: 100;top:0px;'>
+  <view style='width:750rpx;height:1px;background:white;'></view>
+  <view class='communitySearchBar'>
+  <view class='positionSelecte'>
+    <text>宝安区</text>
+    <image src ='../../images/community/downTriangle.png'></image>
+  </view>
+  <view class='searchView'>
+    <movable-area class='searchLabelContainer'>
+      <input bindblur='blurAction' type='text' confirm-type='search' bindfocus='focusAction' bindconfirm='confirmAction' bindinput='inputAction' ></input>
+      <movable-view x='0px' y='0px' direction='none'>
+        <image style='width: 32px; height:32px' src='../../images/community/glass.png'></image>
+      </movable-view>
+    </movable-area>
+  </view>
+</view>
+</view>
+
+
+<view class='communityUserList'>
+  <block wx:for='{{allUser}}' wx:key='{{index}}'>
+    <view class='userListCell'>
+      <view class='userListContent'>
+        <image mode='aspectFill' src='{{item.iconUrl}}'>
+        </image>
+        <view class='titleContainer'>
+          <view class='nameTitleV'><text>{{item.name}}</text></view>
+          <view class='subTitleV'><text>{{item.detailInfo}}</text></view>
+      </view>
+    </view>
+    <view style='width:670rpx;height:1px;background:#e1e0e0;margin-left:40rpx;'></view>
+    </view>
+  </block>
+</view>

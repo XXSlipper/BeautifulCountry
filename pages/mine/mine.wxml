@@ -1,0 +1,99 @@
+<!--pages/mine/mine.wxml-->
+<view class='sectionOne'>
+  <view class='nameIcon' bindtap='loginAction'>
+  <image src='{{iconPath}}'></image>
+    <view><text style='font-size:16pt;line-height:50px;'>{{userName}}</text></view>
+  </view>
+  <view class='mineList'>
+    <view style='width:700rpx;height:100%;display: flex;justify-content:space-between;margin-left:25rpx;'>
+      <view wx:for='{{mines}}' wx:key='{{index}}' class='mineListItem' bindtap='clickedOnMineList' data-index='{{index}}'>
+        <image src='{{item.src}}'>
+        </image>
+        <view><text>{{item.title}}</text></view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<template is='spaceLine'/>
+
+<view class='numberAddressV'>
+  <view class='numberV' bindtap='gotoManagePhoneNum'>
+    <view style='width:350rpx;height:46px;display:flex;align-items: center;'>
+      <image class='leftImg' src='../../images/mine/phoneNum.png'></image>
+    <text class='leftText'>我的电话</text>
+    </view>
+    <view style='width:350rpx;height:46px;display:flex;flex-direction:row-reverse;align-items: center;'>
+      <image class='rightImg' src='../../images/mine/ triangleRight.png'></image>
+      <text class='rightText' style='color:{{phoneNumber == "绑定手机号码" ? "red" : "black"}}'>{{phoneNumber}}</text>
+    </view>
+  </view>
+  <view style='width:700rpx;height:1px;background:#e1e0e0;'></view>
+  <view class='addressV' bindtap='gotoManageAddress'>
+    <view style='width:350rpx;height:46px;display:flex;align-items: center;'>
+      <image class='leftImg' src='../../images/mine/address.png'></image>
+    <text class='leftText'>我的地址</text>
+    </view>
+    <view style='width:350rpx;height:46px;display:flex;flex-direction:row-reverse;align-items: center;'>
+      <image class='rightImg' src='../../images/mine/ triangleRight.png'></image>
+      <text class='rightText' style='color:{{address.length == 0 ? "red" : "black"}}'>{{address.length == 0 ? '添加地址' : address[0].subAddress}}</text>
+    </view>
+  </view>
+</view>
+
+<template is='spaceLine'/>
+
+<view class='sectionThreeV'>
+  <view class='sectionThreeCell' bindtap='enterMyCrops'>
+    <view style='width:350rpx;height:46px;display:flex;align-items: center;'>
+      <image class='leftImg' src='../../images/mine/crops.png'></image>
+    <text class='leftText'>我的农作物</text>
+    </view>
+    <view style='width:350rpx;height:46px;display:flex;flex-direction:row-reverse;align-items: center;'>
+      <image class='rightImg' src='../../images/mine/ triangleRight.png'></image>
+      <text class='rightText'></text>
+    </view>
+  </view>
+
+  <view style='width:700rpx;height:1px;background:#e1e0e0;'></view>
+
+  <view class='sectionThreeCell' bindtap = 'enterMyAssets'>
+    <view style='width:350rpx;height:46px;display:flex;align-items: center;'>
+      <image class='leftImg' src='../../images/mine/assets.png'></image>
+    <text class='leftText'>我的农资</text>
+    </view>
+    <view style='width:350rpx;height:46px;display:flex;flex-direction:row-reverse;align-items: center;'>
+      <image class='rightImg' src='../../images/mine/ triangleRight.png'></image>
+      <text class='rightText'></text>
+    </view>
+  </view>
+
+  <view style='width:700rpx;height:1px;background:#e1e0e0;'></view>
+
+    <view class='sectionThreeCell'>
+    <view style='width:350rpx;height:46px;display:flex;align-items: center;'>
+      <image class='leftImg' src='../../images/mine/aboutUs.png'></image>
+    <text class='leftText'>关于我们</text>
+    </view>
+    <view style='width:350rpx;height:46px;display:flex;flex-direction:row-reverse;align-items: center;'>
+      <image class='rightImg' src='../../images/mine/ triangleRight.png'></image>
+      <text class='rightText'></text>
+    </view>
+  </view>
+
+  <view style='width:700rpx;height:1px;background:#e1e0e0;'></view>
+
+</view>
+
+
+
+
+
+
+<template name='spaceLine'>
+  <view style='height:12px;width:100%;'>
+  <view style='width:100%;height:1px;background-color:#e1e0e0;'></view>
+  <view style='width:100%;height:10px;background-color:#f5f4f9;'></view>
+  <view style='width:100%;height:1px;background-color:#e1e0e0;'></view>
+</view>
+</template>

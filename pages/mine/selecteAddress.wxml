@@ -1,0 +1,34 @@
+<!--selecteAddress.wxml-->
+<view class='selecteAddressContainer'>
+  <template is = 'cell' data = '{{ item:{leftTitle:"联系人",placeholder:"请输入联系人姓名",rightTitle:name},type:0,index:0 }}'></template>
+  <template is = 'cell' data = '{{ item:{leftTitle:"联系电话",placeholder:"请输入联系电话",rightTitle:phoneNumber},type:0,index:1 }}'></template>
+  <template is = 'cell' data = '{{ item:{leftTitle:"所在区域",rightTitle:address},type:1,index:2 }}'></template>
+  <template is = 'cell' data = '{{ item:{leftTitle:"详细地址",placeholder:"请输入详细地址",rightTitle:detailAddress},type:0,index:3 }}'></template>
+
+  <view class='saveBtn' bindtap='saveAction'>
+    <text style='line-height:30px;font-size:14pt;color:white;width:40px;text-align:center;'>保存</text>
+  </view>
+</view>
+
+
+
+
+
+
+
+
+
+<template name = 'cell'>
+  <view class='cell' style='width:700rpx;height:60px;display:flex;justify-content: space-between;'>
+    <text style='line-height:59px;color:black; font-size: 14pt;width:80px;'>{{item.leftTitle}}</text>
+    <block wx:if = '{{type == 0}}'>
+      <input placeholder='{{item.placeholder}}' style='height:59px;width:170px;font-size: 14pt;' bindinput='inputAction' confirm-type='done' type='{{index == 1 ? "number" : "text"}}' data-cell-index='{{index}}' value='{{item.rightTitle}}'></input>
+    </block>
+    <block wx:else>
+      <view style='width:200px;height:59px;display:flex;flex-direction: row-reverse;align-items: center;' bindtap='selecteArea'>
+        <image src='../../images/mine/ triangleRight.png' style='width:18px;height:46px;'></image>
+        <text style='width:182px;line-height:20px;color:black; font-size: 14pt;text-align:right;'>{{item.rightTitle}}</text>
+      </view>
+    </block>
+  </view>
+</template>

@@ -1,0 +1,50 @@
+/* pages/mine/myAssets.wxss */
+
+.myAssetsContainer{
+  width: 750rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topSegBar{
+  position: fixed;
+  width: 750rpx;
+  height: 45px;
+  background-color: white;
+  top: 0;
+  font-size: 15pt;
+  z-index: 100;
+}
+
+movable-view{
+  height: 4px; 
+  background-color:#73b900;
+}
+
+.topSegTitleContainer{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  height: 45px;
+}
+
+.topSegTitle{
+  width: 40px;
+  height: 30px;
+  margin-left: 10px;
+  text-align: center;
+  font-size: 15pt;
+}
+
+.assetCell{
+  width: 700rpx;
+  height: 60px;
+  border-width: 1px;
+  border-color: #bebebe;
+  border-style: solid;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

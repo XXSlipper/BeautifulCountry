@@ -1,0 +1,54 @@
+/* pages/release/release.wxss */
+
+page{
+  background-color: white;
+}
+
+.releaseContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.questionView{
+  margin-top: 100rpx;
+  width: 640rpx;
+  height: 170rpx;
+}
+
+.engageView{
+  margin-top: 36rpx;
+  width: 640rpx;
+  height: 170rpx;
+}
+
+.supplyView{
+  margin-top: 36rpx;
+  width: 640rpx;
+  height: 170rpx;
+}
+
+.releaseBtn{
+  width: 640rpx;
+  margin-top: 176rpx;
+  height: 94rpx;
+  background: #84b637;
+  border-radius: 6px;
+  color: white;
+  text-align: center;
+  font-size: 17pt;
+  padding-top: 22rpx;
+}
+
+.releaseContainer image{
+  width: 640rpx;
+  height: 170rpx;
+}
+
+.releaseContainer text{
+  position: relative;
+  top:-130rpx;
+  left: 80rpx;
+  width: 200px;
+  font-size: 17pt;
+}

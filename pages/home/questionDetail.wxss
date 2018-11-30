@@ -1,0 +1,108 @@
+/* pages/home/questionDetail.wxss */
+
+.questionContainer{
+  display: flex;
+  flex-direction: column;
+  width: 750rpx;
+  align-items: center;
+}
+
+.questionUserInfo{
+  width: 700rpx;
+  height: 40px;
+  display: flex;
+}
+
+.questionTitle{
+  margin-top: 5px;
+  width: 700rpx;
+  font-size: 14pt;
+  word-break: break-all;
+}
+
+.questionDetail{
+  margin-top: 5px;
+  width: 700rpx;
+  font-size: 12pt;
+  word-break: break-all;
+}
+
+.imageContainer{
+  width: 700rpx;
+  display: flex;
+  justify-content: space-around;
+}
+
+.locationV{
+  margin-top: 5px;
+  width:700rpx;
+  height: 20px;
+  display: flex;
+}
+
+.functionV{
+  width: 700rpx;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.fouceBtn , .respondBtn{
+  height: 30px;
+  width: 80px;
+  line-height: 30px;
+  font-size: 12pt;
+  text-align: center;
+  background-color: #73b900;
+  color: white;
+  border-radius: 4px;
+}
+
+.respondCell{
+  width: 700rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.respondCellHeader{
+  width: 700rpx;
+  height: 30px;
+  display: flex;
+  margin-top: 5px;
+}
+
+.respondCellBody{
+  width: 700rpx;
+  font-size: 12pt;
+  word-break: break-all;
+  margin-top: 10px;
+  line-height: 18px;
+}
+
+.respondCellTime{
+  width: 700rpx;
+  font-size: 10pt;
+  margin-top: 10px;
+  height: 16px;
+  line-height: 16px;
+  color: #8a8a8a;
+}
+
+.respondCellFooder{
+  width: 700rpx;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.zanBtn,.againstBtn{
+  height: 30px;
+  width: 81px;
+  font-size: 12pt;
+  color: #a09d9d;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}

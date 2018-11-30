@@ -1,0 +1,20 @@
+<!--pages/release/release.wxml-->
+
+<view class='releaseContainer'>
+  <view class='questionView' bindtap='selecteAction' data-index='0'>
+    <image src='{{selectedIndex == 0 ? "../../images/release/releaseYes.png" : "../../images/release/releaseNo.png"}}'></image>
+      <text style='color:{{selectedIndex == 0 ? "#84b637" : "black"}}'>提问题</text>
+  </view>
+
+  <view class='engageView' bindtap='selecteAction' data-index='1'>
+    <image src='{{selectedIndex == 1 ? "../../images/release/releaseYes.png" : "../../images/release/releaseNo.png"}}'></image>
+    <text style='color:{{selectedIndex == 1 ? "#84b637" : "black"}}'>发布聘请</text>
+  </view>
+
+  <view class='supplyView' bindtap='selecteAction' data-index='2'>
+    <image src='{{selectedIndex == 2 ? "../../images/release/releaseYes.png" : "../../images/release/releaseNo.png"}}'></image>
+    <text style='color:{{selectedIndex == 2 ? "#84b637" : "black"}}'>发布供求</text>
+  </view>
+
+  <view class='releaseBtn' bindtap='continueAction'>继续</view>
+</view>

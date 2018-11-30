@@ -1,0 +1,72 @@
+/* pages/market/buyAndPayDetail.wxss */
+
+.buyAndPlayContainer{
+  width: 750rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.swiperImage{
+  height: 360rpx;
+  width: 100%;
+}
+
+.userInfoV{
+  width: 750rpx;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.iconImg{
+  margin-left: 25rpx;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.nickNameV{
+  margin-left: 20rpx;
+  height: 60px;
+  line-height: 60px;
+  font-size: 14pt;
+}
+
+.cell{
+  width: 750rpx;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cellContent{
+  width: 700rpx;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cellLeftTitle{
+  width: 200rpx;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14pt;
+}
+.cellRightTitle{
+  text-align: right;
+  width: 500rpx;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14pt;
+}
+
+.detailDescription{
+  width: 750rpx;
+  display: flex;
+  justify-content: center;
+}
+.detailDescriptionContent{
+  width: 700rpx;
+  word-break: break-all;
+}

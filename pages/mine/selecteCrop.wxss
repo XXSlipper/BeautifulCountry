@@ -1,0 +1,38 @@
+/* selecteCrop.wxss */
+
+.cropContainer{
+  width: 100%;
+  display: flex;
+}
+
+.leftScroll{
+  width: 250rpx;
+  height: 1000rpx;
+  background-color: #f4f4f8;
+}
+
+.middleScroll{
+  width: 250rpx;
+  height: 1000rpx;
+  background-color: #faf9ff;
+}
+
+.rightScroll{
+  width: 250rpx;
+  height: 1000rpx;
+  background-color: #fff;
+}
+
+.listCell{
+  width: 250rpx;
+  height:45px;
+  border-width: 1px;
+  border-color: #e1e0e0;
+  border-style: none none solid none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.listCell text{
+  margin-left:10px;
+}

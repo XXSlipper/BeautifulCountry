@@ -1,0 +1,76 @@
+/* pages/mine/myCollectNews.wxss */
+
+.newsContainer{
+  width: 750rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.topSegV{
+  background-color: white;
+  z-index: 100;
+  position: fixed;
+  top:0;
+  width: 750rpx;
+  display: flex;
+  border-width: 1px;
+  border-color: #959595;
+  border-style: none none solid none;
+}
+
+.topSegSection{
+  line-height: 40px;
+  height: 40px;
+  width: 250rpx;
+  text-align: center;
+}
+
+.placeHolderV{
+  width: 100%;
+  height: 40px;
+}
+
+.newsCellContainer{
+  width: 100%;
+  display: flex;
+}
+.newsCellLeft{
+  width: 65%;
+  height: 84px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
+image{
+  overflow: hidden;
+}
+
+.newsCellRight{
+  width: 35%;
+  height: 84px;
+ padding-top: 5px;
+ padding-left: 5px;
+ padding-bottom: 5px;
+}
+
+.newsTitleContainer{
+  height:60px;
+}
+
+.newsTitle{
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+  font-size: 14pt;
+}
+
+.newsTimeComment{
+  width:100%; 
+  height:24px; 
+}

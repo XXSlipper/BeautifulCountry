@@ -1,0 +1,26 @@
+
+/* selecteAddress.wxss */
+
+.selecteAddressContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cell{
+  border-width: 1px;
+  border-color: #e1e0e0;
+  border-style: none none solid none;
+}
+
+.saveBtn{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 600rpx;
+  height: 80rpx;
+  background: #84b637;
+  border-radius: 10rpx;
+  margin-top: 40px;
+}

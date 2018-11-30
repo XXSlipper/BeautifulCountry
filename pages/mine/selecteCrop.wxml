@@ -1,0 +1,36 @@
+<!--selecteCrop.wxml-->
+<view class='cropContainer'>
+  <scroll-view class='leftScroll' scroll-y="{{true}}">
+    <view wx:for='{{xlist["name"]}}' wx:key='{{index}}'>
+      <view class='listCell'  bindtap='clickOnXlistCell' data-index='{{index}}'>
+        <text style='color:{{selecteIndex.x == index ? "#73b900" : "black"}};font-size:14pt;'>{{item}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <scroll-view class='middleScroll' scroll-y="{{true}}">
+    <view wx:for='{{ylist["name"]}}' wx:key='{{index}}'>
+      <view class='listCell' bindtap='clickOnYlistCell' data-index='{{index}}'>
+        <text style='color:{{selecteIndex.y == index ? "#73b900" : "black"}};font-size:14pt;'>{{item}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <scroll-view class='rightScroll' scroll-y="{{true}}">
+    <view wx:for='{{zlist["name"]}}' wx:key='{{index}}'>
+      <view class='listCell' style='background-color:{{selecteIndex.z == index ? "#73b900" : "white"}};' bindtap='clickOnZlistCell' data-index='{{index}}'>
+        <text style='color:{{selecteIndex.z == index ? "white" : "black"}}; font-size:14pt;'>{{item}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+</view>
+
+  
+<view style='width:600rpx;height:40px;margin-top:20px;background: #84b637;border-radius: 6px;font-size:14pt;text-align:center;color: white;line-height:40px;bottom: 20px;left: 75rpx;position: fixed;' bindtap='sureSelecte'>确认选择</view>
+
+
+<modal hidden="{{hiddenmodalput}}" title="{{alertTitle}}" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+    <input value='{{value}}' bindinput='input' type='digit'placeholder="{{placeholder}}" focus = '{{false}}' style='border-width: 1px;border-color: #e1e0e0;border-style: solid;margin-top:20px;border-radius: 5px;height: 40px;' cursor-spacing = '160px'/>
+    <view style='width:100%;height:20px;'></view>
+</modal>

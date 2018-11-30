@@ -1,0 +1,137 @@
+/* pages/hone/home.wxss */
+
+page {
+  height: 100%;
+}
+
+.swiperImage{
+  height: 360rpx;
+  width: 100%;
+}
+
+.selecteBarSection{
+  position: static;
+  top: 0px;
+}
+
+.selecteBarSectionFixed{
+  position: fixed;
+  top: 0px;
+  z-index: 1;
+}
+
+.segTitleContainer{
+  margin: 0 8px;
+}
+
+.listSection{
+  width: 100%;
+  background: white;
+}
+
+.newsCellContainer{
+  width: 100%;
+  display: flex;
+}
+.newsCellLeft{
+  width: 65%;
+  height: 84px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 5px;
+}
+
+image{
+  overflow: hidden;
+}
+
+.newsCellRight{
+  width: 35%;
+  height: 84px;
+ padding-top: 5px;
+ padding-left: 5px;
+ padding-bottom: 5px;
+}
+
+.newsTitleContainer{
+  height:60px;
+}
+
+.newsTitle{
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+  font-size: 14pt;
+}
+
+.newsTimeComment{
+  width:100%; 
+  height:24px; 
+}
+
+.questionCellContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.questionTitle{
+  font-size: 14pt;
+  width: 700rpx;
+  height: auto;
+  word-break: break-all;
+  line-height: 20px;
+  margin-top: 10px;
+}
+
+.questionDetail{
+  font-size: 12pt;
+  width: 700rpx;
+  height: auto;
+  word-break: break-all;
+  line-height: 20px;
+  margin-top: 10px;
+  color: #939393;
+}
+.questionImg{
+  margin-top: 5px;
+  width: 700rpx;
+  height: 400rpx;
+}
+
+.questionLocation{
+  margin-top:8px; 
+  width: 700rpx;
+  height:20px;
+  display: flex;
+}
+
+.answerSateV{
+  width: 700rpx;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.searchBtn{
+  width: 60px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.5);
+  position: fixed;
+  bottom: 40px;
+  right:10px;
+  z-index: 1000;
+  border-radius: 20px;
+
+  border-width: 1px;
+  border-color: rgba(112, 112, 112, 0.425);
+  border-style: solid;
+  display: flex;
+  align-items: center;
+}

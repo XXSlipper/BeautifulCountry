@@ -1,0 +1,8 @@
+/* pages/mine/changePhoneNumber.wxss */
+
+.changePhoneNumberContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}

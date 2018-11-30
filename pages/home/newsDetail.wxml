@@ -1,0 +1,251 @@
+<!--newsDetail.wxml-->
+<view class='newsDetailContainer'>
+  <view class='header'>
+    <view style='margin:5px 25rpx;'>
+      <text style='font-size:20pt; font-weight:500'>
+      {{newsContents.title}}  
+      </text>
+    </view>
+    <view style='align-self:flex-end; margin-right:25rpx;'>
+      <text style='font-size:11pt;color:#a1a1a1'>{{newsContents.time}}</text>
+    </view>
+  </view>
+
+  <view class='body' >
+    <block wx:for = '{{newsContents.bodyData}}' wx:key = "{{item.pNumber}}">
+      <view class='paragraph' wx:for = '{{item.content}}' wx:key = '{{index}}'>
+        <block wx:if = '{{index == 0 & item.type == 0}}'>
+          <view style='width:700rpx;'><text space='nbsp'>      {{item.text}}</text>
+          </view>
+        </block>
+
+        <block wx:elif = '{{item.type == 0}}'>
+          <view style='width:700rpx;'>{{item.text}}</view>
+        </block>
+
+        <block wx:elif = '{{item.type == 1}}'>
+          <image src='{{newsContents.baseUrl + item.image.url}}' mode='aspectFill' style='width:700rpx; height:{{item.image.scale == 0 ? 350 : 700/item.image.scale}}rpx;' lazy-load='{{true}}' bindtap='clickedImageAction' data-url='{{item.image.url}}'>
+          </image>
+        </block>
+      </view>
+    </block>
+  </view>
+
+  <view class='footer'>
+    <view style='width:700rpx;'>
+    {{newsContents.tips}}
+    </view>
+  </view>
+
+  <view style='width:100%; height:5px; background-color:#f5f4f9; margin-top:5px;'>
+  </view>
+
+  <view style='display:flex; flex-direction:column; align-items:center; width: 750rpx; height: 90rpx; background-color:white;'>
+    <text style='line-height:90rpx; font-size:12pt;'>评论</text>
+  </view>
+
+  <view style='width:750rpx;height:1px;background-color:#f5f4f9'>
+  </view>
+
+  <block wx:if='{{commendNum  == 0}}'>
+    <view style='width:100%; height:400rpx; background-color:white;display:flex; flex-direction:column; align-items:center;'>
+      <text style='margin-top:100rpx;color:#505050; font-size:11pt;'>沙发已摆好,就差你来躺~~~~</text>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class='commend'>
+      <block wx:for='{{commends}}' wx:key = '{{index}}'>
+        <view class='commendCell'>
+
+         <image class='userIcon' src='{{item.avatarUrl}}'></image>
+
+         <view class='commendCellRight'>
+          <text style='color:#3f5c96; font-size:12pt;'>{{item.nickName}}</text>
+          <view style='font-size:14pt; margin-top:5px;word-break:break-all;'>{{item.content}}</view>
+          <view style='margin-top:5px;font-size:11.5px;' bindtap='commendOtherUser' data-target-user-id='{{item.userId}}' data-target-commend-id='{{item.commendId}}'>
+            <text style='color: #a1a1a1;' space='nbsp'>{{item.createTime}} - </text>回复Ta
+          </view>
+
+          <block wx:if='{{item.hasSubCommend}}'>
+            <view class='subCommend'>
+              <block wx:for = '{{item.subCommends}}' wx:key = '{{index}}'>
+                <view style='font-size:12pt; margin-top:3px;word-break:break-all;' wx:if = '{{(item.targetCommendId != item.parentCommendId)}}'>
+                  <text style='color:#3f5c96;'>{{item.nickName}}</text>回复<text style='color:#3f5c96;'>{{item.targetNickName}}: </text>{{item.content}}
+                </view> 
+                <view style='font-size:12pt; margin-top:3px;word-break:break-all;' wx:else>
+                  <text style='color:#3f5c96;'>{{item.nickName}}: </text>{{item.content}}
+                </view>
+              </block>
+
+              <block wx:if='{{item.subCommendCount > 2}}'>
+                <view style='width:100%; height:20px; color: #a1a1a1; font-size:11.5px;' bindtap='watchAllCommend' data-target-commend-id='{{item.commendId}}' data-target-user-id='{{item.userId}}' data-index='{{index}}'>
+              查看全部{{item.subCommendCount}}条评论
+                </view>
+              </block>
+              
+            </view>
+          </block>
+
+         </view>
+        </view>
+      </block>
+    </view>
+  </block>
+
+  <view style='width:100%;display:{{isLoadingMoreCommend ? "flex" : "none"}};flex-direction:column;align-items:center;'>
+
+    <view style='width:700rpx;height:1px;background:#f5f4f9;margin-top:9px;'>
+    </view>
+
+    <view style='height:40px;width:100%;text-align:center;font-size:11pt;line-height:40px;'>{{isloadingCommendOver ? "没有更多评论了!" : "加载中..."}}       </view>
+
+    <view style='width:100%;height:{{bottomEditeBarFixH}}px;'>
+    </view>
+
+  </view>
+
+  <view class='pleaseholderView' style='width:100%; height:90rpx; background-color:white;'>
+  </view>
+<view style='width:100%;height:{{bottomEditeBarFixH}}px'></view>
+</view>
+
+
+<view class='bottomEditBar'>
+
+  <view style='width:750rpx;height:90rpx;display:{{isInputBottomBar ? "none" : "flex"}};'>
+    <image style='width: 100%; height: 100%;' src='../../images/home/commendDeskBgImage.png'></image>
+    <view style='width:750rpx; height:90rpx; background-color:clear; position:absolute;top:0;left:0; display:flex; margin-top:10rpx;'>
+      <view style='width:400rpx; color:#7b7c7d; margin-left:90rpx;' bindtap='commendAction'>写评论</view>
+      <image style='width:46rpx;height:46rpx;margin-left:60rpx;margin-top:10rpx;' src='../../images/home/commend.png' bindtap='commendNumberAction'></image>
+      <view style='width:60rpx;height:30rpx; background-color:red; margin-left:2rpx;font-size:9pt; border-radius:12rpx;display:flex;align-items: center;flex-direction: column; margin-left: -10rpx;' bindtap='commendNumberAction'>
+        <text style='line-height:30rpx;font-size: 9pt; color: white;'>{{commendNum}}
+        </text>
+      </view>
+      <image style='width:46rpx;height:46rpx;margin-left:30rpx;margin-top:10rpx;' src='{{isCollect ? "../../images/home/loveSelected.png" : "../../images/home/loveUnselected.png"}}' bindtap='loveOrUnloveAction'></image>
+    </view>
+  </view>
+
+    <view style='width:750rpx;height:90rpx;display:{{!isInputBottomBar ? "none" : "flex"}};'>
+  
+      <input class='commendInput' placeholder='评论是一个很好的习惯!' type='text' confirm-type='send' focus='{{focus}}'  bindblur='blurAction' bindconfirm='conformAction' bindinput='inputAction' cursor-spacing='8' value='{{emptyInput}}'></input>
+      <view class='sendBtn' style='background-color:{{inputValue.length == 0 ? "#a0b087" : "#84b637"}};' bindtap='conformAction'><text style='line-height:60rpx'>发送</text>
+      </view>
+    </view>
+
+    <view style='width:100%;height:{{bottomEditeBarFixH}}px;display:{{isInputBottomBar ? "none" : "flex"}}'></view>
+
+</view>
+
+
+<view class="modals modals-bottom-dialog" hidden="{{hideModal}}" catchtouchmove='doNothing'>
+
+    <view class="modals-cancel" bindtap="hideModal" catchtouchmove='doNothing'></view>
+
+    <view class='bottom-dialog-body bottom-pos' animation="{{animationData}}" style='height:{{modelViewHeight}}px;' catchtouchmove='doNothing'>
+      <view class='allCommendTitleV'>
+        <view style='width:750rpx;height:45px;font-weight:550;color:black;font-size:14pt;text-align:center;line-height:45px;'>评论详情</view>
+        <image style='width:60px;height:45px;position:absolute;right:0px;' bindtap='hideModal' src='../../images/home/delete.png'></image>
+      </view>
+
+      <scroll-view scroll-y='{{true}}' style='width:100%;height:{{modelViewHeight - 90 - bottomEditeBarFixH}}px;' bindscrolltolower='scrollViewScrollToBottom'>
+      <view style='width:100%;height:1px;background:#f5f4f9;'></view>
+
+      <view class='mainCommendV'>
+
+        <view class='mainCommendUserV'>
+          <image class='mainCommendUserIcon' src='{{subCommendListMainUser.avatarUrl}}'></image>
+          <view class='mainCommendUserName'>{{subCommendListMainUser.nickName}}</view>
+          <view class='guanzhuV' bindtap='foucusUserAction' data-user-id='{{subCommendListMainUser.userId}}'>{{isFocusMainCommendUser ? "已关注" : "关注"}}</view>
+        </view>
+
+        <view class='mainCommendBodyV'>
+          <view class='mainCommendText'>
+          {{subCommendListMainUser.content}}
+          </view>
+          <view style='width:100%;height:90rpx;'>
+            <view style='margin-top:5px;font-size:11.5px;line-height:90rpx;height:90rpx;'>
+            <text style='color: #a1a1a1;' space='nbsp'>1小时前</text>
+          </view>
+          </view>
+        </view>
+
+      </view>
+
+      <template is='spaceLine' />
+
+      <view class='allSubCommendV'>
+
+        <view style='width:690rpx;height:40px;line-height:40px;'>全部回复</view>
+
+        <block wx:if='{{networkStateTwo == 0}}'>
+          <view style='width:100%;height:30px;font-size:12pt;margin-top:40px;text-align:center;' bindtap='reloadSubCommend'>加载失败,请点击刷新!</view>
+        </block>
+
+        <block wx:elif='{{networkStateTwo == -1}}'>
+        </block>
+
+        <block wx:else>
+          <block wx:for='{{subCommends}}' wx:key='{{index}}'>
+            <template is='subCommendCell' data='{{item}}' />
+          </block>
+        </block>
+
+      </view>
+
+       <view style='width:100%;display:{{isLoadingMoreSubCommend ? "flex" : "none"}};flex-direction:column;align-items:center;'>
+
+        <view style='width:700rpx;height:1px;background:#f5f4f9;margin-top:9px;'>
+        </view>
+
+        <view style='height:40px;width:100%;text-align:center;font-size:11pt;line-height:40px;'>{{isloadingSubCommendOver ? "没有更多评论了!" : "加载中..."}}
+        </view>
+
+        </view>
+
+    </scroll-view>
+
+    <view style='width:750rpx;height:{{bottomEditeBarFixH + 45}}px;display:flex;background-color: #f5f5f9;'>
+  
+      <input class='subCommendInput' placeholder='评论是一个很好的习惯!' type='text' confirm-type='send' bindconfirm='subConformAction' bindinput='subInputAction' cursor-spacing='8' value='{{emptySubInput}}' focus='{{subInputFocus}}' bindblur='subInputBlurAction'></input>
+
+      <view class='subCommendSendBtn' style='background-color:{{subInputValue.length == 0 ? "#a0b087" : "#84b637"}};' bindtap='subConformAction'><text style='line-height:30px'>发送</text>
+      </view>
+   </view>   
+
+    </view>
+
+</view>
+
+<template name='subCommendCell'>
+  <view class='subCommendCell'>
+          <image class='subCommendCellIon' src='{{item.avatarUrl}}'></image>
+          <view class='subCommendCellContent'>
+            <view class='subCommendCellPleaseV'></view>
+
+            <view style='font-size:12pt; margin-top:3px;word-break:break-all;' wx:if = '{{(item.targetCommendId != item.parentCommendId)}}'>
+              <text style='color:#3f5c96;'>{{item.nickName}}: </text>
+              {{item.content}}
+              <text style='color:#3f5c96;'>@{{item.targetNickName}}: </text>
+              {{item.targetCommendContent}}
+            </view> 
+            <view style='font-size:12pt; margin-top:3px;word-break:break-all;' wx:else>
+              <text style='color:#3f5c96;'>{{item.nickName}}: </text>{{item.content}}
+            </view>
+
+            <view style='font-size:11.5px;line-height:40px;height:40px;width:100%' bindtap='commendSubCommend' data-user-id='{{item.userId}}' data-commend-id='{{item.commendId}}'>
+              <text style='color: #a1a1a1;' space='nbsp'>{{item.createTime}} - </text>回复Ta
+            </view>
+
+          </view>
+
+        </view>
+</template>
+
+<template name='spaceLine'>
+  <view style='height:12px;width:100%;'>
+  <view style='width:100%;height:1px;background-color:#e1e0e0;'></view>
+  <view style='width:100%;height:10px;background-color:#f5f4f9;'></view>
+  <view style='width:100%;height:1px;background-color:#e1e0e0;'></view>
+</view>
+</template>

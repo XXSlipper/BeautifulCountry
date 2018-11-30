@@ -1,0 +1,142 @@
+<!--pages/release/supply.wxml-->
+<view class='supplyContainer'>
+
+  <template is='spaceLine'/>
+
+  <template is='cell' data='{{item:supplyType,array:supplyTypeContent.name}}'/>
+
+  <template is='spaceLine'/>
+
+  <template is='cell' data='{{item:goodsType,array:goodsContent.name}}'/>
+
+  <template is='spaceLine'/>
+
+  <template is='inputCell' data='{{item:title}}'/>
+
+  <template is='spaceLine'/>
+
+  <view style='height:30px;width:725rpx;font-size:14pt;margin-left:25rpx;margin-top:6px;'>
+  商品图片
+  </view>
+
+  <view class='addPictureV'>
+    <view class='addPictureAlertV'>
+      单张图片最大
+      <text style='color:red;'>4MB</text>
+      ,最多三张,支持
+      <text style='color:red;'>JPG/GPEG/PNG</text>
+      格式
+    </view>
+
+    <view class='pictureContainerV'>
+
+      <view class='picture' hidden='{{pictures[0].hidden}}'>
+        <image style='width:100%;height:100%'  src='{{pictures[0].url}}'>
+        </image>
+        <image style='width:20px;height:20px;position:absolute;right:-4px;top:-4px;' src='../../images/release/picDelete.png' bindtap='deletePic' data-index='0'>
+        </image>
+      </view>
+      
+      <view class='picture' hidden='{{pictures[1].hidden}}'>
+        <image style='width:100%;height:100%'  src='{{pictures[1].url}}'>
+        </image>
+        <image style='width:20px;height:20px;position:absolute;right:-4px;top:-4px;' src='../../images/release/picDelete.png' bindtap='deletePic' data-index='1'>
+        </image>
+      </view>
+
+      <view class='picture' hidden='{{pictures[2].hidden}}'>
+        <image style='width:100%;height:100%'  src='{{pictures[2].url}}'>
+        </image>
+        <image style='width:20px;height:20px;position:absolute;right:-4px;top:-4px;' src='../../images/release/picDelete.png' bindtap='deletePic' data-index='2'>
+        </image>
+      </view>
+
+      <view class='addPicBtn' bindtap='addMorePic' hidden='{{addPicCount >= 3 ? true:false}}'>
+        <image style='width:40px;height:40px;margin-top:10px;' src='../../images/release/addPicture.png'>
+        </image>
+        <view style='width:90px;height:20px;line-height:20px;font-size:12pt;text-align:center;margin-top:5px;color:#939393;' >
+        添加图片
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <template is='spaceLine'/>
+
+  <template is='cell' data='{{item:supplyUnit,array:unitContent.name}}'/>
+
+  <template is='spaceLine'/>
+
+  <template is='inputCell' data='{{item:supplySize}}'/>
+
+  <template is='spaceLine'/>
+
+  <template is='inputCell' data='{{item:supplyPrice}}'/>
+
+  <template is='spaceLine'/>
+
+  <template is='inputCell' data='{{item:pnoneNumber}}'/>
+
+  <template is='spaceLine'/>
+
+  <template is='cell' data='{{item:location,array:locationContent.name}}'/>
+
+  <template is='spaceLine'/>
+
+  <view class='detailDescriptionV'>
+    <textarea placeholder='详细的描述您的发布内容,详细的描述有助于促成交易完成!' bindinput='detailInputAction' maxlength='300' cursor-spacing='80px'>
+    </textarea>
+  </view>
+
+  <view style='width:750rpx;height:100px;'></view>
+
+</view>
+
+
+<template name='cell'>
+  <view class='cellContainer'>
+    <view class='cellContent'>
+      <view class='cellLeftTitle'>
+      {{item.title}}
+      </view>
+      <picker mode = "{{item.pickerType == 1 ? 'selector' : 'multiSelector'}}" bindchange='{{item.pickerType == 1 ? "bindPickerChange" : "bindMultiPickerChange"}}' bindcolumnchange='{{item.pickerType == 1 ? "" :"bindMultiPickerColumnChange"}}' value="{{item.defaultIndex}}" range='{{array}}' data-flag='{{item.flag}}'>
+        <view class='cellRightContainer'>
+          <image style='width:18px;height:36px;' src='{{item.displayTriangleRight ? "../../images/mine/ triangleRight.png" : ""}}'>
+          </image>
+          <view class='cellRigthTitle' style='color:{{item.color}};'>
+          {{item.value}}
+          </view>
+        </view>
+      </picker>
+    </view>
+  </view>
+</template>
+
+
+<template name='inputCell'>
+  <view class='cellContainer'>
+    <view class='cellContent'>
+      <view class='cellLeftTitle'>
+      {{item.title}}
+      </view>
+      <view class='cellRightContainer'>
+          <view style='width:20px;height:40px;'></view>
+          <view style='width:{{item.resaveWord.length * 24}}px;height:40px;line-height:40px;font-size:14pt;text-align:right;'>{{item.resaveWord}}</view>
+          <input style='width:auto;height:40px;line-height40px;text-align:right;font-size:14pt;' placeholder='{{item.placeHolder}}' data-flag='{{item.flag}}' bindinput='inputAction' type='{{item.keyBoardType}}'>
+          </input>
+        </view>
+    </view>
+  </view>
+</template>
+
+
+
+<template name='spaceLine'>
+  <view style='height:12px;width:100%;'>
+  <view style='width:100%;height:1px;background-color:#e1e0e0;'></view>
+  <view style='width:100%;height:10px;background-color:#f5f4f9;'></view>
+  <view style='width:100%;height:1px;background-color:#e1e0e0;'></view>
+</view>
+</template>
+
+<cover-view style='width:600rpx;height:40px;background: #84b637;border-radius: 6px;font-size:14pt;text-align:center;color: white;line-height:40px;bottom: 20px;left: 75rpx;position: fixed;z-index:1000;' bindtap='releaseSupply'>发布供应</cover-view>

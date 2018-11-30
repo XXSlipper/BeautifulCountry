@@ -1,0 +1,59 @@
+<!--addressList.wxml-->
+<block wx:if = '{{addressList.length == 0}}'>
+  <view style='display:flex;flex-direction: column;align-items:center;margin-top:50px;'>
+    <image style='width:80px;height:80px;' src='../../images/mine/kong-hezi.png'></image>
+    <view style='width: 100%; height:200px;text-align:center;color:#505050; font-size:11pt;margin-top:20px;'>地址空空如也,马上点击添加吧!</view>
+  </view>
+  
+</block>
+
+<block wx:else>
+  <view class='addressListTable'>
+
+  <block wx:for = '{{addressList}}' wx:key = '{{index}}'>
+    <view class='addressCell'>
+      <view class='cellUpArea'>
+        <view style='width:100%;height:30px;'>
+          <text style='width:100px;line-height:30px;font-size:14pt;'>{{item.contactsName}}</text>
+          <text style='margin-left:20px; line-height:30px;font-size:14pt;'>{{item.contactsPhone}}</text>
+        </view>
+        <view style='width:100%;height:20px;'>
+          <text style='line-height:20px; font-size:10pt;'>{{item.province}}  {{item.city}}  {{item.area}}  {{item.detail}}</text>
+        </view>
+      </view>
+
+      <view style='width:700rpx;height:1px;background-color:#e1e0e0;margin-top:8px;'></view>
+
+      <view class='cellDownArea'>
+        <view style='width:100px;height:40px;display:flex;align-items:center;' bindtap='settingDefaultAddress' data-address-id='{{item.addressId}}'>
+          <image style='width:20px;height:20px;' src='{{item.status == 1 ? "../../images/mine/selecte.png" :"../../images/mine/unselecte.png"}}'></image>
+          <text style='line-height:40px;font-size:10pt;margin-left:5px;'>设为默认</text>
+        </view>
+        <view style='width:100px;height:40px;display:flex;'>
+          <view style='width:50px;height:40px;display:flex;align-items:center;' bindtap='editeAddress' data-index='{{index}}'>
+            <image style='width:20px;height:20px;' src='../../images/mine/edit.png'></image>
+          <text style='line-height:40px;font-size:10pt;'>编辑</text>
+          </view>
+
+          <view style='width:50px;height:40px;display:flex;align-items:center;' bindtap='deleteAddress' data-index='{{index}}'>
+            <image style='width:20px;height:20px;' src='../../images/mine/delete.png'></image>
+          <text style='line-height:40px;font-size:10pt;'>删除</text>
+          </view>
+        </view>
+      </view>
+
+      <view style='width:100%;height:1px;background-color:#e1e0e0;'></view>
+
+    </view>
+  </block>
+    
+  </view>
+</block>
+
+
+<view class='insertAddressBtn' bindtap='addNewAddress'>
+  <view style='width:120px;height:30px;display:flex;align-items:center;'>
+    <image style='width:20px;height:20px;' src='../../images/mine/addAddress.png'></image>
+    <text style='line-height:30px;font-size:14pt;color:white;margin-left:5px;'>新增地址</text>
+  </view>
+</view>

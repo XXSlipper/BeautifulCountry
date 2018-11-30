@@ -1,0 +1,7 @@
+<!--pages/mine/phoneNumber.wxml-->
+<view class='phoneNumberContainer'>
+  <image src='../../images/mine/verifyOK.png'></image>
+  <view style='width:100%,text-align:center;font-size:15pt;margin-top:8px;'>您的手机号码:{{phoneNumber}}</view>
+
+  <view style='width:608rpx;height:76rpx;margin-top:55px;border-width: 1px;border-color: #bebebe;border-style: solid;border-radius: 6px;text-align:center;line-height:76rpx;font-size:14pt;' bindtap='changePhoneNumber'>更换手机号</view>
+</view>

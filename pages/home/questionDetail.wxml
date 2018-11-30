@@ -1,0 +1,160 @@
+<!--pages/home/questionDetail.wxml-->
+
+<view class='questionContainer'>
+  <view class='questionUserInfo'>
+    <image style='width:40px;height:40px;border-radius: 20px;' src='{{detailInfo.avatarUrl}}' lazy-load='{{true}}'>
+    </image>
+    <view style='height:40px;margin-left:5px;'>
+      <view style='height:20px;line-height:20px;font-size:12pt;'>
+        {{detailInfo.nickName}}
+      </view>
+      <view style='height:20px;line-height:20px;font-size:10pt;color:#8a8a8a'>
+      {{detailInfo.createTime}}
+      </view>
+    </view>
+  </view>
+
+  <view class='questionTitle'>
+  {{detailInfo.title}}
+  </view>
+  <view class='questionDetail'>
+  {{detailInfo.questionIntro}}
+  </view>
+
+  <view class='imageContainer' hidden='{{detailInfo.images.length == 0}}'>
+    <image style='width:{{imageW}}px;height:{{imageW}}px;' lazy-load='{{true}}' src='{{detailInfo.images.length >= 1 ? detailInfo.images[0] : ""}}' bindtap='clickedOnImg' data-index='0' mode='aspectFill'>
+    </image>
+    <image style='width:{{imageW}}px;height:{{imageW}}px;' lazy-load='{{true}}' src='{{detailInfo.images.length >= 2 ? detailInfo.images[1] : ""}}' bindtap='clickedOnImg' data-index='1' mode='aspectFill'>
+    </image>
+    <image style='width:{{imageW}}px;height:{{imageW}}px;' lazy-load='{{true}}' src='{{detailInfo.images.length >= 3 ? detailInfo.images[2] : ""}}' bindtap='clickedOnImg' data-index='2' mode='aspectFill'>
+    </image>
+  </view>
+
+  <view class='locationV'>
+    <image style='width:20px;height:20px;' src='../../images/release/location.png'>
+    </image>
+    <view class='locationTitleV'>
+    {{detailInfo.province + detailInfo.city + detailInfo.area}}
+    </view>
+  </view>
+
+  <view style='width:100%;height:1px;background-color:#e1e0e0;margin-top:10px;'>
+  </view>
+
+  <view class='functionV'>
+
+    <view class='fouceBtn' bindtap='answerQuestionAction'>
+    我来回答
+    </view>
+
+    <view class='respondBtn' style='margin-right:10px;' bindtap='collecteAction'>
+    {{detailInfo.focusStatus ? "已收藏" : "收藏问题"}}
+    </view>
+
+  </view>
+
+  <template is='respondNumberV' data='{{item:detailInfo.answerCount}}'/>
+
+  <block wx:if='{{detailInfo.answerCount > 0}}'>
+
+    <block wx:for='{{answerList}}' wx:key='{{index}}'>
+      <template is='respondCell' data='{{item:item,index:index}}'/>
+      <block wx:if='{{index < answerList.length - 1}}'>
+        <template is='spaceLine'/>
+      </block>
+    </block>
+
+  </block>
+  <block wx:else>
+    <view style='width:600rpx;text-align:center;color:#8a8a8a;font-size:12pt;margin-top:60px;'>
+    动动您的手指,帮帮这位农友吧!
+    </view>
+  </block>
+
+  <view style='width:100%;display:{{isLoadingMoreAnswer ? "flex" : "none"}};flex-direction:column;align-items:center;'>
+
+    <view style='width:700rpx;height:1px;background:#f5f4f9;margin-top:9px;'>
+    </view>
+
+    <view style='height:40px;width:100%;text-align:center;font-size:11pt;line-height:40px;'>
+    {{isloadingAnswerOver ? "没有更多内容了!" : "加载中..."}}          
+    </view>
+
+    <view style='width:100%;height:{{bottomEditeBarFixH}}px;'>
+    </view>
+
+  </view>
+
+</view>
+
+
+<template name='respondNumberV'>
+   <view style='height:40px;width:100%;'>
+    <view style='width:100%;height:1px;background-color:#e1e0e0;'>
+    </view>
+    <view style='width:100%;height:38px;background-color:#f5f4f9;'>
+      <view style='line-height:38px;font-size:12pt;height:38px;margin-left:25rpx;'>{{item}}个回答</view>
+    </view>
+    <view style='width:100%;height:1px;background-color:#e1e0e0;'>
+    </view>
+  </view>
+</template>
+
+
+<template name='spaceLine'>
+  <view style='height:12px;width:100%;'>
+    <view style='width:100%;height:1px;background-color:#e1e0e0;'>
+    </view>
+    <view style='width:100%;height:10px;background-color:#f5f4f9;'>
+    </view>
+    <view style='width:100%;height:1px;background-color:#e1e0e0;'>
+    </view>
+  </view>
+</template>
+
+<template name='respondCell'>
+  <view class='respondCell'>
+    <view class='respondCellHeader'>
+      <image style='width:30px;height:30px;background:red;border-radius:15px;' src='{{item.avatarUrl}}'>
+      </image>
+      <view style='line-height:30px;font-size:13pt;margin-left:5px;'>
+      {{item.nickName}}
+      </view>
+    </view>
+    <view class='respondCellBody'>
+    {{item.content}}
+    </view>
+
+    <view class='respondCellTime'>
+    {{item.createTime}}
+    </view>
+
+    <view class='respondCellFooder'>
+      <view class='zanBtn' style='background-color:#f5f4f9;' bindtap='zanAction' data-index='{{index}}'>
+
+        <view style='width:40px;height:30px;line-height:30px;'>
+        赞成
+        </view>
+        <view style='width:1px;height:20px;background-color:#dfdfe3;'>
+        </view>
+        <view style='width:40px;height:30px;line-height:30px;'>
+        {{item.support}}
+        </view>
+
+      </view>
+
+      <view class='againstBtn' style='background-color:#f5f4f9;margin-left:10px;' bindtap='againstAction' data-index='{{index}}'>
+        <view style='width:40px;height:30px;line-height:30px;'>
+        反对
+        </view>
+        <view style='width:1px;height:20px;background-color:#dfdfe3;'>
+        </view>
+        <view style='width:40px;height:30px;line-height:30px;'>
+        {{item.oppose}}
+        </view>
+      </view>
+
+    </view>
+
+  </view>
+</template>

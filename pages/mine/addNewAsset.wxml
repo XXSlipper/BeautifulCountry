@@ -1,0 +1,30 @@
+<!--pages/mine/addNewAsset.wxml-->
+<view class='assetContainer'>
+  <scroll-view class='leftScroll' scroll-y="{{true}}">
+    <view wx:for='{{xlist["name"]}}' wx:key='{{index}}'>
+      <view class='listCell'  bindtap='clickOnXlistCell' data-index='{{index}}'>
+        <text style='color:{{selecteIndex.x == index ? "#73b900" : "black"}};font-size:14pt;'>{{item}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <scroll-view class='middleScroll' scroll-y="{{true}}">
+    <view wx:for='{{ylist["name"]}}' wx:key='{{index}}'>
+      <view class='listCell' bindtap='clickOnYlistCell' data-index='{{index}}'>
+        <text style='color:{{selecteIndex.y == index ? "#73b900" : "black"}};font-size:14pt;'>{{item}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <scroll-view class='rightScroll' scroll-y="{{true}}">
+    <view wx:for='{{zlist["name"]}}' wx:key='{{index}}'>
+      <view class='listCell' style='background-color:{{selecteIndex.z == index ? "#73b900" : "white"}};' bindtap='clickOnZlistCell' data-index='{{index}}'>
+        <text style='color:{{selecteIndex.z == index ? "white" : "black"}}; font-size:14pt;'>{{item}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+</view>
+
+  
+<view style='width:600rpx;height:40px;margin-top:20px;background: #84b637;border-radius: 6px;font-size:14pt;text-align:center;color: white;line-height:40px;bottom: 20px;left: 75rpx;position: fixed;' bindtap='sureSelecte'>确认添加</view>

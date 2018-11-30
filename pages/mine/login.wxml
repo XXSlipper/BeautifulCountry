@@ -1,0 +1,12 @@
+<!--login.wxml-->
+
+<view class='loginContainer'>
+  <image src='../../images/testImages/test.png'></image>
+  <view class='lineView'></view>
+
+  <view class='titleView'><text>申请获取以下权限:</text></view>
+
+  <view class='detailView'><text>获得你的公开信息(昵称,头像等)</text></view>
+
+  <button open-type='getUserInfo' type='primary' size= 'default' bindgetuserinfo='bindGetUserInfo'>微信授权</button>
+</view>

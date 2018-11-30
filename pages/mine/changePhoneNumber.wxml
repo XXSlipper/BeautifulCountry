@@ -1,0 +1,22 @@
+<!--pages/mine/changePhoneNumber.wxml-->
+<view class='changePhoneNumberContainer'>
+  <view style='width:650rpx;margin-top:40px;height:40px;'>
+    <input style='height:40px;' placeholder='请输入手机号码' type='number' bindinput='numberInput' value='{{emptyInput}}'></input>
+  </view>
+
+  <view style='width:700rpx;height:1px;background-color:#bebebe;'></view> 
+
+<view style='width:650rpx;height:40px;display:flex;justify-content: space-between;'>
+    <input style='height:40px;width:350rpx;' placeholder='请输入验证码'  type='number' bindinput='verifyInput'></input>
+    <view style='width:300rpx;height:40px; line-height:40px;font-size:12pt;text-align:right;color:red;' bindtap='getVerifyNumber'>{{verifyBtnTitle}}</view>
+  </view>
+
+  <view style='width:700rpx;height:1px;background-color:#bebebe;'></view>
+
+  <view style='width:700rpx;font-size:11pt;color:#919191;margin-top:10px;'>
+  
+  </view>
+
+  <view style='width:608rpx;height:76rpx;margin-top:135px;border-width: 1px;border-color: #bebebe;border-style: solid;border-radius: 6px;text-align:center;line-height:76rpx;font-size:14pt;' bindtap='bindPhoneNumber'>绑定</view>
+
+</view>

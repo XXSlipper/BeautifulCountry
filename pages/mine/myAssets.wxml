@@ -1,0 +1,134 @@
+<!--pages/mine/myAssets.wxml-->
+<view class='myAssetsContainer'>
+  <movable-area class='topSegBar'>
+    <movable-view style='width:{{segTitles[segSelextedIndex].width}}px' x='{{segTitles[segSelextedIndex].moveViewX}}px' y='35px' direction="all"></movable-view>
+    <view class='topSegTitleContainer'>
+      <block wx:for='{{segTitles}}' wx:key='{{index}}'>
+        <view class='topSegTitle' style='width:{{item.width}}px; color:{{segSelextedIndex == index ? "#73b900" : "black"}}' bindtap='segClickedAction' data-index='{{index}}'>
+        <text style='line-height: 30px;'>{{item.title}}</text>
+      </view>
+      </block>
+    </view>
+  </movable-area>
+
+  <view style='width:100%; height:1px; background-color:#f5f4f9; margin-top:45px;'>
+  </view>
+
+  <view class='listView'>
+  <swiper style='height:{{swiperH}}px;width:750rpx;' indicator-dots='{{false}}' autoplay='{{false}}' circular='{{false}}' vertical='{{false}}' current='{{segSelextedIndex}}' bindchange='listSwiperChange'>
+      <block wx:for='{{[0,1,2,3]}}' wx:key='{{index}}'>
+        <swiper-item style='display:flex;flex-direction: column;align-items: center;'>
+          <block wx:if='{{index == 0}}'>
+            <block wx:if='{{networkState == -1}}'>
+                <!-- 网络加载中提示界面 -->
+            </block>
+            <block wx:elif='{{networkState == 0}}'>
+                <!-- 网络失败提示界面 -->
+                <view>网络出错了</view>
+            </block>
+            <block wx:elif='{{networkState == 1}}'>
+                <!-- 网络加载成功 -->
+              <block wx:if='{{seeds.length == 0}}'>
+                <template is='emptyAlert' />
+              </block>
+              <block wx:else>
+                <block wx:for='{{seeds}}' wx:key='{{index}}'>
+                  <template is='contentList' data='{{item}}'/>
+                </block>
+              </block>
+            </block>
+          </block>
+
+          <block wx:elif='{{index == 1}}'>
+            <block wx:if='{{networkState == -1}}'>
+                <!-- 网络加载中提示界面 -->
+            </block>
+            <block wx:elif='{{networkState == 0}}'>
+                <!-- 网络失败提示界面 -->
+                <view>网络出错了</view>
+            </block>
+            <block wx:elif='{{networkState == 1}}'>
+              <!-- 加载成功 -->
+              <block wx:if='{{medicine.length == 0}}'>
+                <template is='emptyAlert' />
+              </block>
+              <block wx:else>
+                <block wx:for='{{medicine}}' wx:key='{{index}}'>
+                  <template is='contentList' data='{{item}}'/>
+                </block>
+              </block>
+            </block>
+          </block>
+
+          <block wx:elif='{{index == 2}}'>
+            <block wx:if='{{networkState == -1}}'>
+                <!-- 网络加载中提示界面 -->
+            </block>
+            <block wx:elif='{{networkState == 0}}'>
+                <!-- 网络失败提示界面 -->
+                <view>网络出错了</view>
+            </block>
+            <block wx:elif='networkState == 1'>
+              <block wx:if='{{fertilizer.length == 0}}'>
+                <template is='emptyAlert' />
+              </block>
+              <block wx:else>
+                <block wx:for='{{fertilizer}}' wx:key='{{index}}'>
+                  <template is='contentList' data='{{item}}'/>
+                </block>
+              </block>
+            </block>
+            
+          </block>
+
+          <block wx:else>
+            <block wx:if='{{networkState == -1}}'>
+                <!-- 网络加载中提示界面 -->
+            </block>
+            <block wx:elif='{{networkState == 0}}'>
+                <!-- 网络失败提示界面 -->
+                <view>网络出错了</view>
+            </block>
+            
+            <block wx:elif='{{networkState == 1}}'>
+              <block wx:if='{{utensils.length == 0}}'>
+                <template is='emptyAlert' />
+              </block>
+              <block wx:else>
+                <block wx:for='{{utensils}}' wx:key='{{index}}'>
+                  <template is='contentList' data='{{item}}'/>
+                </block>
+              </block>
+            </block>
+          </block>
+
+
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</view>
+
+<template name='contentList'>
+  <view class='assetCell'>
+
+    <view style='width:100%;height:30px;display:flex;justify-content:space-between;'>
+        <text style='line-height:30px;font-size:15pt;margin-left:10px;'>{{item.capitalsName}}</text>
+        <image style='width:60px;height:30px;float:right;' src='../../images/mine/deleteCrop.png' bindtap='deleteAssetAction' data-asset-id='{{item.capitalsId}}' data-asset-Code='{{item.capitalsCode}}'></image>
+    </view>
+
+    <view style='width:100%;height:30px;'>
+      <text style='line-height:30px;margin-left:10px;color:#949494;'>添加日期: {{item.createTime}}</text>
+    </view>
+
+  </view>
+</template>
+
+<template name='emptyAlert'>
+  <view style='display:flex;flex-direction: column;align-items:center;margin-top:50px;'>
+    <image style='width:80px;height:80px;' src='../../images/mine/kong-hezi.png'></image>
+    <view style='width: 100%; height:20px;text-align:center;color:#505050; font-size:11pt;margin-top:20px;'>赶紧添加吧!</view>
+  </view>  
+</template>
+
+<view style='width:600rpx;height:40px;margin-top:20px;background: #84b637;border-radius: 6px;font-size:14pt;text-align:center;color: white;line-height:40px;bottom: 20px;left: 75rpx;position: fixed;' bindtap='addNewAsset'>添加农资</view>

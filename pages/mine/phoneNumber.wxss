@@ -1,0 +1,14 @@
+/* pages/mine/phoneNumber.wxss */
+
+.phoneNumberContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.phoneNumberContainer image{
+  margin-top: 40px;
+  width: 120px;
+  height: 170px;
+  
+}

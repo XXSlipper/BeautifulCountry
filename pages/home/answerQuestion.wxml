@@ -1,0 +1,8 @@
+<!--pages/home/answerQuestion.wxml-->
+<view class='answerContainer'>
+  <textarea placeholder='请输入您回复的内容' auto-focus='{{true}}' bindinput='inputAction' maxlength='300'>
+  </textarea>
+
+  <view style='width:600rpx;height:40px;margin-top:20px;background: #84b637;border-radius: 6px;font-size:14pt;text-align:center;color: white;line-height:40px;' bindtap='sendAnswer'>提交</view>
+
+</view>

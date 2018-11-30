@@ -1,0 +1,78 @@
+<!--pages/mine/myCollectBuyAndPlay.wxml-->
+<view class='buyPayContainer'>
+  <view class='topSegV'>
+    <view style='width:300rpx;height:40px;display:flex;'>
+      <view class='topSegSection' style='font-size:{{selectedIndex == 0 ? 14 : 12}}pt;font-weight:{{selectedIndex == 0 ? "bold" : "normal"}};color:{{selectedIndex == 0 ? "#73b900" : "#222222"}}' bindtap='clickedOnSeg' data-index='0'>
+        供应
+      </view>
+      <view class='topSegSection' style='font-size:{{selectedIndex == 1 ? 14 : 12}}pt;font-weight:{{selectedIndex == 1 ? "bold" : "normal"}};color:{{selectedIndex == 1 ? "#73b900" : "#222222"}}' bindtap='clickedOnSeg' data-index='1'>
+        求购
+      </view>
+    </view>
+  </view>
+
+  <view class='placeHolderV' />
+
+  <swiper style='height:{{swiperH}}rpx;' indicator-dots='{{false}}' autoplay='{{false}}' circular='{{false}}' vertical='{{false}}' current='{{selectedIndex}}' bindchange='listSwiperChange'>
+    <block wx:for='{{[0,1]}}' wx:key='{{index}}'>
+      <swiper-item>
+        <view wx:if='{{index == 0}}' class='supplyContainer'>
+          <block wx:for='{{supplyData}}' wx:key='{{index}}'>
+            <template is='supplyCell' data='{{item}}' />
+          </block>
+        </view>
+
+        <view wx:if='{{index == 1}}' class='payContainer'>
+          <block wx:for='{{remandData}}' wx:key='{{index}}'>
+            <template is='buyCell' data='{{...item}}' />
+          </block>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <view style='width:100%;display:{{isLoadingMoreList ? "flex" : "none"}};flex-direction:column;align-items:center;'>
+
+    <view style='width:700rpx;height:1px;background:#f5f4f9;margin-top:9px;' />
+
+    <view style='height:40px;width:100%;text-align:center;font-size:11pt;line-height:40px;'>
+    {{isloadingListOver ? "没有更多内容了!" : "加载中..."}}
+    </view>
+
+  </view>
+
+</view>
+
+
+<template name='supplyCell'>
+  <view class='playListCell'>
+    <block wx:for='{{item}}' wx:key='{{index}}'>
+      <view class='playListCellItem' bindtap='clickedOnSupply' data-supply-demand-id='{{item.supplyDemandId}}'>
+        <image mode='aspectFill' src='{{item.coverImage ? item.coverImage :"../../images/market/noGoodsImg.png" }}' lazy-load='{{true}}'>
+        </image>
+
+        <view style='width:290rpx;height:90rpx;'>
+          <text>{{item.title}}</text>
+        </view>
+        
+        <view style='width:300rpx;height:60rpx;line-height:60rpx;font-size:14pt;color:#ee742f;'>
+        {{item.goodsPrice ? (item.goodsPrice + "元/" + item.unit) : "面议" }}
+        </view>
+      </view>
+
+    </block>
+  </view>
+</template>
+
+<template name = 'buyCell' >
+  <view class='buyCell' bindtap='clickedOnBuyCell' data-supply-demand-id='{{supplyDemandId}}'>
+    <view class='textLineOne'>
+      <text class='leftText'>{{title}}</text>
+      <text class='rightText'>{{price ? (price + "元/" + unit) : "面议"}}</text>
+    </view>
+    <view class='textLineTwo'>
+      <text class='leftText'>{{"总需求:" + goodsNum + unit }}</text>
+      <text class='rightText'>{{createTime}}</text>
+    </view>
+  </view>
+</template>
