@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    workDescription:"",
+
     workTimeType: { defaultIndex: 0, pickerType: 1, flag: 0, title: "工期分类", displayTriangleRight: true, value: "小时工", color: "black" },
     workTimeTypeContent: { name: ["小时工", "短期工","长期工"], code: ["00", "01","02"] },
 
@@ -19,13 +21,13 @@ Page({
 
     name: { flag: 5, title: "您的称呼", placeHolder: "请输入您的称呼", resaveWord: "", inputValue: "", keyBoardType: "text" },
 
-    pnoneNumber: { flag: 6, title: "联系电话", placeHolder: "请输入您的联系电话", resaveWord: "", inputValue: "", keyBoardType: "number" },
+    phoneNumber: { flag: 6, title: "联系电话", placeHolder: "请输入您的联系电话", resaveWord: "", inputValue: "", keyBoardType: "number" },
 
     location: { defaultIndex: [0, 0, 0], pickerType: 3, flag: 7, title: "区域地址", displayTriangleRight: true, value: "请选择位置所在区域", color: "#939393", locationIndex: [0, 0, 0] },
     locationContent: { name: [["text"], ["text"], ["text"]], code: [[], [], []] },
     locationTempXIndex: 0,
 
-    detailLocation: { flag: 8, title: "详细地址", typeCode: "", typeName: "", placeHolder: "请输入具体位置信息", displayTriangleRight: false }
+    detailLocation: { flag: 8, title: "详细地址", placeHolder: "请输入具体位置信息", resaveWord: "", inputValue: "", keyBoardType: "text" }
 
   },
 
@@ -142,7 +144,7 @@ Page({
     }else if(flag == 5){
       this.data.name["inputValue"] = e.detail.value
     }else if(flag == 6){
-      this.data.pnoneNumber["inputValue"] = e.detail.value
+      this.data.phoneNumber["inputValue"] = e.detail.value
     }else{
       this.data.detailLocation["inputValue"] = e.detail.value
     }
@@ -206,5 +208,130 @@ Page({
       }
     }
   },
+
+  detailInputAction:function(e){
+
+    var inputValue = e.detail.value
+    this.data.workDescription = inputValue
+
+  },
+
+  releaseWork:function(e){
+    var workDescription = this.data.workDescription
+    if(workDescription.length == 0){
+      wx.showModal({
+        title: '提示',
+        content: '招聘信息的内容不能未空!',
+        showCancel:false
+      })
+    }
+
+    var workTimeType = this.data.workTimeType.value
+
+
+    var payMoneyType = this.data.payMoneyType.value
+
+
+    var money = this.data.money.inputValue
+    if(money.length <= 0){
+      wx.showModal({
+        title: '提示',
+        content: '请输入薪资!',
+        showCancel: false
+      })
+    }
+
+    var workTime = this.data.workTime.inputValue
+    if (workTime.length <= 0) {
+      wx.showModal({
+        title: '提示',
+        content: '请输入工作时间!',
+        showCancel: false
+      })
+    }
+
+    var attract = this.data.attract.inputValue
+
+    var name = this.data.name.inputValue
+    if (name.length <= 0) {
+      wx.showModal({
+        title: '提示',
+        content: '请输入您的称呼!',
+        showCancel: false
+      })
+    }
+
+    var phoneNumber = this.data.phoneNumber.inputValue
+
+
+    if (!(/^1[34578]\d{9}$/.test(phoneNumber))) {
+      wx.showModal({
+        title: '提示',
+        content: '联系电话输入错误!',
+        showCancel: false
+      })
+    }
+
+    var location = this.data.location.value
+    if (location === "请选择位置所在区域"){
+      wx.showModal({
+        title: '提示',
+        content: '请选择位置所在区域!',
+        showCancel: false
+      })
+    }
+
+    var detailLocation = this.data.detailLocation.inputValue
+    if (detailLocation.length <= 0) {
+      wx.showModal({
+        title: '提示',
+        content: '请输入详细地址!',
+        showCancel: false
+      })
+    }
+
+    wx.showLoading({
+      title: '发布中',
+    })
+    var networkH = require("../../utils/networkHandle.js")
+    networkH.releaseWork({
+      status:1,
+      workTimeType: workTimeType,
+      payMoneyType: payMoneyType,
+      money: money,
+      workTime: workTime,
+      attract: attract,
+      name: name,
+      phoneNumber: phoneNumber,
+      location: location,
+      detailLocation: detailLocation,
+      success:function(p){
+        wx.hideLoading()
+
+        wx.showToast({
+          title: '发布成功',
+          image: '../../images/mine/success.png',
+          duration: 1500
+        })
+        setTimeout(function () {
+          wx.navigateBack({
+            delta: 0
+          })
+        }, 2000)
+        
+      },
+      fail:function(p){
+        wx.hideLoading()
+        wx.showToast({
+          title: p.errorMsg,
+          image: "../../images/mine/fail.png",
+          duration: 1500
+        })
+      }
+
+    })
+  }
+
+  
 
 })

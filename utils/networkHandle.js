@@ -1720,6 +1720,45 @@ const userMarkSupplyOrDemandList = (p) => {
   })
 }
 
+/*
+*04701  job/publish fail
+*04702 statusCode != 200
+*04703-xxxxxx 业务逻辑错误
+*/
+const releaseWork = (p) => {
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + 'job/publish',
+    data: {
+      userId: getApp().globalData.userInfo.userID,
+      status: p.status,
+      jobCat: p.workTimeType,
+      payType: p.payMoneyType,
+      salary:p.money,
+      time: p.workTime,
+      welfare:p.attract,
+      contact:p.name,
+      contactPhone: p.phoneNumber,
+      location: p.location,
+      address: p.detailLocation
+    },
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "发布成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "04703" + "-" + e.data.code, errorMsg: "发布失败" })
+        }
+      } else {
+        p.fail({ errorCode: "04702", errorMsg: "发布失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "04701", errorMsg: "发布失败" })
+    }
+  })
+}
+
 module.exports = {
   myLogin: myLogin,
   getCropList: getCropList,
@@ -1767,5 +1806,6 @@ module.exports = {
   supplyDemandFocus: supplyDemandFocus,
   supplyDemandCancelFocus: supplyDemandCancelFocus,
   userMarkQuestionList: userMarkQuestionList,
-  userMarkSupplyOrDemandList: userMarkSupplyOrDemandList
+  userMarkSupplyOrDemandList: userMarkSupplyOrDemandList,
+  releaseWork: releaseWork
 }

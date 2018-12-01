@@ -34,7 +34,7 @@
 
   <template is='spaceLine'/>
 
-  <template is='inputCell' data='{{item:pnoneNumber}}'/>
+  <template is='inputCell' data='{{item:phoneNumber}}'/>
 
   <template is='spaceLine'/>
 
@@ -101,4 +101,4 @@
 </view>
 </template>
 
-<cover-view style='width:600rpx;height:40px;background: #84b637;border-radius: 6px;font-size:14pt;text-align:center;color: white;line-height:40px;bottom: 20px;left: 75rpx;position: fixed;z-index:1000;' bindtap='releaseSupply'>发布聘请</cover-view>
+<cover-view style='width:600rpx;height:40px;background: #84b637;border-radius: 6px;font-size:14pt;text-align:center;color: white;line-height:40px;bottom: 20px;left: 75rpx;position: fixed;z-index:1000;' bindtap='releaseWork'>发布聘请</cover-view>
