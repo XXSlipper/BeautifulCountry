@@ -216,7 +216,8 @@ Page({
 
   },
 
-  releaseWork:function(e){
+  releaseWork: function (e) {
+    
     var workDescription = this.data.workDescription
     if(workDescription.length == 0){
       wx.showModal({
@@ -296,6 +297,7 @@ Page({
     var networkH = require("../../utils/networkHandle.js")
     networkH.releaseWork({
       status:1,
+      workDescription: workDescription,
       workTimeType: workTimeType,
       payMoneyType: payMoneyType,
       money: money,

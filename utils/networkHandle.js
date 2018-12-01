@@ -1740,7 +1740,8 @@ const releaseWork = (p) => {
       contact:p.name,
       contactPhone: p.phoneNumber,
       location: p.location,
-      address: p.detailLocation
+      address: p.detailLocation,
+      jobDescription:p.workDescription
     },
     success: function (e) {
       if (e.statusCode == 200) {
@@ -1758,6 +1759,38 @@ const releaseWork = (p) => {
     }
   })
 }
+
+/*
+*04801  job/list fail
+*04802 statusCode != 200
+*04803-xxxxxx 业务逻辑错误
+*/
+const getJobList = (p) => {
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + 'job/list',
+    data: {
+      userId: getApp().globalData.userInfo.userID,
+      status: p.status,
+      currentPage: p.page
+    },
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "获取成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "04803" + "-" + e.data.code, errorMsg: "获取失败" })
+        }
+      } else {
+        p.fail({ errorCode: "04802", errorMsg: "获取失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "04801", errorMsg: "获取失败" })
+    }
+  })
+}
+
 
 module.exports = {
   myLogin: myLogin,
@@ -1807,5 +1840,6 @@ module.exports = {
   supplyDemandCancelFocus: supplyDemandCancelFocus,
   userMarkQuestionList: userMarkQuestionList,
   userMarkSupplyOrDemandList: userMarkSupplyOrDemandList,
-  releaseWork: releaseWork
+  releaseWork: releaseWork,
+  getJobList: getJobList
 }

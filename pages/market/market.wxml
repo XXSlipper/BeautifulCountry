@@ -34,7 +34,7 @@
   </view>
 
   <view class='listView'>
-    <swiper style='height:{{swiperH}}rpx;' indicator-dots='{{false}}' autoplay='{{false}}' circular='{{false}}' vertical='{{false}}' current='{{segSelextedIndex}}' bindchange='listSwiperChange'>
+    <swiper style='height:{{swiperH}};' indicator-dots='{{false}}' autoplay='{{false}}' circular='{{false}}' vertical='{{false}}' current='{{segSelextedIndex}}' bindchange='listSwiperChange'>
       <block wx:for='{{[0,1,2]}}' wx:key='{{index}}'>
 
       <swiper-item>
@@ -111,27 +111,27 @@
   <view class='workCell'>
     <view class='workCellIineOne'>
       <view class='workCellIineOneLeft'>
-      招橘子打包工,包中餐
+      {{jobDescription}}{{welfare}}
       </view>
       <view class='workCellIineOneRight' style='color:#ee742f;'>
-      招工中
+      {{status == 1 ? "招工中" : "已完结"}}
       </view>
     </view>
     <view class='workCellLineTwo'>
-    小时工|小时结算|<text style='color:#ee742f;line-height:30px;height:30px;'>100元/小时</text>
+    {{jobCat}}|{{payType}}|<text style='color:#ee742f;line-height:30px;height:30px;'>{{salary}}</text>
     </view>
     <view style='width:700rpx;height:1px;background-color:#e1e0e0;'></view>
     <view class='workCellLineThree'>
-    <text space='nbsp'>时   间: </text>9点-18点
+    <text space='nbsp'>时   间: </text>{{time}}
     </view>
     <view class='workCellLineFour'>
-    <text space='nbsp'>地   点: </text>慈利县广福桥镇
+    <text space='nbsp'>地   点: </text>{{location}}{{address}}
     </view>
     <view class='workCellLineFive'>
       <view style='height:500rpx;line-height:30px;height:30px;color:#b0b0b0;'>
-      联系人:<text style='line-height:30px;color:#3f5c96;' space='nbsp'> 老王</text>
+      联系人:<text style='line-height:30px;color:#3f5c96;' space='nbsp'> {{contact}}</text>
       </view>
-      <image style='width:30px;height:30px;' src='../../images/market/call.png'></image>
+      <image style='width:30px;height:30px;' src='../../images/market/call.png' bindtap='callPhone' data-phone-number='{{contactPhone}}' />
     </view>
   </view>
 </template>

@@ -22,7 +22,7 @@ Page({
     segSelextedIndex:0,
     sortIndex:0,
     fillerIndex:{x:0,y:0,z:0},
-    swiperH:150,
+    swiperH:0,
     segTitles: 
     [
         "供应",
@@ -37,7 +37,7 @@ Page({
     buyData:[],
 
     workDataPage:-1,
-    workData:[{}]
+    workData:[]
   },
 
   /**
@@ -238,6 +238,90 @@ Page({
 
     }else{
 
+      if (page <= this.data.workDataPage) {
+        if (isPullDown) {
+          wx.stopPullDownRefresh()
+        }
+        this.setSwiperH()
+        return
+      }
+
+      if (isPullDown == false && isReachBottom == false) {
+        wx.showLoading({
+          title: '加载中...'
+        })
+      }
+
+      this.data.networkState[index].state = -2//将标识设置为请求中
+      var self = this
+      var networkH = require("../../utils/networkHandle.js")
+
+      networkH.getJobList({
+        page: page,
+        status:1,
+        success:function(e){
+
+          self.data.workDataPage = page
+          self.data.networkState[index].state = 1//将标识设置为成功
+
+          if (isPullDown) {
+            wx.stopPullDownRefresh()
+          }
+          if (isPullDown == false && isReachBottom == false) {
+            wx.hideLoading()
+          }
+
+          if (e.data.list.length == 0) {
+            self.data.loadingOverFlags[index] = true
+            if (isReachBottom) {
+              self.setData({ isloadingListOver: true })
+              setTimeout(function () {
+                self.setData({ isLoadingMoreList: false })
+              }, 1500)
+            }
+          } else {
+            self.data.loadingOverFlags[index] = false
+            if (isReachBottom) {
+              self.setData({ isloadingListOver: false })
+              setTimeout(function () {
+                self.setData({ isLoadingMoreList: false })
+              }, 1500)
+            }
+          }
+
+          var newWorkData = self.data.workData.concat(e.data.list)
+
+          console.log(newWorkData)
+          
+          self.setData({ workData: newWorkData })
+
+          self.setSwiperH()
+
+        },
+        fail:function(e){
+          if (isPullDown) {
+            wx.stopPullDownRefresh()
+          }
+
+          if (isPullDown == false && isReachBottom == false) {
+            wx.hideLoading()
+          }
+
+
+          if (isReachBottom) {
+            self.setData({ isLoadingMoreList: false })
+          }
+
+          self.data.networkState[index].state = 0//将标识设置为失败
+
+          wx.showToast({
+            title: e.errorMsg,
+            image: "../../images/mine/fail.png",
+            duration: 1500
+          })
+        }
+      })
+
     }
   },
 
@@ -331,7 +415,9 @@ Page({
       }
         break;
       case 2: {
-
+        this.setData({ isLoadingMoreList: true, isloadingListOver: false })
+        var page = this.data.workDataPage + 1
+        this.loadListWithIndex(2, page, false, true)
       }
         break;
     }
@@ -368,17 +454,30 @@ Page({
 
       let h = (460 + 40) * Math.ceil(this.data.playData.length) + 40
       h = (h < 900 ? 900 : h)
-      this.setData({ swiperH: h})
+      this.setData({ swiperH: h + "rpx"})
 
 
     } else if (this.data.segSelextedIndex == 1){
       let h = (165 + 30) * this.data.buyData.length + 30
       h = (h < 900 ? 900 : h)
-      this.setData({ swiperH: h })
+      this.setData({ swiperH: h + "rpx" })
     }else{
-      let h = (215 + 30) * this.data.workData.length + 30
-      h = (h < 900 ? 900 : h)
-      this.setData({ swiperH: h })
+      var self = this
+      var query1 = wx.createSelectorQuery()
+      query1.select('.workListContainer').boundingClientRect(function (rect1) {
+
+        var contentH = rect1.height
+
+        console.log(contentH)
+
+        var miniH = 450
+        if (contentH < miniH) {
+          contentH = miniH
+        }
+
+        self.setData({ swiperH: contentH + "px" })
+
+      }).exec()
     }
   },
 
@@ -423,6 +522,19 @@ Page({
     var supplyDemandId = e.currentTarget.dataset.supplyDemandId
     wx.navigateTo({
       url: 'buyAndPayDetail?supplyDemandId=' + supplyDemandId + "&isSupply=0",
+    })
+  },
+
+  callPhone:function(e){
+    var phoneNumber = e.currentTarget.dataset.phoneNumber
+    wx.makePhoneCall({
+      phoneNumber: phoneNumber,
+      success: function (p) {
+
+      },
+      fail: function (p) {
+
+      }
     })
   }
 
