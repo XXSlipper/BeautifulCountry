@@ -1,0 +1,249 @@
+/* pages/mine/userDetailInfo.wxss */
+
+.userDetailInfoContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.header{
+  width: 750rpx;
+  height: 540rpx;
+  position: relative;
+}
+
+.headerBottomDesk{
+  position: absolute;
+  bottom: 0;
+  width: 750rpx;
+  height: 120px;
+  background: white;
+  border-style: none none solid none;
+  border-width: 1px;
+  border-color: #e1e0e0;
+}
+
+.userIcon{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  bottom: 94px;
+  left:20px;
+  border:1px solid rgba(255, 255, 255, 0.6);
+  background: red;
+  box-sizing: content-box;
+}
+
+.userNameView{
+  position: absolute;
+  width: 200px;
+  height: 30px;
+  bottom: 64px;
+  left:20px;
+  font-size: 14pt;
+  color: black;
+  line-height: 30px;
+}
+
+.userFocusNumber{
+  position: absolute;
+  height: 40px;
+  font-size:10pt;
+  line-height: 20px;
+  left:20px;
+  bottom: 24px;
+  display: flex;
+}
+
+.sendMsgView{
+  width: 60px;
+  height: 30px;
+  border-radius: 4px;
+  background: #73b900;
+  color: white;
+  font-size: 12pt;
+  line-height: 30px;
+  position: absolute;
+  text-align: center;
+  right:90px;
+  top:10px;
+}
+
+.focusView{
+  width: 60px;
+  height: 30px;
+  border-radius: 4px;
+  background: #73b900;
+  color: white;
+  font-size: 12pt;
+  line-height: 30px;
+  position: absolute;
+  right:20px;
+  top:10px;
+  text-align: center;
+}
+.segSection{
+  height:30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 10pt;
+}
+
+
+.playListCell{
+  width: 750rpx;
+  height: 460rpx;
+  margin-top: 40rpx;
+  display: flex;
+}
+
+.playListCellItem{
+width:310rpx;
+height:460rpx;
+background:white;
+border: 1px solid #bebebe;
+margin-left: 43rpx;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.playListCellItem image{
+  width:310rpx;
+  height: 310rpx;
+}
+
+.playListCellItem text{
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+  font-size: 12pt;
+  width: 290rpx;
+  line-height: 90rpx;
+}
+
+
+.buyCell{
+  width: 728rpx;
+  height: 165rpx;
+ margin-left: 11rpx;
+ margin-top: 30rpx;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ border: 1px solid #bebebe;
+ background-color: white;
+}
+
+.textLineOne{
+  margin-top: 10rpx;
+  width: 684rpx;
+  height: 70rpx;
+  display: flex;
+}
+
+.textLineTwo{
+  width: 684rpx;
+  height: 70rpx;
+  margin-top: 15rpx;
+  display: flex;
+}
+
+.textLineThree{
+  width: 684rpx;
+  height: 40rpx;
+  display: flex;
+}
+
+.buyCell .leftText{
+  width: 420rpx;
+  line-height: 70rpx;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+
+
+.buyCell .rightText{
+  margin-left: 10rpx;
+  width: 254rpx;
+  line-height: 70rpx;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+  text-align: right;
+}
+
+.textLineOne .leftText{
+  font-size: 16pt;
+}
+
+.textLineOne .rightText{
+  font-size: 14pt;
+  color: #ee742f;
+}
+
+.textLineTwo .leftText{
+  color: #959595;
+  font-size: 12pt;
+}
+
+.textLineTwo .rightText{
+  font-size: 11pt;
+}
+
+.questionTitle{
+  font-size: 14pt;
+  width: 700rpx;
+  height: auto;
+  word-break: break-all;
+  line-height: 20px;
+  margin-top: 10px;
+}
+
+.questionDetail{
+  font-size: 12pt;
+  width: 700rpx;
+  height: auto;
+  word-break: break-all;
+  line-height: 20px;
+  margin-top: 10px;
+  color: #939393;
+}
+.questionImg{
+  margin-top: 5px;
+  width: 700rpx;
+  height: 400rpx;
+}
+
+.questionLocation{
+  margin-top:8px; 
+  width: 700rpx;
+  height:20px;
+  display: flex;
+}
+
+.answerSateV{
+  width: 700rpx;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}

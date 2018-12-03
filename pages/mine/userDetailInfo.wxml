@@ -1,0 +1,160 @@
+<!--pages/mine/userDetailInfo.wxml-->
+<view class='userDetailInfoContainer'>
+  <view class='header'>
+    <image style='width:750rpx;height:400rpx;' src='https://agriculture-app-bucket.oss-cn-beijing.aliyuncs.com/ag-usercenter/usercenter_bg.png'/>
+    <view class='headerBottomDesk'>
+      <image class='userIcon' src='' />
+      <view class='userNameView'>
+        齐天大圣
+      </view>
+      <view class='userFocusNumber'>
+        <view>
+          100关注他的人
+        </view>
+        <view style='text-align:center:width:10px;margin-left:2px;color:#e1e0e0;'>
+        |
+        </view>
+        <view style='margin-left:2px;'>
+          120他关注的人
+        </view>
+      </view>
+      <view class='sendMsgView'>
+        发消息
+      </view>
+      <view class='focusView'>
+        关注
+      </view>
+      <view  style='width:750rpx;height:10px;background-color:#e1e0e0;margin-top:80px;'/>
+
+      <scroll-view style='width:750rpx;background: #fff;' scroll-x='true'>
+        <view style='height: 30px; display:flex;flex-direction:row; width:{{segTotalWidth}}px;'>
+          <view wx:for='{{segTitles}}' wx:key='{{index}}' class='segSection' style='width:{{item.width}}px;color:{{index == selectedIndex ? "black" : "#5d5d5d"}};font-weight:{{index == selectedIndex ? "bold" : "normal"}};' bindtap='clickedOnSeg' data-index='{{index}}'> 
+            {{item.title}}
+          </view>
+        </view>
+      </scroll-view>
+
+    </view>
+  </view>
+
+  <swiper style='height:{{swiperH}};' indicator-dots='{{false}}' autoplay='{{false}}' circular='{{false}}' vertical='{{false}}' current='{{selectedIndex}}' bindchange='listSwiperChange'>
+    <block wx:for='{{[0,1,2,3,4,5]}}' wx:key='{{index}}'>
+      <swiper-item>
+
+        <view wx:if='{{index == 0}}'>
+
+        </view>
+
+        <view wx:elif='{{index == 1}}'>
+
+        </view>
+
+        <view wx:elif='{{index == 2}}' class='questionContainer'>
+          <block wx:for = '{{questionData}}' wx:key = '{{index}}'>
+           <template is='questionCell' data='{{item:item,index:index}}' />
+           <view style='width:100%;height:1px;background:#e1e0e0;' />
+          </block>
+        </view>
+
+        <view wx:elif='{{index == 3}}' class='supplyContainer'>
+          <block wx:for='{{supplyData}}' wx:key='{{index}}'>
+            <template is='supplyCell' data='{{item}}' />
+          </block>
+        </view>
+
+        <view wx:elif='{{index == 4}}' class='payContainer'>
+          <block wx:for='{{remandData}}' wx:key='{{index}}'>
+            <template is='buyCell' data='{{...item}}' />
+          </block>
+        </view>
+
+        <view wx:else>
+        
+        </view>
+
+      </swiper-item>
+    </block>
+  </swiper>
+
+
+  <view style='width:100%;display:{{isLoadingMoreList ? "flex" : "none"}};flex-direction:column;align-items:center;'>
+
+    <view style='width:700rpx;height:1px;background:#f5f4f9;margin-top:9px;' />
+
+    <view style='height:40px;width:100%;text-align:center;font-size:11pt;line-height:40px;'>
+    {{isloadingListOver ? "没有更多内容了!" : "加载中..."}}
+    </view>
+
+  </view>
+
+
+</view>
+
+
+<template name='supplyCell'>
+  <view class='playListCell'>
+    <block wx:for='{{item}}' wx:key='{{index}}'>
+      <view class='playListCellItem' bindtap='clickedOnSupply' data-supply-demand-id='{{item.supplyDemandId}}'>
+        <image mode='aspectFill' src='{{item.coverImage ? item.coverImage :"../../images/market/noGoodsImg.png" }}' lazy-load='{{true}}'>
+        </image>
+
+        <view style='width:290rpx;height:90rpx;'>
+          <text>{{item.title}}</text>
+        </view>
+        
+        <view style='width:300rpx;height:60rpx;line-height:60rpx;font-size:14pt;color:#ee742f;'>
+        {{item.goodsPrice ? (item.goodsPrice + "元/" + item.unit) : "面议" }}
+        </view>
+      </view>
+
+    </block>
+  </view>
+</template>
+
+<template name = 'buyCell' >
+  <view class='buyCell' bindtap='clickedOnBuyCell' data-supply-demand-id='{{supplyDemandId}}'>
+    <view class='textLineOne'>
+      <text class='leftText'>{{title}}</text>
+      <text class='rightText'>{{price ? (price + "元/" + unit) : "面议"}}</text>
+    </view>
+    <view class='textLineTwo'>
+      <text class='leftText'>{{"总需求:" + goodsNum + unit }}</text>
+      <text class='rightText'>{{createTime}}</text>
+    </view>
+  </view>
+</template>
+
+<template name='questionCell'>
+  <view class='questionCellContainer' bindtap='tapOnQuestionCell' data-question-id='{{item.questionId}}'>
+    <view class='questionTitle'>
+      {{item.title}}
+    </view>
+
+    <view class='questionDetail'>
+      {{item.questionIntro}}
+    </view>
+
+    <view wx:if='{{item.coverImage}}'>
+      <image class='questionImg' lazy-load='{{true}}' mode='aspectFill' src='{{item.coverImage}}' binderror='questionImgLoadFail' data-index='{{index}}'>
+      </image>
+    </view>
+                  
+    <view class='questionLocation'>
+      <image style='width:20px;height:20px;' src='../../images/release/location.png'>
+      </image>
+      <view style='height:20px;line-height:20px;font-size:11pt;color:#939393;'>
+        {{item.province}}|{{item.city}}|{{item.area}}
+      </view>
+    </view>
+
+    <view class='answerSateV'>
+      <view style='width:80px;height:20px;line-height:20px;color:#939393;'>
+        {{item.answerCount}}个回答
+      </view>
+      <view style='width:80px;height:20px;line-height:20px;color:#5172a8;border-radius: 4px;background-color:#d5f1fd;text-align:center'>
+        我来回答
+      </view>
+    </view>
+
+  </view>
+</template>
