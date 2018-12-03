@@ -1,1 +1,31 @@
 /* pages/mine/myRelease.wxss */
+
+.releaseContainer{
+  display: flex;
+  flex-direction: column;
+}
+.cell{
+  display: flex;
+  flex-direction: column;
+  width: 750rpx;
+  align-items: center;
+}
+.cellContainer{
+  width: 700rpx;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cellLeft{
+  height: 40px;
+  display: flex;
+}
+
+.cellRight{
+  height: 40px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}

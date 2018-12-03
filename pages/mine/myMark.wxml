@@ -1,2 +1,26 @@
 <!--pages/mine/myMark.wxml-->
-<text>pages/mine/myMark.wxml</text>
+<view class='markContainer'>
+  <block wx:for='{{allUsers}}' wx:key='{{index}}'>
+    <template is='userCell' data='{{item}}' />
+  </block>
+</view>
+
+
+<template name='userCell'>
+  <view class='userListCell' bindtap='clickedCellAction' data-user-id='{{item.userId}}'>
+      <view class='userListContent'>
+        <image mode='aspectFill' src='{{item.avatarUrl}}' />
+        <view class='titleContainer'>
+          <view class='nameTitleV'>
+            <text>{{item.nickName}}</text>
+          </view>
+          <view class='subTitleV'>
+            <text>{{item.userTag}}</text>
+          </view>
+        </view>
+        <view class='focusBtn' bindtap='cancelFocusAction' data-focus-id='{{item.focusId}}'>
+        已关注
+        </view>
+      </view>
+    </view>
+</template>

@@ -10,55 +10,55 @@ Page({
     [
       {
         name:"大牛",
-        iconUrl:"../../images/testImages/test2.png",
+        iconUrl:"",
         userID:"",
         detailInfo:"大米|小麦|柑橘|拖拉机"
       },
       {
         name: "大牛",
-        iconUrl: "../../images/testImages/test2.png",
+        iconUrl: "",
         userID: "",
         detailInfo: "大米|小麦|柑橘|拖拉机"
       },
       {
         name: "大牛",
-        iconUrl: "../../images/testImages/test2.png",
+        iconUrl: "",
         userID: "",
         detailInfo: "大米|小麦|柑橘|拖拉机"
       },
       {
         name: "大牛",
-        iconUrl: "../../images/testImages/test2.png",
+        iconUrl: "",
         userID: "",
         detailInfo: "大米|小麦|柑橘|拖拉机"
       },
       {
         name: "大牛",
-        iconUrl: "../../images/testImages/test2.png",
+        iconUrl: "",
         userID: "",
         detailInfo: "大米|小麦|柑橘|拖拉机"
       },
       {
         name: "大牛",
-        iconUrl: "../../images/testImages/test2.png",
+        iconUrl: "",
         userID: "",
         detailInfo: "大米|小麦|柑橘|拖拉机"
       },
       {
         name: "大牛",
-        iconUrl: "../../images/testImages/test2.png",
+        iconUrl: "",
         userID: "",
         detailInfo: "大米|小麦|柑橘|拖拉机"
       },
       {
         name: "大牛",
-        iconUrl: "../../images/testImages/test2.png",
+        iconUrl: "",
         userID: "",
         detailInfo: "大米|小麦|柑橘|拖拉机"
       },
       {
         name: "大牛",
-        iconUrl: "../../images/testImages/test2.png",
+        iconUrl: "",
         userID: "",
         detailInfo: "大米|小麦|柑橘|拖拉机"
       }

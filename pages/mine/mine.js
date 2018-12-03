@@ -14,11 +14,6 @@ Page({
     mines:
     [
       {
-        hasNewMsg:false,
-        value:"0",
-        title:"我的发布"
-      },
-      {
         hasNewMsg: true,
         value: "12",
         title: "我的私信"
@@ -27,6 +22,11 @@ Page({
         hasNewMsg: false,
         value: "120",
         title: "我的关注"
+      },
+      {
+        hasNewMsg: false,
+        value: "0",
+        title: "我的发布"
       },
       {
         hasNewMsg: false,
@@ -152,11 +152,11 @@ Page({
     var index = e.currentTarget.dataset.index
     var navigateToUrl = ""
     if(index == 0){
-      navigateToUrl = "myRelease"
-    }else if(index == 1){
       navigateToUrl = "myLetter"
-    }else if(index == 2){
+    }else if(index == 1){
       navigateToUrl = "myMark"
+    }else if(index == 2){
+      navigateToUrl = "myRelease"
     }else{
       navigateToUrl = "myCollect"
     }

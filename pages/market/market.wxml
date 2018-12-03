@@ -130,7 +130,7 @@
     </view>
     <view class='workCellLineFive'>
       <view style='height:500rpx;line-height:30px;height:30px;color:#b0b0b0;'>
-      联系人:<text style='line-height:30px;color:#3f5c96;' space='nbsp'> {{contact}}</text>
+      联系人:<text style='line-height:30px;color:#3f5c96;' space='nbsp' bindtap='userDetailInfo' data-user-id='{{userId}}'> {{contact}}</text>
       </view>
       <image style='width:30px;height:30px;' src='../../images/market/call.png' bindtap='callPhone' data-phone-number='{{contactPhone}}' />
     </view>

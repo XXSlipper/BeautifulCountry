@@ -10,7 +10,7 @@
     </swiper>
   </view> 
 
-  <view class='userInfoV'>
+  <view class='userInfoV' bindtap='detailUserInfo' data-user-id='{{detailInfo.userId}}'>
     <image class='iconImg' src='{{detailInfo.avatarUrl}}'>
     </image>
     <view class='nickNameV'>

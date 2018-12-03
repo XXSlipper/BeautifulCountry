@@ -212,6 +212,13 @@ Page({
 
       }
     })
+  },
+
+  detailUserInfo:function(e){
+    var userId = e.currentTarget.dataset.userId
+    wx.navigateTo({
+      url: '../mine/userDetailInfo?userId=' + userId,
+    })
   }
 
 

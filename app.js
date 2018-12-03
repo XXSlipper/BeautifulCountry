@@ -43,6 +43,7 @@ App({
 
                       var networkH = require("utils/networkHandle.js")
                       networkH.getFocusList({
+                        userId: userID,
                         success:function(p){
                           self.globalData.userFocusList = p.data || []
                         },

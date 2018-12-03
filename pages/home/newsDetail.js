@@ -596,14 +596,16 @@ Page({
     var subCommendListMainUserId = this.data.subCommendListMainUser.userId
 
     var focusList = getApp().globalData.userFocusList
-    this.data.isFocusMainCommendUser = false
+    var isFocusMainCommendUser = false
     for(var i = 0;i < focusList.length;i++){
       var obj = focusList[i]
       if (obj.userId == subCommendListMainUserId){
-        this.setData({ isFocusMainCommendUser:true})
+        isFocusMainCommendUser = true
         break
       }
     }
+
+    this.setData({ isFocusMainCommendUser: isFocusMainCommendUser })
 
     var targetCommendId = e.currentTarget.dataset.targetCommendId
     var targetUserId = e.currentTarget.dataset.targetUserId
@@ -1009,8 +1011,8 @@ Page({
   },
 
   goToUserDetailInfo:function(e){
-    console.log("goToUserDetailInfo")
-    var userId = 0
+    var userId = e.currentTarget.dataset.userId
+
     wx.navigateTo({
       url: '../mine/userDetailInfo?userId=' + userId,
     })

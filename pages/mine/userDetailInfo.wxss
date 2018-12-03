@@ -12,8 +12,7 @@
 }
 
 .headerBottomDesk{
-  position: absolute;
-  bottom: 0;
+  z-index: 100;
   width: 750rpx;
   height: 120px;
   background: white;
@@ -30,7 +29,6 @@
   bottom: 94px;
   left:20px;
   border:1px solid rgba(255, 255, 255, 0.6);
-  background: red;
   box-sizing: content-box;
 }
 
@@ -245,5 +243,31 @@ align-items: center;
   width: 700rpx;
   height: 40px;
   display: flex;
+  align-items: center;
+}
+
+.cell{
+  display: flex;
+  flex-direction: column;
+  width: 750rpx;
+  align-items: center;
+}
+.cellContainer{
+  width: 700rpx;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cellLeft{
+  height: 40px;
+  display: flex;
+}
+
+.cellRight{
+  height: 40px;
+  display: flex;
+  flex-direction: row-reverse;
   align-items: center;
 }

@@ -1,1 +1,95 @@
 /* pages/mine/myMark.wxss */
+
+.markContainer{
+  width: 750rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.userListCell{
+  height: 60px;
+  width: 750rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.userListContent{
+  
+  height: 60px;
+  width: 700rpx;
+  display: flex;
+  align-items: center;
+  border-style: none none solid none;
+  border-width: 1px;
+  border-color: #bcbcbc;
+}
+
+.userListContent image{
+  width: 40px;
+  height: 40px;
+  background: red;
+  border-radius: 20px;
+}
+
+.titleContainer{
+  height: 50px;
+  width: 500rpx;
+  margin-left: 20rpx;
+}
+
+.titleContainer .nameTitleV{
+  width: 500rpx;
+  height: 20px;
+}
+.titleContainer .nameTitleV text{
+  font-size: 14pt;
+  width: 100%;
+  line-height: 30px;
+
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+
+.titleContainer .subTitleV{
+  width: 500rpx;
+  height: 20px;
+}
+
+.titleContainer .subTitleV text{
+  color: #4b4b4b;
+  font-size: 11pt;
+  width: 100%;
+  line-height: 30px;
+
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+
+}
+
+.focusBtn{
+  width: 60px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  border-radius: 3px;
+  background-color: #e8e8e8;
+  color:#b6b6b6;
+  font-size: 10pt;
+  position: absolute;
+  right:25rpx;
+}

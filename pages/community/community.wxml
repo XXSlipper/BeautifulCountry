@@ -19,17 +19,26 @@
 
 
 <view class='communityUserList'>
+
   <block wx:for='{{allUser}}' wx:key='{{index}}'>
-    <view class='userListCell'>
+    <template is='userCell' data='{{item}}' />
+  </block>
+
+</view>
+
+
+<template name='userCell'>
+  <view class='userListCell'>
       <view class='userListContent'>
-        <image mode='aspectFill' src='{{item.iconUrl}}'>
-        </image>
+        <image mode='aspectFill' src='{{item.iconUrl}}' />
         <view class='titleContainer'>
-          <view class='nameTitleV'><text>{{item.name}}</text></view>
-          <view class='subTitleV'><text>{{item.detailInfo}}</text></view>
+          <view class='nameTitleV'>
+            <text>{{item.name}}</text>
+          </view>
+          <view class='subTitleV'>
+            <text>{{item.detailInfo}}</text>
+          </view>
+        </view>
       </view>
     </view>
-    <view style='width:670rpx;height:1px;background:#e1e0e0;margin-left:40rpx;'></view>
-    </view>
-  </block>
-</view>
+</template>

@@ -58,10 +58,10 @@
       <block wx:for='{{commends}}' wx:key = '{{index}}'>
         <view class='commendCell'>
 
-         <image class='userIcon' src='{{item.avatarUrl}}' bindtap='goToUserDetailInfo' />
+         <image class='userIcon' src='{{item.avatarUrl}}' bindtap='goToUserDetailInfo' data-user-id='{{item.userId}}' />
 
          <view class='commendCellRight'>
-          <text style='color:#3f5c96; font-size:12pt;' bindtap='goToUserDetailInfo'>{{item.nickName}}</text>
+          <text style='color:#3f5c96; font-size:12pt;' bindtap='goToUserDetailInfo' data-user-id='{{item.userId}}'>{{item.nickName}}</text>
           <view style='font-size:14pt; margin-top:5px;word-break:break-all;'>{{item.content}}</view>
           <view style='margin-top:5px;font-size:11.5px;' bindtap='commendOtherUser' data-target-user-id='{{item.userId}}' data-target-commend-id='{{item.commendId}}'>
             <text style='color: #a1a1a1;' space='nbsp'>{{item.createTime}} - </text>回复Ta
@@ -71,10 +71,10 @@
             <view class='subCommend'>
               <block wx:for = '{{item.subCommends}}' wx:key = '{{index}}'>
                 <view style='font-size:12pt; margin-top:3px;word-break:break-all;' wx:if = '{{(item.targetCommendId != item.parentCommendId)}}'>
-                  <text style='color:#3f5c96;' bindtap='goToUserDetailInfo'>{{item.nickName}}</text>回复<text style='color:#3f5c96;' bindtap='goToUserDetailInfo'>{{item.targetNickName}}: </text>{{item.content}}
+                  <text style='color:#3f5c96;' bindtap='goToUserDetailInfo' data-user-id='{{item.userId}}'>{{item.nickName}}</text>回复<text style='color:#3f5c96;' bindtap='goToUserDetailInfo' data-user-id='{{item.targetUserId}}'>{{item.targetNickName}}: </text>{{item.content}}
                 </view> 
                 <view style='font-size:12pt; margin-top:3px;word-break:break-all;' wx:else>
-                  <text style='color:#3f5c96;' bindtap='goToUserDetailInfo'>{{item.nickName}}: </text>{{item.content}}
+                  <text style='color:#3f5c96;' bindtap='goToUserDetailInfo' data-user-id='{{item.userId}}'>{{item.nickName}}: </text>{{item.content}}
                 </view>
               </block>
 
@@ -154,8 +154,8 @@
       <view class='mainCommendV'>
 
         <view class='mainCommendUserV'>
-          <image class='mainCommendUserIcon' src='{{subCommendListMainUser.avatarUrl}}' bindtap='goToUserDetailInfo' />
-          <view class='mainCommendUserName' bindtap='goToUserDetailInfo'>{{subCommendListMainUser.nickName}}</view>
+          <image class='mainCommendUserIcon' src='{{subCommendListMainUser.avatarUrl}}' bindtap='goToUserDetailInfo' data-user-id='{{subCommendListMainUser.userId}}' />
+          <view class='mainCommendUserName' bindtap='goToUserDetailInfo' data-user-id='{{subCommendListMainUser.userId}}'>{{subCommendListMainUser.nickName}}</view>
           <view class='guanzhuV' bindtap='foucusUserAction' data-user-id='{{subCommendListMainUser.userId}}'>{{isFocusMainCommendUser ? "已关注" : "关注"}}</view>
         </view>
 
@@ -219,18 +219,18 @@
 
 <template name='subCommendCell'>
   <view class='subCommendCell'>
-          <image class='subCommendCellIon' src='{{item.avatarUrl}}' bindtap='goToUserDetailInfo' />
+          <image class='subCommendCellIon' src='{{item.avatarUrl}}' bindtap='goToUserDetailInfo' data-user-id='{{item.userId}}'/>
           <view class='subCommendCellContent'>
             <view class='subCommendCellPleaseV'></view>
 
             <view style='font-size:12pt; margin-top:3px;word-break:break-all;' wx:if = '{{(item.targetCommendId != item.parentCommendId)}}'>
-              <text style='color:#3f5c96;' bindtap='goToUserDetailInfo'>{{item.nickName}}: </text>
+              <text style='color:#3f5c96;' bindtap='goToUserDetailInfo' data-user-id='{{item.userId}}'>{{item.nickName}}: </text>
               {{item.content}}
-              <text style='color:#3f5c96;' bindtap='goToUserDetailInfo'>@{{item.targetNickName}}: </text>
+              <text style='color:#3f5c96;' bindtap='goToUserDetailInfo' data-user-id='{{item.targetUserId}}'>@{{item.targetNickName}}: </text>
               {{item.targetCommendContent}}
             </view> 
             <view style='font-size:12pt; margin-top:3px;word-break:break-all;' wx:else>
-              <text style='color:#3f5c96;' bindtap='goToUserDetailInfo'>{{item.nickName}}: </text>{{item.content}}
+              <text style='color:#3f5c96;' bindtap='goToUserDetailInfo' data-user-id='{{item.userId}}'>{{item.nickName}}: </text>{{item.content}}
             </view>
 
             <view style='font-size:11.5px;line-height:40px;height:40px;width:100%' bindtap='commendSubCommend' data-user-id='{{item.userId}}' data-commend-id='{{item.commendId}}'>

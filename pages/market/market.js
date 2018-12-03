@@ -291,9 +291,8 @@ Page({
 
           var newWorkData = self.data.workData.concat(e.data.list)
 
-
           self.setData({ workData: newWorkData })
-
+          
           self.setSwiperH()
 
         },
@@ -534,6 +533,13 @@ Page({
       fail: function (p) {
 
       }
+    })
+  },
+
+  userDetailInfo:function(e){
+    var userId = e.currentTarget.dataset.userId
+    wx.navigateTo({
+      url: '../mine/userDetailInfo?userId=' + userId,
     })
   }
 

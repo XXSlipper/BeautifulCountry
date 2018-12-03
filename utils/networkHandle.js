@@ -802,7 +802,7 @@ const getFocusList = (p)=>{
     method:"POST",
     url: getApp().globalData.urlHeader + 'focus/list',
     data:{
-      userId:getApp().globalData.userInfo.userID
+      userId:p.userId
     },
     success:function(e){
       if(e.statusCode == 200){
@@ -1791,6 +1791,36 @@ const getJobList = (p) => {
 }
 
 
+/*
+*04901  user/personalIntro fail
+*04902 statusCode != 200
+*04903-xxxxxx 业务逻辑错误
+*/
+const getSomeBodyInfo = (p) => {
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + 'user/personalIntro',
+    data: {
+      userId: p.userId
+    },
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "获取成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "04903" + "-" + e.data.code, errorMsg: "获取失败" })
+        }
+      } else {
+        p.fail({ errorCode: "04902", errorMsg: "获取失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "04901", errorMsg: "获取失败" })
+    }
+  })
+}
+
+
 module.exports = {
   myLogin: myLogin,
   getCropList: getCropList,
@@ -1840,5 +1870,6 @@ module.exports = {
   userMarkQuestionList: userMarkQuestionList,
   userMarkSupplyOrDemandList: userMarkSupplyOrDemandList,
   releaseWork: releaseWork,
-  getJobList: getJobList
+  getJobList: getJobList,
+  getSomeBodyInfo: getSomeBodyInfo
 }
