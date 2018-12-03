@@ -34,9 +34,9 @@ Page({
     newsListSwiperH:0,
 
     imagesInfo:[
-      { imageUrl: "../../images/testImages/test.png", detailInfoID: "abc" },
-      { imageUrl: "../../images/testImages/test.png", detailInfoID: "xxx"},
-      { imageUrl: "../../images/testImages/test.png", detailInfoID: "www"}
+      { imageUrl: "", detailInfoID: "abc" },
+      { imageUrl: "", detailInfoID: "xxx"},
+      { imageUrl: "", detailInfoID: "www"}
       ],
     segmentTitles: 
     [

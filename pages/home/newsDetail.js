@@ -808,6 +808,8 @@ Page({
         wx.hideLoading()
         self.data.subInputValue = ""
         self.setData({ emptySubInput: "" })
+        var util = require("../../utils/util.js")
+        e.data.createTime = util.changeTimeNumToTimeAgo(e.data.createTime)
         self.data.subCommends.unshift(e.data)
         self.setData({ subCommends: self.data.subCommends})
 
@@ -1003,6 +1005,14 @@ Page({
     wx.previewImage({
       urls: allImgs,
       current:allImgs[currentIndex]
+    })
+  },
+
+  goToUserDetailInfo:function(e){
+    console.log("goToUserDetailInfo")
+    var userId = 0
+    wx.navigateTo({
+      url: '../mine/userDetailInfo?userId=' + userId,
     })
   }
 

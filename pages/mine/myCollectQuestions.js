@@ -42,6 +42,7 @@ Page({
     var networkH = require("../../utils/networkHandle.js")
     networkH.userMarkQuestionList({
       page:page,
+      userId: getApp().globalData.userInfo.userID,
       success:function(e){
         if (isReachBottom == false) {
           wx.hideLoading()

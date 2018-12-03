@@ -216,11 +216,12 @@ align-items: center;
 }
 
 .workCellLineThree, .workCellLineFour{
+  margin-top: 4px;
   width: 700rpx;
   color: #959595;
   font-size: 12pt;
-  height: 30px;
-  line-height: 30px;
+  line-height: 20px;
+  word-break: break-all;
 }
 
 .workCellLineFive{

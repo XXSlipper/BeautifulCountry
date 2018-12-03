@@ -109,6 +109,7 @@
 
 <template name = 'workCell' >
   <view class='workCell'>
+    <view style='width:100%;height:5px;'></view>
     <view class='workCellIineOne'>
       <view class='workCellIineOneLeft'>
       {{jobDescription}}{{welfare}}
@@ -133,13 +134,10 @@
       </view>
       <image style='width:30px;height:30px;' src='../../images/market/call.png' bindtap='callPhone' data-phone-number='{{contactPhone}}' />
     </view>
+    <view style='width:100%;height:5px;'></view>
   </view>
 </template>
 
 <template name='spaceLine'>
-  <view style='height:12px;width:100%;'>
-    <view style='width:100%;height:1px;background-color:#e1e0e0;'></view>
-    <view style='width:100%;height:10px;background-color:#f5f4f9;'></view>
-    <view style='width:100%;height:1px;background-color:#e1e0e0;'></view>
-  </view>
+  <view style='width:100%;height:12px;background-color:#f5f4f9;'></view>
 </template>

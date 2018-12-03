@@ -225,6 +225,7 @@ Page({
         content: '招聘信息的内容不能未空!',
         showCancel:false
       })
+      return
     }
 
     var workTimeType = this.data.workTimeType.value
@@ -240,6 +241,7 @@ Page({
         content: '请输入薪资!',
         showCancel: false
       })
+      return
     }
 
     var workTime = this.data.workTime.inputValue
@@ -249,6 +251,7 @@ Page({
         content: '请输入工作时间!',
         showCancel: false
       })
+      return
     }
 
     var attract = this.data.attract.inputValue
@@ -260,6 +263,7 @@ Page({
         content: '请输入您的称呼!',
         showCancel: false
       })
+      return
     }
 
     var phoneNumber = this.data.phoneNumber.inputValue
@@ -271,6 +275,7 @@ Page({
         content: '联系电话输入错误!',
         showCancel: false
       })
+      return
     }
 
     var location = this.data.location.value
@@ -280,6 +285,7 @@ Page({
         content: '请选择位置所在区域!',
         showCancel: false
       })
+      return
     }
 
     var detailLocation = this.data.detailLocation.inputValue
@@ -289,6 +295,7 @@ Page({
         content: '请输入详细地址!',
         showCancel: false
       })
+      return
     }
 
     wx.showLoading({

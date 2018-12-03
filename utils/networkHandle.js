@@ -1669,7 +1669,7 @@ const userMarkQuestionList = (p) => {
     url: getApp().globalData.urlHeader + 'question/focusQuestionList',
     data: {
       currentPage:p.page,
-      userId: getApp().globalData.userInfo.userID
+      userId: p.userId
     },
     success: function (e) {
       if (e.statusCode == 200) {
@@ -1700,7 +1700,7 @@ const userMarkSupplyOrDemandList = (p) => {
     url: getApp().globalData.urlHeader + 'supplyDemand/focusList',
     data: {
       currentPage: p.page,
-      userId: getApp().globalData.userInfo.userID,
+      userId: p.userId,
       type: p.type
     },
     success: function (e) {
@@ -1770,7 +1770,6 @@ const getJobList = (p) => {
     method: "POST",
     url: getApp().globalData.urlHeader + 'job/list',
     data: {
-      userId: getApp().globalData.userInfo.userID,
       status: p.status,
       currentPage: p.page
     },

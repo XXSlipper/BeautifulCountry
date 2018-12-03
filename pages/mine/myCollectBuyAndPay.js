@@ -71,6 +71,7 @@ Page({
     var networkH = require("../../utils/networkHandle.js")
     networkH.userMarkSupplyOrDemandList({
       page:page,
+      userId: getApp().globalData.userInfo.userID,
       type:(index == 0 ? "supply" : "demand"),
       success:function(e){
         if (isReachBottom == false) {
@@ -191,6 +192,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    
     var index = this.data.selectedIndex
     if (this.data.loadOverFlags[index]) {
       this.setData({ isLoadingMoreList: true, isloadingListOver: true })

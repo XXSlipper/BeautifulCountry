@@ -28,7 +28,8 @@
     "pages/mine/myRelease",
     "pages/mine/myCollectNews",
     "pages/mine/myCollectQuestions",
-    "pages/mine/myCollectBuyAndPay"
+    "pages/mine/myCollectBuyAndPay",
+    "pages/mine/userDetailInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",

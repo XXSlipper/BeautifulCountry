@@ -291,8 +291,7 @@ Page({
 
           var newWorkData = self.data.workData.concat(e.data.list)
 
-          console.log(newWorkData)
-          
+
           self.setData({ workData: newWorkData })
 
           self.setSwiperH()
