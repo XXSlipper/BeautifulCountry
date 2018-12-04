@@ -54,13 +54,13 @@ Page({
           var asset = assets[i]
           var [a, b, c, d, e, f] = asset.capitalsCode
           var kind = a + b
-          if(kind == "01"){
+          if(kind == "51"){
             seeds.push(asset)
-          }else if(kind == "02"){
+          }else if(kind == "52"){
             medicine.push(asset)
-          } else if (kind == "03") {
+          } else if (kind == "53") {
             fertilizer.push(asset)
-          }else{
+          } else if (kind == "54"){
             utensils.push(asset)
           }
         }
@@ -176,7 +176,7 @@ Page({
             success: function (e) {
               var [a, b, c, d, e, f] = assetCode
               var kind = a + b
-              if (kind == "01") {
+              if (kind == "51") {
                 var assets = self.data.seeds
                 for (var i = 0; i < assets.length; i++) {
                   if (assets[i].capitalsCode == assetCode) {
@@ -187,7 +187,7 @@ Page({
                 wx.hideLoading()
                 self.setData({ seeds: assets })
 
-              } else if (kind == "02") {
+              } else if (kind == "52") {
                 var assets = self.data.medicine
                 for (var i = 0; i < assets.length; i++) {
                   if (assets[i].capitalsCode == assetCode) {
@@ -197,7 +197,7 @@ Page({
                 }
                 wx.hideLoading()
                 self.setData({ medicine: assets })
-              } else if (kind == "03") {
+              } else if (kind == "53") {
                 var assets = self.data.fertilizer
                 for (var i = 0; i < assets.length; i++) {
                   if (assets[i].capitalsCode == assetCode) {
@@ -207,7 +207,7 @@ Page({
                 }
                 wx.hideLoading()
                 self.setData({ fertilizer: assets })
-              } else {
+              } else if (kind == "54"){
                 var assets = self.data.utensils
                 for (var i = 0; i < assets.length; i++) {
                   if (assets[i].capitalsCode == assetCode) {
