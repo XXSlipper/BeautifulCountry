@@ -21,7 +21,7 @@
       <view class='sendMsgView'>
         发消息
       </view>
-      <view class='focusView'>
+      <view class='focusView' bindtap='focusAction'>
         {{isFocus ? "已关注" : "关注"}}
       </view>
       <view  style='width:750rpx;height:10px;background-color:#e1e0e0;margin-top:80px;'/>

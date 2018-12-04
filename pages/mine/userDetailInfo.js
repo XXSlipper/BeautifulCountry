@@ -456,6 +456,96 @@ Page({
 
     this.setData({ stopOnTop: stopOnTop })
 
+  },
+
+  focusAction:function(e){
+    var userId = this.data.userId
+    if (userId == getApp().globalData.userInfo.userID) {
+      wx.showToast({
+        title: '不能关注自己',
+        icon: "none",
+        duration: 2000
+      })
+      return
+    }
+
+    var focusList = getApp().globalData.userFocusList
+    var focusId = -1
+    for (var i = 0; i < focusList.length; i++) {
+      var obj = focusList[i]
+      if (obj.userId == userId) {
+        focusId = obj.focusId
+        break
+      }
+    }
+
+    var self = this
+    if (this.data.isFocus) {
+      wx.showLoading({
+        title: '取消中...',
+      })
+      var networkH = require("../../utils/networkHandle.js")
+      networkH.cancelFocus({
+        focusId: focusId,
+        success: function (p) {
+          wx.hideLoading()
+          for (var i = 0; i < focusList.length; i++) {
+            var obj = focusList[i]
+            if (obj.userId == userId) {
+              focusList.splice(i, 1)
+              break
+            }
+          }
+
+          self.setData({ isFocus: false })
+
+          wx.showToast({
+            title: p.successMsg,
+            image: "../../images/mine/success.png",
+            duration: 2000
+          })
+        },
+        fail: function (p) {
+          wx.hideLoading()
+          wx.showToast({
+            title: p.errorMsg,
+            image: "../../images/mine/fail.png",
+            duration: 2000
+          })
+        }
+      })
+    } else {
+
+      wx.showLoading({
+        title: '关注中...',
+      })
+
+      var networkH = require("../../utils/networkHandle.js")
+      networkH.focusUser({
+        focusUserId: userId,
+        success: function (p) {
+          wx.hideLoading()
+          self.setData({ isFocus: true })
+          getApp().globalData.userFocusList.push(p.data)
+          wx.showToast({
+            title: p.successMsg,
+            image: "../../images/mine/success.png",
+            duration: 1500
+          })
+        },
+        fail: function (p) {
+          wx.hideLoading()
+          wx.showToast({
+            title: p.errorMsg,
+            image: "../../images/mine/fail.png",
+            duration: 1500
+          })
+        }
+      })
+
+    }
+
+
   }
 
 })
