@@ -1,11 +1,11 @@
 <!--pages/mine/myCollect.wxml-->
 <view class='collecteContainer'>
 
-  <template is='cell' data='{{title:"收藏的新闻",index:0,number:12}}' />
+  <template is='cell' data='{{title:"收藏的新闻",index:0,number:collectArticleCount}}' />
 
-  <template is='cell' data='{{title:"收藏的问答",index:1,number:6}}' />
+  <template is='cell' data='{{title:"收藏的问答",index:1,number:collectQuestionCount}}' />
   
-  <template is='cell' data='{{title:"收藏的供求",index:2,number:123}}' />
+  <template is='cell' data='{{title:"收藏的供求",index:2,number:collectSupplyDemandCount}}' />
 
 </view>
 

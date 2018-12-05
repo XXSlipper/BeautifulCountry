@@ -7,20 +7,33 @@ Page({
    * 页面的初始数据
    */
   data: {
+
+    releaseDemandCount:0,
+    releaseJobCount: 0,
+    releaseSupplyCount: 0,
+    releaseQuestionCount: 0,
+
+    collectArticleCount:0,
+    collectQuestionCount:0,
+    collectSupplyDemandCount:0,
+
+    defaultAddress:"",
+    phoneNumber:"",
+
+    userID:-1,
     userName:"点击登录",//detault name
     iconPath:"../../images/mine/defaultIcon.png",//detault picture
-    phoneNumber:"绑定手机号码",
-    address:[],
+
     mines:
     [
       {
         hasNewMsg: true,
-        value: "12",
+        value: "0",
         title: "我的私信"
       },
       {
         hasNewMsg: false,
-        value: "120",
+        value: "0",
         title: "我的关注"
       },
       {
@@ -30,7 +43,7 @@ Page({
       },
       {
         hasNewMsg: false,
-        value: "121",
+        value: "0",
         title: "我的收藏"
       }
     ]
@@ -51,6 +64,58 @@ Page({
 
   },
 
+  userInfoValue:function(){
+    var self = this
+    var networkH = require("../../utils/networkHandle.js")
+    networkH.personalCenterInfo({
+      success:function(e){
+
+        self.data.releaseDemandCount = e.data.publishDemandCount
+        self.data.releaseJobCount = e.data.publishJobCount
+        self.data.releaseSupplyCount = e.data.publishSupplyCount
+        self.data.releaseQuestionCount = e.data.publishQuestionCount
+
+        var releaseTotalCount = e.data.publishDemandCount + e.data.publishJobCount + e.data.publishSupplyCount + e.data.publishQuestionCount
+
+        self.data.collectArticleCount = e.data.collectionArticleCount
+        self.data.collectQuestionCount = e.data.collectionQuestionCount
+        self.data.collectSupplyDemandCount = e.data.collectionSupplyDemandCount
+
+        var collectTotalCount = e.data.collectionArticleCount + e.data.collectionQuestionCount + e.data.collectionSupplyDemandCount
+
+        self.data.mines[0]["value"] = e.data.letterCount
+        self.data.mines[1]["value"] = e.data.focusCount
+        self.data.mines[2]["value"] = releaseTotalCount
+        self.data.mines[3]["value"] = collectTotalCount
+        self.setData({
+          mines: self.data.mines,
+          phoneNumber: e.data.phoneNum | "",
+          defaultAddress: e.data.deliveryAddress
+        })
+      },
+      fail:function(){
+        self.data.releaseDemandCount = 0
+        self.data.releaseJobCount = 0
+        self.data.releaseSupplyCount = 0
+        self.data.releaseQuestionCount = 0
+        self.data.collectArticleCount = 0
+        self.data.collectQuestionCount = 0
+        self.data.collectSupplyDemandCount = 0
+
+        self.data.mines[0]["value"] = 0
+        self.data.mines[1]["value"] = 0
+        self.data.mines[2]["value"] = 0
+        self.data.mines[3]["value"] = 0
+        self.setData({
+          mines: self.data.mines,
+          phoneNumber: "",
+          defaultAddress: ""
+        })
+      }
+
+    })
+  },
+
   /**
    * 生命周期函数--监听页面显示
    */
@@ -59,13 +124,17 @@ Page({
     var netWorking = getApp().globalData.netWorking
 
     if(netWorking == true){
-
-      getApp.userInfoReadyCallback = () => {
+      var self = this
+      getApp().userInfoReadyCallback = () => {
 
         var userInfo = getApp().globalData.userInfo
 
         if (userInfo) {
-          this.setData({ userName: userInfo.nickName, iconPath: userInfo.avatarUrl, userID: userInfo.userID })
+          self.setData({ userName: userInfo.nickName, iconPath: userInfo.avatarUrl })
+          self.data.userID = userInfo.userID
+
+          self.userInfoValue()
+
         } else {
 
           wx.showModal({
@@ -91,8 +160,9 @@ Page({
 
       if (userInfo) {
 
-        this.setData({ userName: userInfo.nickName, iconPath: userInfo.avatarUrl, userID: userInfo.userID })
-
+        this.setData({ userName: userInfo.nickName, iconPath: userInfo.avatarUrl })
+        this.data.userID = userInfo.userID
+        this.userInfoValue()
       } else {
         wx.showModal({
           title: "提示",
@@ -156,9 +226,9 @@ Page({
     }else if(index == 1){
       navigateToUrl = "myMark"
     }else if(index == 2){
-      navigateToUrl = "myRelease"
+      navigateToUrl = "myRelease?releaseDemandCount=" + this.data.releaseDemandCount + "&releaseJobCount=" + this.data.releaseJobCount + "&releaseSupplyCount=" + this.data.releaseSupplyCount + "&releaseQuestionCount=" + this.data.releaseQuestionCount
     }else{
-      navigateToUrl = "myCollect"
+      navigateToUrl = "myCollect?collectArticleCount=" + this.data.collectArticleCount + "&collectQuestionCount=" + this.data.collectQuestionCount + "&collectSupplyDemandCount=" + this.data.collectSupplyDemandCount
     }
     var netWorking = getApp().globalData.netWorking
     if (netWorking == true) {
@@ -324,7 +394,7 @@ Page({
 
   gotoManagePhoneNum : function(){
     var phoneNumber = this.data.phoneNumber
-    if (phoneNumber == "绑定手机号码"){
+    if (phoneNumber == ""){
       wx.navigateTo({
         url: 'changePhoneNumber',
       })

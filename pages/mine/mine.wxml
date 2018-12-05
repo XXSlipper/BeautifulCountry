@@ -31,7 +31,7 @@
     </view>
     <view style='width:350rpx;height:46px;display:flex;flex-direction:row-reverse;align-items: center;'>
       <image class='rightImg' src='../../images/mine/ triangleRight.png'></image>
-      <text class='rightText' style='color:{{phoneNumber == "绑定手机号码" ? "red" : "black"}}'>{{phoneNumber}}</text>
+      <text class='rightText' style='color:{{phoneNumber == "" ? "red" : "black"}}'>{{phoneNumber == "" ? "绑定手机号码" : phoneNumber}}</text>
     </view>
   </view>
   <view style='width:700rpx;height:1px;background:#e1e0e0;'></view>
@@ -42,7 +42,7 @@
     </view>
     <view style='width:350rpx;height:46px;display:flex;flex-direction:row-reverse;align-items: center;'>
       <image class='rightImg' src='../../images/mine/ triangleRight.png'></image>
-      <text class='rightText' style='color:{{address.length == 0 ? "red" : "black"}}'>{{address.length == 0 ? '添加地址' : address[0].subAddress}}</text>
+      <text class='rightText' style='color:{{defaultAddress == "" ? "red" : "black"}}'>{{defaultAddress == "" ? '添加地址' : defaultAddress}}</text>
     </view>
   </view>
 </view>

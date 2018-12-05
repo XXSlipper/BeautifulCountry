@@ -5,14 +5,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    releaseQuestionCount:0,
+    releaseDemandSupplyCount:0,
+    releaseJobCount:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var releaseDemandSupplyCount = parseInt(options.releaseDemandCount) + parseInt(options.releaseSupplyCount)
+    this.setData({
+      releaseQuestionCount: options.releaseQuestionCount,
+      releaseJobCount: options.releaseJobCount,
+      releaseDemandSupplyCount: releaseDemandSupplyCount
+    })
   },
 
   /**

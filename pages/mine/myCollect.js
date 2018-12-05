@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    collectArticleCount:0,
+    collectQuestionCount:0,
+    collectSupplyDemandCount:0
   },
 
   /**
@@ -13,6 +15,12 @@ Page({
    */
   onLoad: function (options) {
 
+    this.setData({
+      collectArticleCount: options.collectArticleCount,
+      collectQuestionCount: options.collectQuestionCount,
+      collectSupplyDemandCount: options.collectSupplyDemandCount
+    })
+    
   },
 
   /**

@@ -22,7 +22,7 @@
   <view class='cell' style='width:700rpx;height:60px;display:flex;justify-content: space-between;'>
     <text style='line-height:59px;color:black; font-size: 14pt;width:80px;'>{{item.leftTitle}}</text>
     <block wx:if = '{{type == 0}}'>
-      <input placeholder='{{item.placeholder}}' style='height:59px;width:170px;font-size: 14pt;' bindinput='inputAction' confirm-type='done' type='{{index == 1 ? "number" : "text"}}' data-cell-index='{{index}}' value='{{item.rightTitle}}'></input>
+      <input placeholder='{{item.placeholder}}' style='height:59px;width:170px;font-size: 14pt;text-align:right;' bindinput='inputAction' confirm-type='done' type='{{index == 1 ? "number" : "text"}}' data-cell-index='{{index}}' value='{{item.rightTitle}}'></input>
     </block>
     <block wx:else>
       <view style='width:200px;height:59px;display:flex;flex-direction: row-reverse;align-items: center;' bindtap='selecteArea'>

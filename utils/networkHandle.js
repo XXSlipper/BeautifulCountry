@@ -2068,6 +2068,36 @@ const deleteMyReleaseJob = (p) => {
 }
 
 
+/*
+*05601  user/personalCenter fail
+*05602 statusCode != 200
+*05603-xxxxxx 业务逻辑错误
+*/
+const personalCenterInfo = (p) => {
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + "user/personalCenter",
+    data: {
+      userId: getApp().globalData.userInfo.userID
+    },
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "获取成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "05603" + "-" + e.data.code, errorMsg: "获取失败" })
+        }
+      } else {
+        p.fail({ errorCode: "05602", errorMsg: "获取失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "05601", errorMsg: "获取失败" })
+    }
+  })
+}
+
+
 module.exports = {
   myLogin: myLogin,
   getCropList: getCropList,
@@ -2124,5 +2154,6 @@ module.exports = {
   deleteMyQuestion: deleteMyQuestion,
   deleteMySupplyDemand: deleteMySupplyDemand,
   editJob: editJob,
-  deleteMyReleaseJob: deleteMyReleaseJob
+  deleteMyReleaseJob: deleteMyReleaseJob,
+  personalCenterInfo: personalCenterInfo
 }

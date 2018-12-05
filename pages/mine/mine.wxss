@@ -83,7 +83,7 @@
 
 .rightText{
   font-size: 11pt;
-  line-height: 46px;
+  line-height: 20px;
 }
 
 .rightImg{
