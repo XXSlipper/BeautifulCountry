@@ -85,7 +85,8 @@
     <view style='width:700rpx;height:1px;background:#f5f4f9;margin-top:9px;'>
     </view>
 
-    <view style='height:40px;width:100%;text-align:center;font-size:11pt;line-height:40px;'>{{isloadingListOver ? "没有更多内容了!" : "加载中..."}}       </view>
+    <view style='height:40px;width:100%;text-align:center;font-size:11pt;line-height:40px;'>{{isloadingListOver ? "没有更多内容了!" : "加载中..."}}
+    </view>
 
     <view style='width:100%;height:{{bottomEditeBarFixH}}px;'>
     </view>

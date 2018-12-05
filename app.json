@@ -34,7 +34,8 @@
     "pages/mine/editeMyReleaseQuestion",
     "pages/mine/myReleaseSupplyAndRemand",
     "pages/mine/editeMySupplyAndRemand",
-    "pages/mine/myReleaseJob"
+    "pages/mine/myReleaseJob",
+    "pages/mine/editeMyReleaseJob"
   ],
   "window": {
     "backgroundTextStyle": "light",

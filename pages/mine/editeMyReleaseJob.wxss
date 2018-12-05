@@ -1,0 +1,57 @@
+/* pages/mine/editeMyReleaseJob.wxss */
+
+
+.workContainer{
+  display: flex;
+  flex-direction: column;
+  width: 750rpx;
+}
+
+.detailDescriptionV{
+  width: 750rpx;
+  height:100px;
+}
+
+textarea{
+  width:700rpx;
+  margin-left: 25rpx;
+  height: 80px;
+  font-size: 14pt;
+}
+
+.cellContainer{
+  width:750rpx;
+  height: 40px;
+}
+
+.cellContent{
+  width: 700rpx;
+  height: 100%;
+  margin-left: 25rpx;
+  display: flex;
+  justify-content: space-around;
+}
+
+.cellLeftTitle{
+  line-height: 40px;
+  font-size: 14pt;
+  height: 100%;
+  width: 180rpx;
+}
+
+.cellRightContainer{
+  display: flex;
+  flex-direction: row-reverse;
+  height: 100%;
+  width: 500rpx;
+  align-items: center;
+  justify-items: center;
+}
+
+.cellRigthTitle{
+  height: 40px;
+  width: auto;
+  line-height: 40px;
+  font-size: 14pt;
+  text-align: right;
+}

@@ -1,10 +1,14 @@
-// pages/release/work.js
+// pages/mine/editeMyReleaseJob.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    jobStatus:1,
+
+    jobData:{},
+
     workDescription: "",
 
     workTimeType: {
@@ -118,8 +122,44 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    //初始化 发布区域位置
+  onLoad: function (options) {
+    var job = JSON.parse(options.jobStr)
+    this.data.jobData = job
+    console.log(job)
+    //初始化招聘主内容
+    this.data.workDescription = job.jobDescription
+
+    //初始化信息状态
+    this.data.jobStatus = job.status
+
+    //初始化工期分类
+    var workTimeIndex = this.data.workTimeTypeContent["name"].indexOf(job.jobCat)
+    var workTime = job.jobCat
+    this.data.workTimeType["defaultIndex"] = workTimeIndex
+    this.data.workTimeType["value"] = workTime
+
+    //初始化结算方式
+    var payMoneyIndex = this.data.payMoneyTypeContent["name"].indexOf(job.payType)
+    var payType = job.payType
+    this.data.payMoneyType["defaultIndex"] = payMoneyIndex
+    this.data.payMoneyType["value"] = payType
+
+    //初始化薪资
+    this.data.money["inputValue"] = job.salary
+
+    //初始化工作时间
+    this.data.workTime["inputValue"] = job.time
+
+    //初始化福利待遇
+    this.data.attract["inputValue"] = job.welfare
+
+    //初始化称呼
+    this.data.name["inputValue"] = job.contact
+
+    //初始化电话
+    this.data.phoneNumber["inputValue"] = job.contactPhone
+
+    //初始化区域地址
     var provinceH = require("../../utils/provinceHandle.js")
     var locationArr = provinceH.Data
     var locationNameArr = []
@@ -143,61 +183,88 @@ Page({
     this.data.locationContent["name"][2] = locationArrTwo[0]
     this.data.locationContent["code"][2] = locationArrTwo[1]
 
+    var locationStr = job.location
+    var locationArr = locationStr.split("|")
+    if(locationArr.length >= 3){
+      var provence = locationArr[0]
+      var city = locationArr[1]
+      var area = locationArr[2]
+      var index_x = locationNameArr.indexOf(provence)
+      var index_y = locationArrOne[0].indexOf(city)
+      var index_z = locationArrTwo[0].indexOf(area)
+      this.data.location["defaultIndex"] = [index_x,index_y,index_z]
+      this.data.location["value"] = locationStr
+      this.data.location["color"] = "black"
+    }
+
+    //初始化详细地址
+    this.data.detailLocation["inputValue"] = job.address
+
     this.setData({
-      locationContent: this.data.locationContent
+      workDescription: this.data.workDescription,
+      jobStatus: this.data.jobStatus,
+      workTimeType: this.data.workTimeType,
+      payMoneyType: this.data.payMoneyType,
+      money: this.data.money,
+      workTime: this.data.workTime,
+      attract: this.data.attract,
+      name: this.data.name,
+      phoneNumber: this.data.phoneNumber,
+      locationContent: this.data.locationContent,
+      location: this.data.location,
+      detailLocation: this.data.detailLocation
     })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
-
-  bindPickerChange: function(e) { //点击确认按钮触发
+  bindPickerChange: function (e) { //点击确认按钮触发
     var index = e.detail.value
     var flag = e.currentTarget.dataset.flag
 
@@ -227,7 +294,7 @@ Page({
     }
   },
 
-  inputAction: function(e) {
+  inputAction: function (e) {
     var flag = e.currentTarget.dataset.flag
     if (flag == 2) {
       this.data.money["inputValue"] = e.detail.value
@@ -244,7 +311,7 @@ Page({
     }
   },
 
-  bindMultiPickerChange: function(e) {
+  bindMultiPickerChange: function (e) {
 
     var flag = e.currentTarget.dataset.flag
     var index = e.detail.value
@@ -252,14 +319,13 @@ Page({
       this.data.location["value"] = this.data.locationContent["name"][0][index[0]] + "|" + this.data.locationContent["name"][1][index[1]] + "|" + this.data.locationContent["name"][2][index[2]]
       this.data.location["color"] = "black"
       this.data.location["defaultIndex"] = index
-
       this.setData({
         location: this.data.location
       })
     }
   },
 
-  bindMultiPickerColumnChange: function(e) {
+  bindMultiPickerColumnChange: function (e) {
 
     var column = e.detail.column
     var value = e.detail.value
@@ -312,14 +378,14 @@ Page({
     }
   },
 
-  detailInputAction: function(e) {
+  detailInputAction: function (e) {
 
     var inputValue = e.detail.value
     this.data.workDescription = inputValue
 
   },
 
-  releaseWork: function(e) {
+  releaseJob: function (e) {
 
     var workDescription = this.data.workDescription
     if (workDescription.length == 0) {
@@ -417,7 +483,7 @@ Page({
       phoneNumber: phoneNumber,
       location: location,
       detailLocation: detailLocation,
-      success: function(p) {
+      success: function (p) {
         wx.hideLoading()
 
         wx.showToast({
@@ -425,14 +491,14 @@ Page({
           image: '../../images/mine/success.png',
           duration: 1500
         })
-        setTimeout(function() {
+        setTimeout(function () {
           wx.navigateBack({
             delta: 0
           })
         }, 2000)
 
       },
-      fail: function(p) {
+      fail: function (p) {
         wx.hideLoading()
         wx.showToast({
           title: p.errorMsg,
@@ -442,8 +508,33 @@ Page({
       }
 
     })
-  }
+  },
 
+  changeJobStatus:function(e){
+    var status = e.detail.value
+    if(status == false){//关闭
+    var self = this
+    wx.showModal({
+      title: '提示',
+      content: '关闭后,该聘请信息将会从集市->工作列表中移除,确认关闭?',
+      success:function(res){
+        if(res.confirm){
+          self.data.jobStatus = 0
+        }else{
+          self.data.jobStatus = 1
+        }
+        self.setData({ jobStatus:self.data.jobStatus})
+      }
+    })
+    
+    }else{
+      this.data.jobStatus = 1
+    }
+  },
+
+  deleteJob:function(e){
+
+  }
 
 
 })

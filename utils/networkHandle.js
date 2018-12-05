@@ -1789,13 +1789,17 @@ const releaseWork = (p) => {
 *04803-xxxxxx 业务逻辑错误
 */
 const getJobList = (p) => {
+  var data = {currentPage:p.page}
+  if(p.status){
+    data["status"] = p.status
+  }
+  if(p.userId){
+    data["userId"] = p.userId
+  }
   wx.request({
     method: "POST",
     url: getApp().globalData.urlHeader + 'job/list',
-    data: {
-      status: p.status,
-      currentPage: p.page
-    },
+    data: data,
     success: function (e) {
       if (e.statusCode == 200) {
         if (e.data.code == 600200) {
