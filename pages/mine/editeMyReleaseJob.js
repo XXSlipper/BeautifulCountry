@@ -7,6 +7,8 @@ Page({
   data: {
     jobStatus:1,
 
+    jobId:-1,
+
     jobData:{},
 
     workDescription: "",
@@ -125,6 +127,7 @@ Page({
   onLoad: function (options) {
     var job = JSON.parse(options.jobStr)
     this.data.jobData = job
+    this.data.jobId = job.jobId
     console.log(job)
     //初始化招聘主内容
     this.data.workDescription = job.jobDescription
@@ -470,9 +473,12 @@ Page({
     wx.showLoading({
       title: '发布中',
     })
+    var jobId = this.data.jobId
+    var status = this.data.jobStatus
     var networkH = require("../../utils/networkHandle.js")
-    networkH.releaseWork({
-      status: 1,
+    networkH.editJob({
+      jobId: jobId,
+      status: status,
       workDescription: workDescription,
       workTimeType: workTimeType,
       payMoneyType: payMoneyType,
@@ -533,7 +539,48 @@ Page({
   },
 
   deleteJob:function(e){
+    if (this.data.jobId == -1) {
+      return
+    }
+    var self = this
+    wx.showModal({
+      title: '提示',
+      content: '确定删除?',
+      success: function (res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '删除中...',
+          })
+          var networkH = require("../../utils/networkHandle.js")
+          networkH.deleteMyReleaseJob({
+            jobId: self.data.jobId,
+            success: function (e) {
+              wx.hideLoading()
+              wx.showToast({
+                title: e.successMsg,
+                image: '../../images/mine/success.png',
+                duration: 1500
+              })
+              setTimeout(function () {
+                wx.navigateBack({
+                  delta: 0
+                })
+              }, 2000)
+            },
+            fail: function (e) {
+              wx.hideLoading()
+              wx.showToast({
+                title: e.errorMsg,
+                image: '../../images/mine/fail.png',
+                duration: 1500
+              })
+            }
+          })
+        } else {
 
+        }
+      }
+    })
   }
 
 

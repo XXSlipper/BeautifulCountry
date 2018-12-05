@@ -1749,23 +1749,27 @@ const userMarkSupplyOrDemandList = (p) => {
 *04703-xxxxxx 业务逻辑错误
 */
 const releaseWork = (p) => {
+  var data = {
+    userId: getApp().globalData.userInfo.userID,
+    status: p.status,
+    jobCat: p.workTimeType,
+    payType: p.payMoneyType,
+    salary: p.money,
+    time: p.workTime,
+    welfare: p.attract,
+    contact: p.name,
+    contactPhone: p.phoneNumber,
+    location: p.location,
+    address: p.detailLocation,
+    jobDescription: p.workDescription
+  }
+  if(p.jobId){
+    data["jobId"] = p.jobId
+  }
   wx.request({
     method: "POST",
     url: getApp().globalData.urlHeader + 'job/publish',
-    data: {
-      userId: getApp().globalData.userInfo.userID,
-      status: p.status,
-      jobCat: p.workTimeType,
-      payType: p.payMoneyType,
-      salary:p.money,
-      time: p.workTime,
-      welfare:p.attract,
-      contact:p.name,
-      contactPhone: p.phoneNumber,
-      location: p.location,
-      address: p.detailLocation,
-      jobDescription:p.workDescription
-    },
+    data: data,
     success: function (e) {
       if (e.statusCode == 200) {
         if (e.data.code == 600200) {
@@ -1990,6 +1994,79 @@ const deleteMySupplyDemand = (p) => {
   })
 }
 
+/*
+*05401  job/edit fail
+*05402 statusCode != 200
+*05403-xxxxxx 业务逻辑错误
+*/
+const editJob = (p) => {
+  var data = {
+    userId: getApp().globalData.userInfo.userID,
+    status: p.status,
+    jobCat: p.workTimeType,
+    payType: p.payMoneyType,
+    salary: p.money,
+    time: p.workTime,
+    welfare: p.attract,
+    contact: p.name,
+    contactPhone: p.phoneNumber,
+    location: p.location,
+    address: p.detailLocation,
+    jobDescription: p.workDescription
+  }
+  if (p.jobId) {
+    data["jobId"] = p.jobId
+  }
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + 'job/edit',
+    data: data,
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "编辑成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "05403" + "-" + e.data.code, errorMsg: "编辑失败" })
+        }
+      } else {
+        p.fail({ errorCode: "05402", errorMsg: "编辑失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "05401", errorMsg: "编辑失败" })
+    }
+  })
+}
+
+/*
+*05501  job/delete fail
+*05502 statusCode != 200
+*05503-xxxxxx 业务逻辑错误
+*/
+const deleteMyReleaseJob = (p) => {
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + "job/delete",
+    data: {
+      jobId: p.jobId
+    },
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "删除成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "05503" + "-" + e.data.code, errorMsg: "删除失败" })
+        }
+      } else {
+        p.fail({ errorCode: "05502", errorMsg: "删除失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "05501", errorMsg: "删除失败" })
+    }
+  })
+}
+
 
 module.exports = {
   myLogin: myLogin,
@@ -2045,5 +2122,7 @@ module.exports = {
   editQuestion: editQuestion,
   editSupplyAndDemand: editSupplyAndDemand,
   deleteMyQuestion: deleteMyQuestion,
-  deleteMySupplyDemand: deleteMySupplyDemand
+  deleteMySupplyDemand: deleteMySupplyDemand,
+  editJob: editJob,
+  deleteMyReleaseJob: deleteMyReleaseJob
 }

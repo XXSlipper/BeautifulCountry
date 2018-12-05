@@ -62,6 +62,8 @@ Page({
       userId:self.data.userId,
       success:function(e){
 
+        console.log(e.data)
+
         var focusList = getApp().globalData.userFocusList
 
          var isFocus = false
