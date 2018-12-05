@@ -124,9 +124,11 @@ Page({
   },
   deletePic:function(e){
     var index = e.currentTarget.dataset.index
-    var pic = this.data.pictures[index]
-    pic.hidden = true
-    pic.url = ""
+    this.data.pictures.splice(index, 1)
+    this.data.pictures.push({
+      hidden: true,
+      url: ""
+    })
     this.data.addPicCount -= 1
     this.setData({ pictures: this.data.pictures, addPicCount: this.data.addPicCount})
   },

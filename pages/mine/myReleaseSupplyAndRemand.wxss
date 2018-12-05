@@ -1,0 +1,152 @@
+/* pages/mine/myReleaseSupplyAndRemand.wxss */
+
+.buyPayContainer{
+  display: flex;
+  flex-direction: column;
+  width: 750rpx;
+}
+
+.topSegV{
+  background-color: white;
+  z-index: 100;
+  position: fixed;
+  top:0;
+  width: 750rpx;
+  display: flex;
+  justify-content: center;
+  border-width: 1px;
+  border-color: #959595;
+  border-style: none none solid none;
+}
+
+.topSegSection{
+  line-height: 40px;
+  height: 40px;
+  width: 150rpx;
+  text-align: center;
+}
+
+.placeHolderV{
+  width: 100%;
+  height: 40px;
+}
+
+.playListCell{
+  width: 750rpx;
+  height: 460rpx;
+  margin-top: 40rpx;
+  display: flex;
+}
+
+.playListCellItem{
+width:310rpx;
+height:460rpx;
+background:white;
+border: 1px solid #bebebe;
+margin-left: 43rpx;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.playListCellItem image{
+  width:310rpx;
+  height: 310rpx;
+}
+
+.playListCellItem text{
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+  font-size: 12pt;
+  width: 290rpx;
+  line-height: 90rpx;
+}
+
+
+.buyCell{
+  width: 728rpx;
+  height: 165rpx;
+ margin-left: 11rpx;
+ margin-top: 30rpx;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ border: 1px solid #bebebe;
+ background-color: white;
+}
+
+.textLineOne{
+  margin-top: 10rpx;
+  width: 684rpx;
+  height: 70rpx;
+  display: flex;
+}
+
+.textLineTwo{
+  width: 684rpx;
+  height: 70rpx;
+  margin-top: 15rpx;
+  display: flex;
+}
+
+.textLineThree{
+  width: 684rpx;
+  height: 40rpx;
+  display: flex;
+}
+
+.buyCell .leftText{
+  width: 420rpx;
+  line-height: 70rpx;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+
+
+.buyCell .rightText{
+  margin-left: 10rpx;
+  width: 254rpx;
+  line-height: 70rpx;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+  word-wrap: break-word;
+  text-align: right;
+}
+
+.textLineOne .leftText{
+  font-size: 16pt;
+}
+
+.textLineOne .rightText{
+  font-size: 14pt;
+  color: #ee742f;
+}
+
+.textLineTwo .leftText{
+  color: #959595;
+  font-size: 12pt;
+}
+
+.textLineTwo .rightText{
+  font-size: 11pt;
+}

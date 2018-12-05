@@ -29,7 +29,12 @@
     "pages/mine/myCollectNews",
     "pages/mine/myCollectQuestions",
     "pages/mine/myCollectBuyAndPay",
-    "pages/mine/userDetailInfo"
+    "pages/mine/userDetailInfo",
+    "pages/mine/myReleaseQuestion",
+    "pages/mine/editeMyReleaseQuestion",
+    "pages/mine/myReleaseSupplyAndRemand",
+    "pages/mine/editeMySupplyAndRemand",
+    "pages/mine/myReleaseJob"
   ],
   "window": {
     "backgroundTextStyle": "light",

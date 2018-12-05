@@ -1,36 +1,41 @@
-// pages/mine/myCollectQuestions.js
+// pages/mine/myReleaseQuestion.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    networkState:-2,
+    networkState: -2,
 
-    currentPage:-1,
+    currentPage: -1,
 
-    questionData:[],
+    questionData: [],
 
-    isloadingListOver:false,
+    isloadingListOver: false,
 
-    isLoadingMoreList:false
-
-
+    isLoadingMoreList: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
-  loadQuestion:function(page,isReachBottom){
-    if(this.data.networkState == -1){
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  loadQuestion: function (page, isReachBottom) {
+    if (this.data.networkState == -1) {
       return
     }
-    
-    if(isReachBottom == false){
+
+    if (isReachBottom == false) {
       wx.showLoading({
         title: '加载中...',
       })
@@ -40,10 +45,10 @@ Page({
 
     var self = this
     var networkH = require("../../utils/networkHandle.js")
-    networkH.userMarkQuestionList({
-      page:page,
+    networkH.getQuestionList({
+      page: page,
       userId: getApp().globalData.userInfo.userID,
-      success:function(e){
+      success: function (e) {
         if (isReachBottom == false) {
           wx.hideLoading()
         }
@@ -68,10 +73,10 @@ Page({
         }
         var newQuestionList = self.data.questionData.concat(e.data.list)
 
-        self.setData({ questionData: newQuestionList, networkState:1})
+        self.setData({ questionData: newQuestionList, networkState: 1 })
       },
-      fail:function(p){
-        if(isReachBottom == false){
+      fail: function (p) {
+        if (isReachBottom == false) {
           wx.hideLoading()
         }
 
@@ -79,8 +84,8 @@ Page({
 
         wx.showToast({
           title: p.errorMsg,
-          image:"../../images/mine/fail.png",
-          duration:1500
+          image: "../../images/mine/fail.png",
+          duration: 1500
         })
       }
     })
@@ -88,19 +93,10 @@ Page({
   },
 
 
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
     this.data.questionData = []
     this.loadQuestion(0, false)
   },
@@ -130,7 +126,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
     if (this.data.isloadingListOver) {
       this.setData({ isLoadingMoreList: true, isloadingListOver: true })
       var self = this
@@ -146,7 +141,6 @@ Page({
     var page = this.data.currentPage + 1
 
     this.loadQuestion(page, true)
-
   },
 
   /**
@@ -157,10 +151,12 @@ Page({
   },
 
   tapOnQuestionCell: function (e) {
-    var questionId = e.currentTarget.dataset.questionId
+    var index = e.currentTarget.dataset.index
+    var questionId = this.data.questionData[index].questionId
     wx.navigateTo({
-      url: '../home/questionDetail?questionId=' + questionId,
+      url: 'editeMyReleaseQuestion?questionId=' + questionId,
     })
   }
+
 
 })

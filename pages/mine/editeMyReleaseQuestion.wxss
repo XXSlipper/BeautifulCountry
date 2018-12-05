@@ -1,0 +1,80 @@
+/* pages/mine/editeMyReleaseQuestion.wxss */
+
+
+.descriptionV,.relateCropV{
+  height:40px;
+  width: 750rpx;
+}
+.descriptionV input,.relateCropV input{
+  width:700rpx;
+  height:40px;
+  margin-left:25rpx; 
+  font-size: 14pt;
+}
+
+.detailDescriptionV{
+  width: 750rpx;
+  height:100px;
+}
+
+textarea{
+  width:700rpx;
+  margin-left: 25rpx;
+  height: 80px;
+  font-size: 14pt;
+}
+
+.locationV{
+  width:700rpx;
+  margin-left: 25rpx;
+  height: 20px;
+  display: flex;
+}
+
+.locationTitleV{
+  height: 20px;
+  line-height: 20px;
+  font-size: 12pt;
+  color: #0886f9;
+}
+
+.addPictureAlertV{
+  width: 700rpx;
+  line-height: 20px;
+  font-size: 12pt;
+  margin-left: 25rpx;
+  color: #8d8d8d;
+}
+
+.addPictureV{
+  width: 750rpx;
+  height: 165px;
+}
+
+.pictureContainerV{
+  width: 725rpx;
+  height:90px;
+  display: flex;
+  flex-wrap:wrap;
+}
+.picture{
+  margin-top: 25rpx;
+  margin-left: 25rpx;
+  width:90px;
+  height:90px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.addPicBtn{
+  margin-top: 25rpx;
+  margin-left: 25rpx;
+  width:90px;
+  height:90px;
+  border-radius: 4px;
+  border: 2px dashed #888888;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

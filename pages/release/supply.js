@@ -175,9 +175,11 @@ Page({
   },
   deletePic: function (e) {
     var index = e.currentTarget.dataset.index
-    var pic = this.data.pictures[index]
-    pic.hidden = true
-    pic.url = ""
+    this.data.pictures.splice(index, 1)
+    this.data.pictures.push({
+      hidden: true,
+      url: ""
+    })
     this.data.addPicCount -= 1
     this.setData({ pictures: this.data.pictures, addPicCount: this.data.addPicCount })
   },
@@ -213,7 +215,7 @@ Page({
 
     }else if (flag == 7){
       this.data.locationIndex = index
-      this.data.location["value"] = this.data.locationContent["name"][1][index[1]] + "|" + this.data.locationContent["name"][2][index[2]]
+      this.data.location["value"] = this.data.locationContent["name"][0][index[0]] + "|" + this.data.locationContent["name"][1][index[1]] + "|" + this.data.locationContent["name"][2][index[2]]
       this.data.location["color"] = "black"
 
       this.setData({ location: this.data.location })
@@ -321,18 +323,18 @@ Page({
 
   releaseSupply: function(e){
     var supplyType = ""
-    if (this.data.supplyType["value"] == "发布供应"){
+    if (this.data.supplyType["value"] == "发布供应") {
       supplyType = "supply"
-    }else{
+    } else {
       supplyType = "demand"
     }
 
     var goodsType = this.data.goodsType["value"]
-    if (goodsType === "请选择商品类型"){
+    if (goodsType === "请选择商品类型") {
       wx.showModal({
         title: '提示',
         content: '请选择商品类型',
-        showCancel:false
+        showCancel: false
       })
       return
     }
@@ -340,7 +342,7 @@ Page({
     var goodsTypeCode = this.data.goodsContent["code"][2][this.data.goodsType["goodsIndex"][2]]
 
     var title = this.data.title["inputValue"]
-    if(title.length == 0){
+    if (title.length == 0) {
       wx.showModal({
         title: '提示',
         content: '请输入发布的标题',
@@ -357,7 +359,7 @@ Page({
 
     var phoneNumber = this.data.pnoneNumber["inputValue"]
 
-    if (goodsNum.length == 0){
+    if (goodsNum.length == 0) {
       wx.showModal({
         title: '提示',
         content: '请输入商品数量',
@@ -374,7 +376,7 @@ Page({
       return
     }
 
-    if (this.data.location["value"] === "请选择供应位置"){
+    if (this.data.location["value"] === "请选择供应位置") {
       wx.showModal({
         title: '提示',
         content: '请选择供应位置',
@@ -408,8 +410,8 @@ Page({
       location: locationName,
       locationCode: locationCode,
       description: description,
-      success:function(p){
-        if (self.data.addPicCount == 0){
+      success: function (p) {
+        if (self.data.addPicCount == 0) {
 
           wx.hideLoading()
 
@@ -424,7 +426,7 @@ Page({
             })
           }, 2000)
 
-        }else{
+        } else {
 
           var supplyDemandId = p.data.supplyDemandId
 
@@ -432,11 +434,11 @@ Page({
           var myNetworkH = require("../../utils/networkHandle.js")
           for (var i = 0; i < self.data.pictures.length; i++) {
             if (self.data.pictures[i].hidden == false) {
-              
+
               var imgPath = self.data.pictures[i].url
 
               console.log(imgPath)
-              
+
               myNetworkH.uploadImgForBuyAndSell({
                 supplyDemandId: supplyDemandId,
                 filePath: imgPath,
@@ -480,12 +482,12 @@ Page({
 
         }
       },
-      fail:function(p){
+      fail: function (p) {
         wx.hideLoading()
         wx.showToast({
           title: p.errorMsg,
-          image:"../../images/mine/fail.png",
-          duration:1500
+          image: "../../images/mine/fail.png",
+          duration: 1500
         })
       }
     })

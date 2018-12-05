@@ -20,7 +20,7 @@ const formatNumber = n => {
  * number: 传入时间戳 
  * format：返回格式，支持自定义，但参数必须与formateArr里保持一致 
  * util.formatTimeNumber(crop.createTime, 'Y年M月D日 h:m:s')
-*/
+ */
 function formatTimeNumber(number, format) {
 
   var formateArr = ['Y', 'M', 'D', 'h', 'm', 's'];
@@ -41,13 +41,16 @@ function formatTimeNumber(number, format) {
   return format;
 }
 
-const screenSize = ()=>{
+const screenSize = () => {
   var width = wx.getSystemInfoSync().windowWidth
   var height = wx.getSystemInfoSync().windowHeight
-  return {height:height,width:width}
+  return {
+    height: height,
+    width: width
+  }
 }
 
-const changeTimeNumToTimeAgo = (timeNum)=>{
+const changeTimeNumToTimeAgo = (timeNum) => {
   var result;
   var minute = 1000 * 60;
   var hour = minute * 60;
@@ -70,17 +73,13 @@ const changeTimeNumToTimeAgo = (timeNum)=>{
     else {
       result = "" + parseInt(monthC / 12) + "年前";
     }
-  }
-  else if (weekC >= 1) {
+  } else if (weekC >= 1) {
     result = "" + parseInt(weekC) + "周前";
-  }
-  else if (dayC >= 1) {
+  } else if (dayC >= 1) {
     result = "" + parseInt(dayC) + "天前";
-  }
-  else if (hourC >= 1) {
+  } else if (hourC >= 1) {
     result = "" + parseInt(hourC) + "小时前";
-  }
-  else if (minC >= 1) {
+  } else if (minC >= 1) {
     result = "" + parseInt(minC) + "分钟前";
   } else {
     result = "刚刚";

@@ -1106,9 +1106,13 @@ const accessAndAnalysisLocation = (s)=>{
           fail(res) {
             wx.showModal({
               title: '提示',
-              content: '位置信息有助于解答您的问题,请前往设置界面开启定位权限!',
-              showCancel: false,
+              content: '位置获取权限被限制,立即前往设置界面开启定位权限!',
               success: function (res) {
+
+                if(res.cancel){
+                  return
+                }
+
                 wx.openSetting({
                   success: function (e) {
                     //已开启位置权限
@@ -1224,12 +1228,21 @@ const uploadImgForQuestion = (p)=>{
 *03103-xxxxxx 业务逻辑错误
 */
 const getQuestionList = (p)=>{
+  var data = null
+  if(p.userId){
+    data = {
+      currentPage:p.page,
+      userId:p.userId
+      }
+  }else{
+    data = {
+      currentPage: p.page
+    }
+  }
   wx.request({
     method: "POST",
     url: getApp().globalData.urlHeader + 'question/list',
-    data:{
-      currentPage: p.page
-    },
+    data: data,
     success:function(e){
       if(e.statusCode == 200){
         if(e.data.code == 600200){
@@ -1326,13 +1339,23 @@ const uploadImgForBuyAndSell = (p) => {
 *03403-xxxxxx 业务逻辑错误
 */
 const getBuyAndSellList = (p)=>{
+  var data = null
+  if(p.userId){
+    data = {
+      userId: p.userId,
+      currentPage: p.page,
+      type: p.type
+    }
+  }else{
+    data = {
+      currentPage: p.page,
+      type: p.type
+    }
+  }
   wx.request({
     method: "POST",
     url: getApp().globalData.urlHeader + 'supplyDemand/list',
-    data: {
-      currentPage: p.page,
-      type:p.type
-    },
+    data: data,
     success: function (e) {
       if (e.statusCode == 200) {
         if (e.data.code == 600200) {
@@ -1820,6 +1843,149 @@ const getSomeBodyInfo = (p) => {
   })
 }
 
+/*
+*05001  question/edit fail
+*05002 statusCode != 200
+*05003-xxxxxx 业务逻辑错误
+*/
+const editQuestion = (p) => {
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + 'question/edit',
+    data: {
+      questionId: p.questionId,
+      userId: getApp().globalData.userInfo.userID,
+      title:p.title,
+      questionIntro: p.questionIntro,
+      relativeCrops: p.relativeCrops,
+      province: p.province,
+      city:p.city,
+      area:p.area,
+      address:p.address,
+      deleteImages: p.deleteImages
+    },
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "编辑成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "05003" + "-" + e.data.code, errorMsg: "编辑失败" })
+        }
+      } else {
+        p.fail({ errorCode: "05002", errorMsg: "编辑失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "05001", errorMsg: "编辑失败" })
+    }
+  })
+}
+
+
+/*
+*05101  supplyDemand/edit fail
+*05102 statusCode != 200
+*05103-xxxxxx 业务逻辑错误
+*/
+const editSupplyAndDemand = (p) => {
+
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + 'supplyDemand/edit',
+    data: {
+      supplyDemandId: p.supplyDemandId,
+      userId: getApp().globalData.userInfo.userID,
+      type: p.type,
+      goodsType: p.goodsType,
+      goodsTypeCode: p.goodsTypeCode,
+      title: p.title,
+      unit: p.unit,
+      goodsNum: p.goodsNum,
+      goodsPrice: p.goodsPrice,
+      contactPhone: p.contactPhone,
+      locationName: p.locationName,
+      locationCode:p.locationCode,
+      description: p.description,
+      deleteImages: p.deleteImages
+    },
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "编辑成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "05103" + "-" + e.data.code, errorMsg: "编辑失败" })
+        }
+      } else {
+        p.fail({ errorCode: "05102", errorMsg: "编辑失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "05101", errorMsg: "编辑失败" })
+    }
+  })
+}
+
+
+
+/*
+*05201  question/delete fail
+*05202 statusCode != 200
+*05203-xxxxxx 业务逻辑错误
+*/
+const deleteMyQuestion = (p) => {
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + 'question/delete',
+    data: {
+      questionId: p.questionId
+    },
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "删除成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "05203" + "-" + e.data.code, errorMsg: "删除失败" })
+        }
+      } else {
+        p.fail({ errorCode: "05202", errorMsg: "删除失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "05201", errorMsg: "删除失败" })
+    }
+  })
+}
+
+
+/*
+*05301  supplyDemand/delete fail
+*05302 statusCode != 200
+*05303-xxxxxx 业务逻辑错误
+*/
+const deleteMySupplyDemand = (p) => {
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + 'supplyDemand/delete',
+    data: {
+      supplyDemandId: p.supplyDemandId
+    },
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "删除成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "05303" + "-" + e.data.code, errorMsg: "删除失败" })
+        }
+      } else {
+        p.fail({ errorCode: "05302", errorMsg: "删除失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "05301", errorMsg: "删除失败" })
+    }
+  })
+}
+
 
 module.exports = {
   myLogin: myLogin,
@@ -1871,5 +2037,9 @@ module.exports = {
   userMarkSupplyOrDemandList: userMarkSupplyOrDemandList,
   releaseWork: releaseWork,
   getJobList: getJobList,
-  getSomeBodyInfo: getSomeBodyInfo
+  getSomeBodyInfo: getSomeBodyInfo,
+  editQuestion: editQuestion,
+  editSupplyAndDemand: editSupplyAndDemand,
+  deleteMyQuestion: deleteMyQuestion,
+  deleteMySupplyDemand: deleteMySupplyDemand
 }

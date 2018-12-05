@@ -1,0 +1,89 @@
+<!--pages/mine/editeMyReleaseQuestion.wxml-->
+<view class='questionContainer'>
+
+ <template is='spaceLine'/>
+
+  <view class='descriptionV'>
+    <input placeholder='简单描述您的问题' bindinput='titleInputAction' value='{{title}}'>
+    </input>
+  </view>
+
+  <template is='spaceLine'/>
+
+  <view class='detailDescriptionV'>
+    <textarea placeholder='详细的描述您的问题,方便解答(选填)' bindinput='detailInputAction' maxlength='300' value='{{detail}}'>
+    </textarea>
+
+    <view class='locationV'>
+      <image style='width:20px;height:20px;' src='../../images/release/location.png'>
+      </image>
+      <view class='locationTitleV' bindtap='getLocation'>
+      {{location.length > 0 ? location : "获取位置"}}
+      </view>
+    </view>
+  </view> 
+
+  <template is='spaceLine'/>
+
+  <view class='relateCropV'>
+    <input placeholder='添加与问题相关的作物名称(选填)' bindtap='relateCropInputAction' value='{{relateCrop}}'>
+    </input>
+  </view>
+
+  <template is='spaceLine'/>
+
+  <view class='addPictureV'>
+    <view class='addPictureAlertV'>
+      单张图片最大
+      <text style='color:red;'>4MB</text>
+      ,最多三张,支持
+      <text style='color:red;'>JPG/GPEG/PNG</text>
+      格式(选填)
+    </view>
+
+    <view class='pictureContainerV'>
+
+      <view class='picture' hidden='{{pictures[0].hidden}}'>
+        <image style='width:100%;height:100%'  src='{{pictures[0].url}}' mode='aspectFill'>
+        </image>
+        <image style='width:20px;height:20px;position:absolute;right:-4px;top:-4px;' src='../../images/release/picDelete.png' bindtap='deletePic' data-index='0'>
+        </image>
+      </view>
+      
+      <view class='picture' hidden='{{pictures[1].hidden}}'>
+        <image style='width:100%;height:100%'  src='{{pictures[1].url}}' mode='aspectFill'>
+        </image>
+        <image style='width:20px;height:20px;position:absolute;right:-4px;top:-4px;' src='../../images/release/picDelete.png' bindtap='deletePic' data-index='1'>
+        </image>
+      </view>
+
+      <view class='picture' hidden='{{pictures[2].hidden}}'>
+        <image style='width:100%;height:100%'  src='{{pictures[2].url}}' mode='aspectFill'>
+        </image>
+        <image style='width:20px;height:20px;position:absolute;right:-4px;top:-4px;' src='../../images/release/picDelete.png' bindtap='deletePic' data-index='2'>
+        </image>
+      </view>
+
+      <view class='addPicBtn' bindtap='addMorePic' hidden='{{exsitImgCount >= 3 ? true:false}}'>
+        <image style='width:40px;height:40px;margin-top:10px;' src='../../images/release/addPicture.png'>
+        </image>
+        <view style='width:90px;height:20px;line-height:20px;font-size:12pt;text-align:center;margin-top:5px;color:#939393;' >
+        添加图片
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<template name='spaceLine'>
+  <view style='height:12px;width:100%;'>
+  <view style='width:100%;height:1px;background-color:#e1e0e0;'></view>
+  <view style='width:100%;height:10px;background-color:#f5f4f9;'></view>
+  <view style='width:100%;height:1px;background-color:#e1e0e0;'></view>
+</view>
+</template>
+
+<view style='width:240rpx;height:40px;background: #84b637;border-radius: 6px;font-size:14pt;text-align:center;color: white;line-height:40px;bottom: 20px;left: 75rpx;position: fixed;' bindtap='releaseQuestion'>完成编辑</view>
+
+<view style='width:240rpx;height:40px;background: #84b637;border-radius: 6px;font-size:14pt;text-align:center;color: white;line-height:40px;bottom: 20px;right: 75rpx;position: fixed;' bindtap='deleteQuestion'>删除问题</view>

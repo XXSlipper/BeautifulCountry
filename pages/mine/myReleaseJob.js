@@ -1,4 +1,4 @@
-// pages/mine/myRelease.js
+// pages/mine/myReleaseJob.js
 Page({
 
   /**
@@ -62,30 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  clickedCell: function (e) {
-    var index = e.currentTarget.dataset.index
-    switch (index) {
-      case 0: {
-        wx.navigateTo({
-          url: 'myReleaseQuestion'
-        })
-      }
-        break
-      case 1: {
-        wx.navigateTo({
-          url: 'myReleaseSupplyAndRemand'
-        })
-      }
-        break
-      case 2: {
-        wx.navigateTo({
-          url: 'myReleaseJob'
-        })
-      }
-        break
-    }
   }
-
 })
