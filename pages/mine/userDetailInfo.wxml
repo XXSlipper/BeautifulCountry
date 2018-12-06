@@ -68,10 +68,10 @@
         </view>
 
         <view wx:elif='{{index == 4}}' class='questionContainer'>
-          <block wx:for = '{{questionData}}' wx:key = '{{index}}'>
+          <view wx:for = '{{questionData}}' wx:key = '{{index}}' style='width: 100%;display: flex;flex-direction: column;align-items: center;'>
            <template is='questionCell' data='{{item:item,index:index}}' />
            <view style='width:100%;height:1px;background:#e1e0e0;' />
-          </block>
+          </view>
         </view>
 
         <view wx:elif='{{index == 5}}' class='supplyContainer'>

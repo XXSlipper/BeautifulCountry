@@ -295,7 +295,7 @@ Page({
       }
       var self = this
       var networkH = require("../../utils/networkHandle.js")
-      networkH.userMarkQuestionList({
+      networkH.getQuestionList({
         page: page,
         userId:self.data.userId,
         success: function (e) {
@@ -749,7 +749,7 @@ Page({
   },
 
   clickedCell: function(e){
-    console.log(e)
+
     var index = e.currentTarget.dataset.index
 
     if(index == 0){
