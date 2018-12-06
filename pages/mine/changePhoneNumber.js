@@ -118,8 +118,15 @@ Page({
         wx.showToast({
           title: e.successMsg,
           image: "../../images/mine/success.png",
-          duration: 2500
+          duration: 1500
         })
+
+        setTimeout(function(){
+          wx.navigateBack({
+            delta:100
+          })
+        },2000)
+
       },
       fail:function(e){
         wx.hideLoading()

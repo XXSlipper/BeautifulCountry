@@ -483,6 +483,13 @@ Page({
         success: function(e) {
           var locationStr = e.data.province + "|" + e.data.city + "|" + e.data.district + "|" + e.data.street
 
+          if (isPullDown) {
+            wx.stopPullDownRefresh()
+          }
+          if (isPullDown == false && isReachBottom == false) {
+            wx.hideLoading()
+          }
+          
           //根据地址获取当地乡镇发布的公告
           self.setData({
             isGetLocation: 1,

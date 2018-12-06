@@ -28,17 +28,27 @@ Page({
     swiperH:0,
     selectedIndex:0,
 
-    segTotalWidth: 616,
-    segTitles: [{ title: "他的供应", width: 64 }, { title: "他的求购", width: 64 }, { title: "他的种植", width: 64 }, { title: "他的农资", width: 64 }, { title: "他收藏的问答", width: 90 }, { title: "他收藏的供应", width: 90 }, { title: "他收藏的求购", width: 90 }, { title: "他收藏的新闻", width: 90 }],
+    segTotalWidth: 564,
+    segTitles: [{ title: "他的供应", width: 64 }, { title: "他的求购", width: 64 }, { title: "他的种植", width: 64 }, { title: "他的农资", width: 64 }, { title: "他的问题", width: 64 }, { title: "他收藏的供应", width: 90 }, { title: "他收藏的求购", width: 90 }, { title: "更多收藏", width: 64 }],
+
+    collectSupplyPage: -1,
+    collectSupplyData:[],
+
+    collectRemandPage: -1,
+    collectRemandData:[],
 
     supplyPage: -1,
-    supplyData:[],
+    supplyData: [],
 
     remandPage: -1,
-    remandData:[],
+    remandData: [],
 
     questionPage: -1,
-    questionData: []
+    questionData: [],
+
+    crops:[],
+
+    assets:[]
 
   },
 
@@ -61,8 +71,6 @@ Page({
     networkH.getSomeBodyInfo({
       userId:self.data.userId,
       success:function(e){
-
-        console.log(e.data)
 
         var focusList = getApp().globalData.userFocusList
 
@@ -104,36 +112,37 @@ Page({
 
   setSwiperH:function(index){
 
-    if(index == 5 | index == 6){
+    if(index == 5 | index == 6 | index == 0 | index == 1){
       var miniH = 548
       var contentH = 0
       if(index == 5){
-        contentH = (460 + 40) * Math.ceil(this.data.supplyData.length) + 40
+        contentH = (460 + 40) * Math.ceil(this.data.collectSupplyData.length) + 40
       }else if(index == 6){
+        contentH = (165 + 30) * this.data.collectRemandData.length + 30
+      }else if(index == 0){
+
+        contentH = (460 + 40) * Math.ceil(this.data.supplyData.length) + 40
+        
+      } else if (index == 1) {
+
         contentH = (165 + 30) * this.data.remandData.length + 30
-      }else{
 
       }
       this.setData({ swiperH: miniH > contentH ? miniH + "rpx" : contentH + "rpx" })
     }else{
 
       switch (index) {
-
-        case 0: {
-
-        }
-          break
-
-        case 1: {
-
-        }
-          break
         case 2: {
-
+          var miniH = this.data.miniH
+          var contentH = (this.data.crops.length*100 + 10)
+          this.setData({ swiperH: miniH > contentH ? miniH + "px" : contentH + "px" })
         }
           break
         case 3: {
+          var miniH = this.data.miniH
+          var contentH = this.data.assets.length * 60 + 10
 
+          this.setData({ swiperH: miniH > contentH ? miniH + "px" : contentH + "px" })
         }
           break
 
@@ -174,7 +183,7 @@ Page({
 
     if(index == 5 | index == 6){
       
-      var comparePage = (index == 5 ? this.data.supplyPage : this.data.remandPage)
+      var comparePage = (index == 5 ? this.data.collectSupplyPage : this.data.collectRemandPage)
       if (page <= comparePage) {
         this.setSwiperH(index)
         return
@@ -196,16 +205,17 @@ Page({
         userId: self.data.userId,
         type: (index == 5 ? "supply" : "demand"),
         success: function (e) {
+          
           if (isReachBottom == false) {
             wx.hideLoading()
           }
           self.data.networkStates[index] = 1
           if (index == 5) {
-            self.data.supplyPage = page
+            self.data.collectSupplyPage = page
           } else {
-            self.data.remandPage = page
+            self.data.collectRemandPage = page
           }
-
+          
           if (e.data.list.length == 0) {
             self.data.loadOverFlags[index] = true
             if (isReachBottom) {
@@ -230,23 +240,23 @@ Page({
               if (i % 2 == 0) {
                 var subArr = []
                 subArr.push(obj)
-                self.data.supplyData.push(subArr)
+                self.data.collectSupplyData.push(subArr)
               } else {
-                var lastSubArr = self.data.supplyData[self.data.supplyData.length - 1]
+                var lastSubArr = self.data.collectSupplyData[self.data.collectSupplyData.length - 1]
                 lastSubArr.push(obj)
               }
             }
-            self.setData({ supplyData: self.data.supplyData })
+            self.setData({ collectSupplyData: self.data.collectSupplyData })
           } else {
 
             var util = require("../../utils/util.js")
             for (var i = 0; i < e.data.list.length; i++) {
               var obj = e.data.list[i]
               obj.createTime = util.formatTimeNumber(obj.createTime, 'Y年M月D日')
-              self.data.remandData.push(obj)
+              self.data.collectRemandData.push(obj)
             }
 
-            self.setData({ remandData: self.data.remandData })
+            self.setData({ collectRemandData: self.data.collectRemandData })
 
           }
 
@@ -331,6 +341,190 @@ Page({
           })
         }
       })
+    }else if (index == 0 | index == 1){
+      var comparePage = (index == 0 ? this.data.supplyPage : this.data.remandPage)
+      if (page <= comparePage) {
+        this.setSwiperH(index)
+        return
+      }
+
+
+      if (isReachBottom == false) {
+        wx.showLoading({
+          title: '加载中...',
+        })
+      }
+
+      this.data.networkStates[index] = -1
+
+      var self = this
+      var networkH = require("../../utils/networkHandle.js")
+      networkH.getBuyAndSellList({
+        page: page,
+        userId: self.data.userId,
+        type: (index == 0 ? "supply" : "demand"),
+        success: function (e) {
+          if (isReachBottom == false) {
+            wx.hideLoading()
+          }
+          self.data.networkStates[index] = 1
+          if (index == 0) {
+            self.data.supplyPage = page
+          } else {
+            self.data.remandPage = page
+          }
+
+          if (e.data.list.length == 0) {
+            self.data.loadOverFlags[index] = true
+            if (isReachBottom) {
+              self.setData({ isloadingListOver: true })
+              setTimeout(function () {
+                self.setData({ isLoadingMoreList: false })
+              }, 1500)
+            }
+          } else {
+            self.data.loadOverFlags[index] = false
+            if (isReachBottom) {
+              self.setData({ isloadingListOver: false })
+              setTimeout(function () {
+                self.setData({ isLoadingMoreList: false })
+              }, 1500)
+            }
+          }
+          
+          if (index == 0) {
+            for (var i = 0; i < e.data.list.length; i++) {
+              var obj = e.data.list[i]
+              if (i % 2 == 0) {
+                var subArr = []
+                subArr.push(obj)
+                self.data.supplyData.push(subArr)
+              } else {
+                var lastSubArr = self.data.supplyData[self.data.supplyData.length - 1]
+                lastSubArr.push(obj)
+              }
+            }
+            self.setData({ supplyData: self.data.supplyData })
+          } else {
+
+            var util = require("../../utils/util.js")
+            for (var i = 0; i < e.data.list.length; i++) {
+              var obj = e.data.list[i]
+              obj.createTime = util.formatTimeNumber(obj.createTime, 'Y年M月D日')
+              self.data.remandData.push(obj)
+            }
+
+            self.setData({ remandData: self.data.remandData })
+
+          }
+
+          self.setSwiperH(index)
+
+        },
+        fail: function (e) {
+
+          if (isReachBottom == false) {
+            wx.hideLoading()
+          }
+
+          self.data.networkStates[index] = 0
+
+          wx.showToast({
+            title: p.errorMsg,
+            image: "../../images/mine/fail.png",
+            duration: 1500
+          })
+        }
+      })
+
+    }else if (index == 2){
+
+      //没有分页,成功加载过一次就直接返回,不再加载
+      if (this.data.networkStates[index] == 1){
+
+        return
+      }
+
+      wx.showLoading({
+        title: '加载中...',
+      })
+
+      this.data.networkStates[index] = -1
+      var self = this
+      var networkHandle = require("../../utils/networkHandle.js")
+      networkHandle.getCropList({
+        userId: self.data.userId,
+        success: function (e) {
+
+          wx.hideLoading()
+
+          self.data.networkStates[index] = 1
+
+          self.data.loadOverFlags[index] = true
+
+          self.setData({ crops: e.data })
+          self.setSwiperH(index)
+        },
+        fail: function (e) {
+
+          wx.hideLoading()
+
+          self.data.networkStates[index] = 0
+
+          self.setSwiperH(index)
+
+          wx.showToast({
+            title: e.errorMsg,
+            image: '../../images/mine/fail.png',
+            duration: 1500
+          })
+        }
+      })
+    }else if (index == 3){
+
+      //没有分页,成功加载过一次就直接返回,不再加载
+      if (this.data.networkStates[index] == 1) {
+
+        return
+      }
+
+      wx.showLoading({
+        title: '加载中...',
+      })
+
+      this.data.networkStates[index] = -1
+
+      var self = this
+      var networkHandle = require("../../utils/networkHandle.js")
+      networkHandle.getAssetList({
+        userId: self.data.userId,
+        success: function (e) {
+
+          self.data.networkStates[index] = 1
+
+          self.data.loadOverFlags[index] = true
+
+          wx.hideLoading()
+
+          self.setData({ assets: e.data })
+
+          self.setSwiperH(index)
+
+        },
+        fail: function (e) {
+          wx.hideLoading()
+
+          self.data.networkStates[index] = 0
+
+          self.setSwiperH(index)
+
+          wx.showToast({
+            title: e.errorCode,
+            image: "../../images/mine/fail.png",
+            duration: 1500
+          })
+        }
+      })
     }
 
 
@@ -381,6 +575,7 @@ Page({
     if(index == 7){
       return
     }
+
     if (this.data.loadOverFlags[index]) {
       this.setData({ isLoadingMoreList: true, isloadingListOver: true })
       var self = this
@@ -390,11 +585,14 @@ Page({
 
       return
     }
+
     this.setData({ isLoadingMoreList: true, isloadingListOver: false })
     if(index == 0){
-
+      var page = this.data.supplyPage + 1
+      this.loadData(index, page, true)
     }else if(index == 1){
-
+      var page = this.data.remandPage + 1
+      this.loadData(index, page, true)
     } else if (index == 2) {
 
     } else if (index == 3) {
@@ -405,11 +603,11 @@ Page({
     }
     else if (index == 5) {
 
-      var page = this.data.supplyPage + 1
+      var page = this.data.collectSupplyPage + 1
       this.loadData(index, page, true)
 
     } else if(index == 6){
-      var page = this.data.remandPage + 1
+      var page = this.data.collectRemandPage + 1
       this.loadData(index, page, true)
     }else{
 
@@ -548,6 +746,20 @@ Page({
     }
 
 
+  },
+
+  clickedCell: function(e){
+    console.log(e)
+    var index = e.currentTarget.dataset.index
+
+    if(index == 0){
+      var userId = this.data.userId
+      wx.navigateTo({
+        url: 'myCollectQuestions?userId=' + userId
+      })
+    }else if (index == 1){
+
+    }
   }
 
 })

@@ -3,7 +3,7 @@
 
   <template is='cell' data='{{title:"收藏的新闻",index:0,number:collectArticleCount}}' />
 
-  <template is='cell' data='{{title:"收藏的问答",index:1,number:collectQuestionCount}}' />
+  <template is='cell' data='{{title:"收藏的问题",index:1,number:collectQuestionCount}}' />
   
   <template is='cell' data='{{title:"收藏的供求",index:2,number:collectSupplyDemandCount}}' />
 

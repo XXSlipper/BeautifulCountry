@@ -2,7 +2,7 @@
 <view class='userDetailInfoContainer'>
   <view class='header'>
     <image style='width:750rpx;height:400rpx;' src='https://agriculture-app-bucket.oss-cn-beijing.aliyuncs.com/ag-usercenter/usercenter_bg.png'/>
-    <view class='headerBottomDesk' style='position:{{stopOnTop ? "fixed" : "absolute"}};top:{{stopOnTop ? 0 : (topHeaderH - 120)}}px;'>
+    <view class='headerBottomDesk' style='position:{{stopOnTop ? "fixed" : "absolute"}};top:{{stopOnTop ? 0 : (topHeaderH - 130)}}px;'>
       <image class='userIcon' src='{{iconUrl}}' hidden='{{stopOnTop}}' />
       <view class='userNameView'>
         {{nickName}}
@@ -42,19 +42,29 @@
       <swiper-item>
 
         <view wx:if='{{index == 0}}'>
-
+          <block wx:for='{{supplyData}}' wx:key='{{index}}'>
+            <template is='supplyCell' data='{{item}}' />
+          </block>
         </view>
 
         <view wx:elif='{{index == 1}}'>
-
+          <block wx:for='{{remandData}}' wx:key='{{index}}'>
+            <template is='buyCell' data='{{...item}}' />
+          </block>
         </view>
 
         <view wx:elif='{{index == 2}}'>
-
+          <view wx:for='{{crops}}' wx:key='{{index}}' style='width: 100%;display: flex;flex-direction: column;align-items: center;'>
+            <view style='width:100%;height:10px;' />
+            <template is='cropCell' data='{{item:item}}' />
+          </view>
         </view>
 
         <view wx:elif='{{index == 3}}'>
-
+          <view wx:for='{{assets}}' wx:key='{{index}}' style='width: 100%;display: flex;flex-direction: column;align-items: center;'>
+            <view style='width:100%;height:10px;' />
+            <template is='assetCell' data='{{item:item}}' />
+          </view>
         </view>
 
         <view wx:elif='{{index == 4}}' class='questionContainer'>
@@ -65,23 +75,27 @@
         </view>
 
         <view wx:elif='{{index == 5}}' class='supplyContainer'>
-          <block wx:for='{{supplyData}}' wx:key='{{index}}'>
+          <block wx:for='{{collectSupplyData}}' wx:key='{{index}}'>
             <template is='supplyCell' data='{{item}}' />
           </block>
         </view>
 
         <view wx:elif='{{index == 6}}' class='payContainer'>
-          <block wx:for='{{remandData}}' wx:key='{{index}}'>
+          <block wx:for='{{collectRemandData}}' wx:key='{{index}}'>
             <template is='buyCell' data='{{...item}}' />
           </block>
         </view>
 
         <view wx:else>
-          <template is='cell' data='{{title:"民生",index:0,number:12}}' />
 
-          <template is='cell' data='{{title:"军事",index:1,number:6}}' />
+        <template is='cell' data='{{title:"问题",index:0,number:""}}' />
+
+          <template is='cell' data='{{title:"民生",index:1,number:""}}' />
+
+          <template is='cell' data='{{title:"军事",index:2,number:""}}' />
   
-          <template is='cell' data='{{title:"创业致富",index:2,number:123}}' />
+          <template is='cell' data='{{title:"创业致富",index:3,number:""}}' />
+
         </view>
 
       </swiper-item>
@@ -191,6 +205,38 @@
     </view>
 
     <view style='width:725rpx;height:1px;background-color:#959595;align-self:flex-end;'>
+    </view>
+
+  </view>
+</template>
+
+
+<template name='cropCell'>
+  <view class='cropCell'>
+      <view style='width:100%;height:30px;display:flex;justify-content:space-between;'>
+        <text style='line-height:30px;font-size:15pt;margin-left:10px;'>{{item.cropsName}}</text>
+      </view>
+      
+      <view style='width:100%;height:30px;display:flex;' bindtap='modifySize' data-index='{{index}}'>
+        <text style='line-height:30px;margin-left:10px;color:#949494'>种植面积:  {{item.cropsSize}}亩</text>
+      </view>
+
+      <view style='width:100%;height:30px;display:flex;'>
+        <text style='line-height:30px;margin-left:10px;color:#949494;'>添加日期:  {{item.createTime}}</text>
+      </view>
+
+    </view>
+</template>
+
+<template name='assetCell'>
+  <view class='assetCell'>
+
+    <view style='width:100%;height:30px;display:flex;justify-content:space-between;'>
+        <text style='line-height:30px;font-size:15pt;margin-left:10px;'>{{item.capitalsName}}</text>
+    </view>
+
+    <view style='width:100%;height:30px;'>
+      <text style='line-height:30px;margin-left:10px;color:#949494;'>添加日期: {{item.createTime}}</text>
     </view>
 
   </view>

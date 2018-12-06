@@ -20,7 +20,31 @@ Page({
       collectQuestionCount: options.collectQuestionCount,
       collectSupplyDemandCount: options.collectSupplyDemandCount
     })
-    
+
+  },
+
+  userInfoValue: function () {
+    var self = this
+    var networkH = require("../../utils/networkHandle.js")
+    networkH.personalCenterInfo({
+      success: function (e) {
+
+        self.setData({
+          collectArticleCount: e.data.collectionArticleCount,
+          collectQuestionCount: e.data.collectionQuestionCount,
+          collectSupplyDemandCount: e.data.collectionSupplyDemandCount
+        })
+      },
+      fail: function () {
+
+        self.setData({
+          collectArticleCount: 0,
+          collectQuestionCount: 0,
+          collectSupplyDemandCount: 0
+        })
+      }
+
+    })
   },
 
   /**
@@ -34,7 +58,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.userInfoValue()
   },
 
   /**
@@ -83,7 +107,7 @@ Page({
       break
       case 1 :{
         wx.navigateTo({
-          url: 'myCollectQuestions'
+          url: 'myCollectQuestions?userId=' + getApp().globalData.userInfo.userID
         })
       }
       break

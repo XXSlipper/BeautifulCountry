@@ -22,6 +22,32 @@ Page({
     })
   },
 
+  userInfoValue: function () {
+    var self = this
+    var networkH = require("../../utils/networkHandle.js")
+    networkH.personalCenterInfo({
+      success: function (e) {
+
+        var releaseDemandSupplyCount = parseInt(e.data.publishDemandCount) + parseInt(e.data.publishSupplyCount)
+
+        self.setData({
+          releaseQuestionCount: e.data.publishQuestionCount,
+          releaseJobCount: e.data.publishJobCount,
+          releaseDemandSupplyCount: releaseDemandSupplyCount
+        })
+      },
+      fail: function () {
+        self.setData({
+          releaseQuestionCount: 0,
+          releaseJobCount: 0,
+          releaseDemandSupplyCount: 0
+        })
+
+      }
+
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -33,7 +59,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.userInfoValue()
   },
 
   /**

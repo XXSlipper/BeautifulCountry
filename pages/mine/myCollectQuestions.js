@@ -5,6 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+
+    userId:"",
+
     networkState:-2,
 
     currentPage:-1,
@@ -22,7 +25,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.data.userId = options.userId
   },
 
   loadQuestion:function(page,isReachBottom){
@@ -42,7 +45,7 @@ Page({
     var networkH = require("../../utils/networkHandle.js")
     networkH.userMarkQuestionList({
       page:page,
-      userId: getApp().globalData.userInfo.userID,
+      userId: self.data.userId,
       success:function(e){
         if (isReachBottom == false) {
           wx.hideLoading()

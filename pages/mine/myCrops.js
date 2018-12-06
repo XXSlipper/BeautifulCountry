@@ -43,6 +43,7 @@ Page({
     var networkHandle = require("../../utils/networkHandle.js")
 
     networkHandle.getCropList({
+      userId: getApp().globalData.userInfo.userID,
       success:function(e){
 
         wx.hideLoading()

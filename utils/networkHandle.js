@@ -78,7 +78,7 @@ const getCropList = (p) =>{
     method: "POST",
     url: getApp().globalData.urlHeader + 'crops/getCropsList',
     data: {
-      "userId": getApp().globalData.userInfo.userID
+      "userId": p.userId
     },
     success: function (e) {
 
@@ -91,7 +91,7 @@ const getCropList = (p) =>{
           var util = require("util.js")
           for (var i = 0; i < cropList.length; i++) {
             var crop = cropList[i]
-            var timeStr = util.formatTimeNumber(crop.createTime, 'Y年M月D日 h:m:s')
+            var timeStr = util.formatTimeNumber(crop.createTime, 'Y年M月D日')
             crop["createTime"] = timeStr
           }
 
@@ -496,12 +496,19 @@ const getAssetList = (p)=>{
     method:"POST",
     url: getApp().globalData.urlHeader + "capitals/list",
     data:{
-      userId: getApp().globalData.userInfo.userID
+      userId: p.userId
       // capitalsCodePrefix:"01"
     },
     success:function(e){
       if(e.statusCode == 200){
         if(e.data.code == 600200){
+          var assets = e.data.data
+          var util = require("util.js")
+          for (var i = 0; i < assets.length; i++) {
+            var asset = assets[i]
+            var timeStr = util.formatTimeNumber(asset.createTime, 'Y年M月D日')
+            asset["createTime"] = timeStr
+          }
           p.success({successMsg:"农资获取成功",data:e.data.data})
         }else{
           p.fail({ errorCode: "01203" + "-" + e.data.code, errorMsg: "农资获取失败" })
@@ -1718,6 +1725,7 @@ const userMarkQuestionList = (p) => {
 *04603-xxxxxx 业务逻辑错误
 */
 const userMarkSupplyOrDemandList = (p) => {
+  
   wx.request({
     method: "POST",
     url: getApp().globalData.urlHeader + 'supplyDemand/focusList',
@@ -1727,6 +1735,7 @@ const userMarkSupplyOrDemandList = (p) => {
       type: p.type
     },
     success: function (e) {
+      
       if (e.statusCode == 200) {
         if (e.data.code == 600200) {
           p.success({ successMsg: "加载成功", data: e.data.data })

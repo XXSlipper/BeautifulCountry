@@ -44,6 +44,7 @@ Page({
     var self = this
     var networkHandle = require("../../utils/networkHandle.js")
     networkHandle.getAssetList({
+      userId: getApp().globalData.userInfo.userID,
       success:function(e){
         var seeds = []
         var medicine = []

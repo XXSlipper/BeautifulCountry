@@ -1,7 +1,7 @@
 <!--pages/mine/myCollectQuestions.wxml-->
 
-<view wx:if='{{networkState == 1 & questionData.length == 0}}' class='emptyContainer'>
-您的问答收藏里面什么都没有~~
+<view wx:if='{{networkState == 1 & questionData.length == 0}}' class='emptyContainer' style='color:#797979;'>
+什么都没有~~
 </view>
 
 <view wx:else class='questionContainer'>
