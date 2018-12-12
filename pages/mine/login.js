@@ -80,6 +80,25 @@ Page({
         iv: e.detail.iv,
         success:function(e){
 
+          networkHandle.getFocusList({
+            userId: getApp().globalData.userInfo.userID,
+            success: function (p) {
+              getApp().globalData.userFocusList = p.data || []
+            },
+            fail: function () {
+
+            }
+          })
+
+          networkHandle.getCollectArticleList({
+            success: function (p) {
+              getApp().globalData.userCollectionList = p.data || []
+            },
+            fail: function (p) {
+
+            }
+          })
+
           wx.hideLoading()
 
           wx.showToast({

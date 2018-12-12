@@ -14,6 +14,7 @@
   display: flex;
   align-items: center;
 }
+
 .positionSelecte text{
   text-align: center;
   margin-left: 20rpx;
@@ -30,6 +31,7 @@
   word-break: keep-all;
   word-wrap: break-word;
 }
+
 .positionSelecte image{
   margin-left: 2px;
   width: 24px;
@@ -41,7 +43,8 @@
   height: 62px;
   display: flex;
   align-items: center;
-   justify-content: center;
+  justify-content: center;
+  position: relative;
 }
 
 .searchLabelContainer{
@@ -51,15 +54,16 @@
   border: 1px solid #8a8a8a;
   display: flex;
   align-items: center;
+  position: relative;
 }
 .searchLabelContainer input{
-  width: 360rpx;
   margin-left: 32px;
 }
 
-.searchLabelContainer movable-view{
-  width: 32px;
-  height: 32px;
+.searchLabelContainer image{
+  width: 32px; 
+  height:32px;
+  position: absolute;
 }
 
 .communityUserList{

@@ -40,7 +40,7 @@ Page({
     subInputValue:"",
     articleId:"",
     newsContents:{
-      baseUrl:"",
+      baseUrl: "",//https://agriculture-app-bucket.oss-cn-beijing.aliyuncs.com/ag-article
       articleId:0,
       title:"",
       time:"",

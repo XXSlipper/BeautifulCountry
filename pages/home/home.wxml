@@ -3,13 +3,14 @@
     <swiper indicator-dots='{{true}}' autoplay='{{true}}' circular='{{true}}' vertical='{{false}}' interval='{{interval}}' duration='{{duration}}' previous-margin='0px' next-margin='0px' indicator-color='#ffffff' indicator-active-color='#83b536' style='height:360rpx;width:100%'>
       <block wx:for='{{imagesInfo}}' wx:key='{{item.imageUrl}}'>
         <swiper-item>
-          <image class='swiperImage' mode='aspectFill' src='{{item.imageUrl}}' data-detail-Info-i-d='{{item.detailInfoID}}' bindtap='gotoNewsDetailInfoPage' lazy-load='{{true}}' />
+          <image class='swiperImage' mode='aspectFill' src='{{item.imgUrl}}' data-index='{{index}}' bindtap='gotoDetailInfoPage' lazy-load='{{true}}' />
         </swiper-item>
       </block>
     </swiper>
   </view>
 
-  <view class='{{stopOnTop ? "selecteBarSectionFixed" : "selecteBarSection"}}'>
+  <view style='width:100%;height:38px;'>
+    <view class='{{stopOnTop ? "selecteBarSectionFixed" : "selecteBarSection"}}'>
     <scroll-view style='width:100%;background: #fff;' scroll-x='true'>
       <view style='width: {{segContentWidth}}px; height: 38px; display:flex;flex-direction:row;'>
         <block wx:for='{{segmentTitles}}' wx:key='{{item.title}}'>
@@ -33,6 +34,8 @@
 
     </scroll-view>
   </view>
+  </view>
+  
 
   <view style='height:10px;width:100%;'>
     <view style='width:100%;height:1px;background-color:#e1e0e0;'></view>
@@ -84,7 +87,7 @@
             </view>
             <view wx:elif='{{isGetLocation == 1}}' class='publicNoticeContainer'>
               <view wx:if='{{publicNoticeList.length == 0}}' style='width:260px;text-align:center;line-height:30px;font-size:12pt;margin-top:50px;color:#828282;'>
-                您所在区域未发布公告信息,拨打电话:<text style='color:black;'>18824299980</text>了解更多
+                您所在区域未发布公告信息,拨打电话:<text style='color:black;' bindtap='call' data-phone-number='18824299980'>18824299980</text>了解更多
               </view>
               <view wx:else >
               </view>
@@ -149,7 +152,7 @@
   <view class='newsCellContainer' bindtap='clickOnNewsList' data-article-id='{{item.articleId}}'>
 
     <view class='newsCellRight'>
-      <image mode='aspectFill' src='{{item.baseUrl + item.coverImgName}}' style='width:100%;height:100%' lazy-load='{{true}}'></image>
+      <image mode='aspectFill' src='{{item.baseUrl + item.coverImgName}}' lazy-load='{{true}}'></image>
     </view>
 
     <view class='newsCellLeft'>
@@ -168,7 +171,7 @@
   </view>
 </template>
 
-<view class='searchBtn' hidden='{{hiddenSearchBar}}'>
+<view class='searchBtn' hidden='{{hiddenSearchBar}}' catchtap='searchQuestionAction'>
   <image style='width:20px;height:20px;margin-left:5px;' src='../../images/home/search.png'></image>
   <view style='line-heigh:20px;color:#8a8a8a;font-size:12px;'>搜索</view>
 </view>

@@ -217,7 +217,7 @@
         <text style='line-height:30px;font-size:15pt;margin-left:10px;'>{{item.cropsName}}</text>
       </view>
       
-      <view style='width:100%;height:30px;display:flex;' bindtap='modifySize' data-index='{{index}}'>
+      <view style='width:100%;height:30px;display:flex;'>
         <text style='line-height:30px;margin-left:10px;color:#949494'>种植面积:  {{item.cropsSize}}亩</text>
       </view>
 

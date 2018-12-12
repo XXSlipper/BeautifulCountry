@@ -10,9 +10,11 @@ Page({
 
     networkState:-2,
 
-    currentPage:-1,
+    
 
     questionData:[],
+
+    currentPage: -1,
 
     isloadingListOver:false,
 
@@ -47,6 +49,7 @@ Page({
       page:page,
       userId: self.data.userId,
       success:function(e){
+
         if (isReachBottom == false) {
           wx.hideLoading()
         }
@@ -69,11 +72,13 @@ Page({
             }, 1500)
           }
         }
+
         var newQuestionList = self.data.questionData.concat(e.data.list)
 
         self.setData({ questionData: newQuestionList, networkState:1})
       },
       fail:function(p){
+        
         if(isReachBottom == false){
           wx.hideLoading()
         }

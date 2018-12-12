@@ -751,15 +751,45 @@ Page({
   clickedCell: function(e){
 
     var index = e.currentTarget.dataset.index
-
+    var userId = this.data.userId
     if(index == 0){
-      var userId = this.data.userId
       wx.navigateTo({
         url: 'myCollectQuestions?userId=' + userId
       })
     }else if (index == 1){
-
+      wx.navigateTo({
+        url: 'userMoreCollectList?type=' + "minsheng" + "&userId=" + userId
+      })
+    }else if(index == 2){
+      wx.navigateTo({
+        url: 'userMoreCollectList?type=' + "junshi" + "&userId=" + userId
+      })
+    }else if(index == 3){
+      wx.navigateTo({
+        url: 'userMoreCollectList?type=' + "chuangye" + "&userId=" + userId
+      })
     }
+  },
+
+  clickedOnSupply:function(e){
+    var supplyDemandId = e.currentTarget.dataset.supplyDemandId
+    wx.navigateTo({
+      url: '../market/buyAndPayDetail?supplyDemandId=' + supplyDemandId + "&isSupply=1",
+    })
+  },
+
+  clickedOnBuyCell:function(e){
+    var supplyDemandId = e.currentTarget.dataset.supplyDemandId
+    wx.navigateTo({
+      url: '../market/buyAndPayDetail?supplyDemandId=' + supplyDemandId + "&isSupply=0",
+    })
+  },
+
+  tapOnQuestionCell:function(e){
+    var questionId = e.currentTarget.dataset.questionId
+    wx.navigateTo({
+      url: '../home/questionDetail?questionId=' + questionId,
+    })
   }
 
 })

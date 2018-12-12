@@ -18,7 +18,7 @@
             <text>{{item.userTag}}</text>
           </view>
         </view>
-        <view class='focusBtn' bindtap='cancelFocusAction' data-focus-id='{{item.focusId}}'>
+        <view class='focusBtn' catchtap='cancelFocusAction' data-focus-id='{{item.focusId}}'>
         已关注
         </view>
       </view>

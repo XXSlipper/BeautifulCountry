@@ -30,7 +30,7 @@ Page({
       success: function (e) {
 
         self.setData({
-          collectArticleCount: e.data.collectionArticleCount,
+          collectArticleCount: getApp().globalData.userCollectionList.length,
           collectQuestionCount: e.data.collectionQuestionCount,
           collectSupplyDemandCount: e.data.collectionSupplyDemandCount
         })

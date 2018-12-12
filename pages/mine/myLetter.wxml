@@ -1,2 +1,19 @@
 <!--pages/mine/myLetter.wxml-->
-<text>pages/mine/myLetter.wxml</text>
+<view class='letterContainer'>
+  <view class='letterCell'>
+    <image />
+    <view class='cellRightContent' style='width:{{cellRightContentW}}px;'>
+      <view class='upTitleContainer'>
+        <view class='nameLab'>
+        哈哈天才
+        </view>
+        <view class='timeLab'>
+        17/01/05
+        </view>
+      </view>
+      <view class='subTitle'>
+      这只是一个误会,这只是一个误会,这只是一个误会,这只是一个误会,这只是一个误会
+      </view>
+    </view>
+  </view>
+</view>

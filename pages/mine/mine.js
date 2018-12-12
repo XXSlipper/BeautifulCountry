@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    alreadyUploadLocation:false,
 
     releaseDemandCount:0,
     releaseJobCount: 0,
@@ -16,6 +17,7 @@ Page({
     collectArticleCount:0,
     collectQuestionCount:0,
     collectSupplyDemandCount:0,
+    collectQuestionCount:0,
 
     defaultAddress:"",
     phoneNumber:"",
@@ -77,11 +79,11 @@ Page({
 
         var releaseTotalCount = e.data.publishDemandCount + e.data.publishJobCount + e.data.publishSupplyCount + e.data.publishQuestionCount
 
-        self.data.collectArticleCount = e.data.collectionArticleCount
+        self.data.collectArticleCount = getApp().globalData.userCollectionList.length
         self.data.collectQuestionCount = e.data.collectionQuestionCount
         self.data.collectSupplyDemandCount = e.data.collectionSupplyDemandCount
 
-        var collectTotalCount = e.data.collectionArticleCount + e.data.collectionQuestionCount + e.data.collectionSupplyDemandCount
+        var collectTotalCount = self.data.collectArticleCount + e.data.collectionQuestionCount + e.data.collectionSupplyDemandCount
 
         self.data.mines[0]["value"] = e.data.letterCount
         self.data.mines[1]["value"] = e.data.focusCount
@@ -116,6 +118,41 @@ Page({
     })
   },
 
+
+  upLoadLocation: function(){
+
+    if(this.data.alreadyUploadLocation){
+      return
+    }
+
+    var self = this
+    var networkHandle = require("../../utils/networkHandle.js")
+
+    networkHandle.accessAndAnalysisLocation({
+      success:function(e){
+
+        networkHandle.uploadLocation({
+          lon:e.data.lng,
+          lat:e.data.lat,
+          province:e.data.province,
+          city:e.data.city,
+          area: e.data.district,
+          success:function(p){
+            
+            self.data.alreadyUploadLocation = true
+          },
+          fail:function(p){
+
+          }
+        })
+      },
+      fail:function(e){
+
+      }
+    })
+
+
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -130,6 +167,9 @@ Page({
         var userInfo = getApp().globalData.userInfo
 
         if (userInfo) {
+
+          this.upLoadLocation()
+
           self.setData({ userName: userInfo.nickName, iconPath: userInfo.avatarUrl })
           self.data.userID = userInfo.userID
 
@@ -159,6 +199,8 @@ Page({
       var userInfo = getApp().globalData.userInfo
 
       if (userInfo) {
+
+        this.upLoadLocation()
 
         this.setData({ userName: userInfo.nickName, iconPath: userInfo.avatarUrl })
         this.data.userID = userInfo.userID

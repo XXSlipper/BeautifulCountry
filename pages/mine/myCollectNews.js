@@ -10,20 +10,45 @@ Page({
 
     swiperH:0,
 
-    minshengData:[{},{}],
+    minshengData:[],
 
-    junshiData:[{}],
+    junshiData:[],
 
-    chuangyeData:[{}]
+    chuangyeData:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var util = require("../../utils/util.js")
+    var lists = getApp().globalData.userCollectionList
+    console.log(lists)
+    for (var i = 0; i < lists.length; i++){
+      var obj = lists[i]
+      if(obj.hasChange == undefined){
+        obj.time = util.changeTimeNumToTimeAgo(obj.time)
+        obj["hasChange"] = true
+      }
+      if(obj.type === "minsheng"){
+        this.data.minshengData.push(obj)
+      }else if (obj.type === "junshi"){
+        this.data.junshiData.push(obj)
+      }else if (obj.type === "chuangye"){
+        this.data.chuangyeData.push(obj)
+      }else{
+
+      }
+    }
+
+    this.setData({
+      minshengData: this.data.minshengData,
+      junshiData: this.data.junshiData,
+      chuangyeData: this.data.chuangyeData
+    })
+
 
     this.setSwiperH(0)
-
   },
 
   setSwiperH:function(index){
@@ -101,6 +126,9 @@ Page({
   },
 
   clickOnNewsCell:function(e){
-
+    var articleId = e.currentTarget.dataset.articleId
+    wx.navigateTo({
+      url: '../home/newsDetail?articleId=' + articleId,
+    })
   }
 })

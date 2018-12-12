@@ -34,18 +34,16 @@ Page({
     newsListSwiperH: 0,
 
     imagesInfo: [{
-        imageUrl: "",
-        detailInfoID: "abc"
+      imgUrl: ""
       },
       {
-        imageUrl: "",
-        detailInfoID: "xxx"
+        imgUrl: ""
       },
       {
-        imageUrl: "",
-        detailInfoID: "www"
+        imgUrl: ""
       }
     ],
+
     segmentTitles: [{
         title: "民生",
         width: 32
@@ -125,7 +123,7 @@ Page({
 
     //计算swiper高度
     if (index == 0) {
-      newsListSwiperH = 95 * this.data.minshengList.length
+      newsListSwiperH = 85 * this.data.minshengList.length
 
       var miniH = wx.getSystemInfoSync().windowHeight - 48 - this.data.topSwiperH
       if (newsListSwiperH < miniH) {
@@ -138,7 +136,7 @@ Page({
       })
 
     } else if (index == 1) {
-      newsListSwiperH = 95 * this.data.junshiList.length
+      newsListSwiperH = 85 * this.data.junshiList.length
 
       var miniH = wx.getSystemInfoSync().windowHeight - 48 - this.data.topSwiperH
       if (newsListSwiperH < miniH) {
@@ -151,7 +149,7 @@ Page({
       })
 
     } else if (index == 2) {
-      newsListSwiperH = 95 * this.data.chuangyeList.length
+      newsListSwiperH = 85 * this.data.chuangyeList.length
 
       var miniH = wx.getSystemInfoSync().windowHeight - 48 - this.data.topSwiperH
       if (newsListSwiperH < miniH) {
@@ -226,6 +224,23 @@ Page({
       self.loadDataWithIndexAndPage(0, 0, false, false)
 
     }).exec()
+
+    this.loadUpSwiperData()
+  },
+
+  loadUpSwiperData:function(){
+    var self = this
+    var networkH = require("../../utils/networkHandle.js")
+    networkH.getBannerList({
+      success: function (e) {
+        self.setData({
+          imagesInfo:e.data
+        })
+      },
+      fail: function (e) {
+
+      }
+    })
   },
 
   loadDataWithIndexAndPage: function(index, page, isPullDown, isReachBottom) {
@@ -288,6 +303,7 @@ Page({
       var networkHandle = require("../../utils/networkHandle.js")
       networkHandle.getArticleList({
         type: myType,
+        page:page,
         success: function(e) {
           self.data.networkState[index].state = 1 //将标识设置为成功
 
@@ -300,10 +316,10 @@ Page({
           }
 
           var util = require("../../utils/util.js")
-          for (var i = 0; i < e.data.length; i++) {
-            e.data[i].time = util.changeTimeNumToTimeAgo(e.data[i].time)
+          for (var i = 0; i < e.data.list.length; i++) {
+            e.data.list[i].time = util.changeTimeNumToTimeAgo(e.data.list[i].time)
           }
-          if (e.data.length == 0) {
+          if (e.data.list.length == 0) {
             self.data.loadingOverFlags[index] = true
             if (isReachBottom) {
               self.setData({
@@ -331,19 +347,19 @@ Page({
 
           if (index == 0) {
             self.data.minshengListPage = page
-            var newMingshengList = self.data.minshengList.concat(e.data)
+            var newMingshengList = self.data.minshengList.concat(e.data.list)
             self.setData({
               minshengList: newMingshengList
             })
           } else if (index == 1) {
             self.data.junshiListPage = page
-            var newJunshiList = self.data.junshiList.concat(e.data)
+            var newJunshiList = self.data.junshiList.concat(e.data.list)
             self.setData({
               junshiList: newJunshiList
             })
           } else if (index == 2) {
             self.data.chuangyeListPage = page
-            var newChuangyeList = self.data.chuangyeList.concat(e.data)
+            var newChuangyeList = self.data.chuangyeList.concat(e.data.list)
             self.setData({
               chuangyeList: newChuangyeList
             })
@@ -583,24 +599,11 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+
+    
     var index = this.data.segSelectedIndex
     switch (index) {
       case 0:
-        {
-
-        }
-        break;
-      case 1:
-        {
-
-        }
-        break;
-      case 2:
-        {
-
-        }
-        break;
-      case 3:
         {
           if (this.data.loadingOverFlags[index]) {
             this.setData({
@@ -608,7 +611,7 @@ Page({
               isloadingListOver: true
             })
             var self = this
-            setTimeout(function() {
+            setTimeout(function () {
               self.setData({
                 isLoadingMoreList: false
               })
@@ -622,6 +625,86 @@ Page({
             isloadingListOver: false
           })
 
+          var page = this.data.minshengListPage + 1
+          this.loadDataWithIndexAndPage(index, page, false, true)
+
+        }
+        break;
+      case 1:
+        {
+          if (this.data.loadingOverFlags[index]) {
+            this.setData({
+              isLoadingMoreList: true,
+              isloadingListOver: true
+            })
+            var self = this
+            setTimeout(function () {
+              self.setData({
+                isLoadingMoreList: false
+              })
+            }, 1500)
+
+            return
+          }
+
+          this.setData({
+            isLoadingMoreList: true,
+            isloadingListOver: false
+          })
+
+          var page = this.data.junshiListPage + 1
+          this.loadDataWithIndexAndPage(index, page, false, true)
+
+        }
+        break;
+      case 2:
+        {
+          if (this.data.loadingOverFlags[index]) {
+            this.setData({
+              isLoadingMoreList: true,
+              isloadingListOver: true
+            })
+            var self = this
+            setTimeout(function () {
+              self.setData({
+                isLoadingMoreList: false
+              })
+            }, 1500)
+
+            return
+          }
+
+          this.setData({
+            isLoadingMoreList: true,
+            isloadingListOver: false
+          })
+
+          var page = this.data.chuangyeListPage + 1
+          this.loadDataWithIndexAndPage(index, page, false, true)
+
+        }
+        break;
+      case 3:
+        {
+          if (this.data.loadingOverFlags[index]) {
+            this.setData({
+              isLoadingMoreList: true,
+              isloadingListOver: true
+            })
+            var self = this
+            setTimeout(function () {
+              self.setData({
+                isLoadingMoreList: false
+              })
+            }, 1500)
+
+            return
+          }
+
+          this.setData({
+            isLoadingMoreList: true,
+            isloadingListOver: false
+          })
           var page = this.data.questionListPage + 1
           this.loadDataWithIndexAndPage(index, page, false, true)
         }
@@ -637,11 +720,40 @@ Page({
   },
 
   //轮播图片点击事件
-  gotoNewsDetailInfoPage: function(e) {
-    let detailInfoID = e.currentTarget.dataset.detailInfoID
-    wx.navigateTo({
-      url: 'newsDetail?newsID=' + detailInfoID,
-    })
+  gotoDetailInfoPage: function(e) {
+    let index = e.currentTarget.dataset.index
+    var obj = this.data.imagesInfo[index]
+    if(obj.imgUrl && obj.imgUrl.length > 0){
+
+      if (obj.questionId > 0){
+
+        wx.navigateTo({
+          url: 'questionDetail?questionId=' + obj.questionId,
+        })
+
+      } else if (obj.supplyDemandId > 0){
+
+        var myType = 0
+        if (obj.supplyDemandType === "supply"){
+          myType = 1
+        }else{
+          myType = 0
+        }
+        wx.navigateTo({
+          url: '../market/buyAndPayDetail?supplyDemandId=' + obj.supplyDemandId + "&isSupply=" + myType,
+        })
+
+      } else if (obj.articleId > 0){
+
+        wx.navigateTo({
+          url: 'newsDetail?articleId=' + obj.articleId,
+        })
+
+      }else{
+
+      }
+
+    }
   },
 
   //分区栏按钮点击事件
@@ -716,6 +828,25 @@ Page({
 
   getLocationAgain:function(){
 
+  },
+
+  call:function(e){
+    var phoneNumber = e.currentTarget.dataset.phoneNumber
+    wx.makePhoneCall({
+      phoneNumber: phoneNumber,
+      success: function (p) {
+
+      },
+      fail: function (p) {
+
+      }
+    })
+  },
+
+  searchQuestionAction:function(){
+    wx.navigateTo({
+      url: 'searchQuestion'
+    })
   }
 
 })

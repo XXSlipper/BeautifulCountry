@@ -594,7 +594,8 @@ const getArticleList = (p)=>{
     method:"POST",
     url: getApp().globalData.urlHeader + "article/list",
     data:{
-      type:p.type
+      type:p.type,
+      currentPage:p.page
     },
     success: function(e){
       if(e.statusCode == 200){
@@ -895,15 +896,20 @@ const cancelFocus = (p)=>{
 *02403-xxxxxx 业务逻辑错误
 */
 const getCollectArticleList = (p)=>{
+  var userId = getApp().globalData.userInfo.userID
+  if(p.userId){
+    userId = p.userId
+  }
   wx.request({
     method: "POST",
     url: getApp().globalData.urlHeader + 'collection/articleList',
     data: {
-      userId: getApp().globalData.userInfo.userID
+      userId: userId
     },
     success: function (e) {
       if (e.statusCode == 200) {
         if (e.data.code == 600200) {
+
           p.success({ successMsg: "收藏列表获取成功", data: e.data.data })
         } else {
           p.fail({ errorCode: "02403" + "-" + e.data.code, errorMsg: "收藏列表获取失败" })
@@ -1028,7 +1034,6 @@ const getLocation = (p)=>{
       var map = new qqMapWX({
         key:"SOZBZ-RGUKU-ZT6V3-2EXBX-HRNE7-RHFVI"
       })
-
       map.reverseGeocoder({
             location: {
               latitude: res.latitude,
@@ -1037,7 +1042,15 @@ const getLocation = (p)=>{
             success: function (res) {
           //输出一下位置信息
           var address_component = res.result.address_component
-          var detailLocation = { province: address_component.province, city: address_component.city, district: address_component.district, street: address_component.street }
+          var location = res.result.location
+          var detailLocation = { 
+            province: address_component.province, 
+            city: address_component.city, 
+            district: address_component.district, 
+            street: address_component.street,
+            lat:location.lat,
+            lng:location.lng
+           }
           p.success({ successMsg: "获取成功", data: detailLocation})
             },
             fail: function (res) {
@@ -1058,12 +1071,12 @@ const accessAndAnalysisLocation = (s)=>{
     s.success({ successMsg: "地址获取OK", data: res1 })
     return
   }
-  var res2 = wx.getStorageSync("userLocation")
-  if (res2){
-    s.success({ successMsg: "地址获取OK", data: res2 })
-    getApp().globalData.userLocation = res2
-    return
-  }
+  // var res2 = wx.getStorageSync("userLocation")
+  // if (res2){
+  //   s.success({ successMsg: "地址获取OK", data: res2 })
+  //   getApp().globalData.userLocation = res2
+  //   return
+  // }
   wx.getSetting({
     success: function (res) {
       if (res.authSetting["scope.userLocation"]) {
@@ -1094,16 +1107,19 @@ const accessAndAnalysisLocation = (s)=>{
             getLocation({
               success: function (p) {
                 getApp().globalData.userLocation = p.data
-                wx.setStorage({
-                  key: 'userLocation',
-                  data: p.data,
-                  success: function () {
-                    s.success({ successMsg: "地址获取OK", data: p.data })
-                  },
-                  fail: function () {
-                    s.fail({ errorMsg: "地址获取失败" })
-                  }
-                })
+
+                s.success({ successMsg: "地址获取OK", data: p.data })
+
+                // wx.setStorage({
+                //   key: 'userLocation',
+                //   data: p.data,
+                //   success: function () {
+                //     s.success({ successMsg: "地址获取OK", data: p.data })
+                //   },
+                //   fail: function () {
+                //     s.fail({ errorMsg: "地址获取失败" })
+                //   }
+                // })
               },
               fail: function (e) {
                 s.fail({ errorMsg: "地址获取失败" })
@@ -1245,6 +1261,10 @@ const getQuestionList = (p)=>{
     data = {
       currentPage: p.page
     }
+  }
+
+  if(p.searchKey){
+    data["searchKey"] = p.searchKey
   }
   wx.request({
     method: "POST",
@@ -2106,6 +2126,118 @@ const personalCenterInfo = (p) => {
   })
 }
 
+/*
+*05701  user/updateCurrentLocation fail
+*05702 statusCode != 200
+*05703-xxxxxx 业务逻辑错误
+*/
+const uploadLocation = (p) => {
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + "user/updateCurrentLocation",
+    data: {
+      userId: getApp().globalData.userInfo.userID,
+      lon:p.lon,
+      lat:p.lat,
+      province: p.province,
+      city:p.city,
+      area:p.area
+    },
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "上传成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "05703" + "-" + e.data.code, errorMsg: "上传失败" })
+        }
+      } else {
+        p.fail({ errorCode: "05702", errorMsg: "上传失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "05701", errorMsg: "上传失败" })
+    }
+  })
+}
+
+/*
+*05801  user/usersInLocation fail
+*05802 statusCode != 200
+*05803-xxxxxx 业务逻辑错误
+*/
+const getUserListWithLocation = (p) => {
+
+  var data = null
+  if (p.provence){
+    data = {
+      province: p.provence,
+      city: p.city,
+      area: p.area,
+      currentPage: p.page
+    }
+  }else{
+    data = {
+      currentPage: p.page
+    }
+  }
+
+  if(p.searchKey){
+    data["searchKey"] = p.searchKey
+  }
+
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + "user/usersInLocation",
+    data: data,
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "获取成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "05803" + "-" + e.data.code, errorMsg: "获取失败" })
+        }
+      } else {
+        p.fail({ errorCode: "05802", errorMsg: "获取失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "05801", errorMsg: "获取失败" })
+    }
+  })
+}
+
+
+/*
+*05901  banner/list fail
+*05902 statusCode != 200
+*05903-xxxxxx 业务逻辑错误
+*/
+const getBannerList = (p) => {
+  wx.request({
+    method: "POST",
+    url: getApp().globalData.urlHeader + "banner/list",
+    data: {
+
+    },
+    success: function (e) {
+      if (e.statusCode == 200) {
+        if (e.data.code == 600200) {
+          p.success({ successMsg: "获取成功", data: e.data.data })
+        } else {
+          p.fail({ errorCode: "05903" + "-" + e.data.code, errorMsg: "获取失败" })
+        }
+      } else {
+        p.fail({ errorCode: "05902", errorMsg: "获取失败" })
+      }
+    },
+    fail: function (e) {
+      p.fail({ errorCode: "05901", errorMsg: "获取失败" })
+    }
+  })
+}
+
+
+
 
 module.exports = {
   myLogin: myLogin,
@@ -2164,5 +2296,8 @@ module.exports = {
   deleteMySupplyDemand: deleteMySupplyDemand,
   editJob: editJob,
   deleteMyReleaseJob: deleteMyReleaseJob,
-  personalCenterInfo: personalCenterInfo
+  personalCenterInfo: personalCenterInfo,
+  uploadLocation: uploadLocation,
+  getUserListWithLocation: getUserListWithLocation,
+  getBannerList: getBannerList
 }

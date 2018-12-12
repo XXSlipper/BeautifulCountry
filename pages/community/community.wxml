@@ -1,20 +1,28 @@
 <!--pages/community/community.wxml-->
 <view style='position: fixed;z-index: 100;top:0px;'>
-  <view style='width:750rpx;height:1px;background:white;'></view>
+
+  <view style='width:750rpx;height:1px;background:white;' />
   <view class='communitySearchBar'>
-  <view class='positionSelecte'>
-    <text>宝安区</text>
-    <image src ='../../images/community/downTriangle.png'></image>
+    <picker mode = "multiSelector" bindchange='bindMultiPickerChange' bindcolumnchange='bindMultiPickerColumnChange' value="{{defaultLocationIndex}}" range='{{locationContent["name"]}}'>
+        <view class='positionSelecte'>
+          <text>{{currentLocation}}</text>
+          <image src ='../../images/community/downTriangle.png' />
+        </view>
+
+    </picker>
+
+    <view class='searchView'>
+
+      <view class='searchLabelContainer'>
+        <input style='width:{{searchBarContainerW - 32}}px;' bindblur='blurAction' type='text' confirm-type='search' bindfocus='focusAction' bindconfirm='confirmAction' bindinput='inputAction' value='{{inputValue}}' />
+
+        <image style='left:{{searchImgLeft}};' src='../../images/community/glass.png' animation="{{searchImgAnimData}}" />
+        
+      </view>
+
+    </view>
+
   </view>
-  <view class='searchView'>
-    <movable-area class='searchLabelContainer'>
-      <input bindblur='blurAction' type='text' confirm-type='search' bindfocus='focusAction' bindconfirm='confirmAction' bindinput='inputAction' ></input>
-      <movable-view x='0px' y='0px' direction='none'>
-        <image style='width: 32px; height:32px' src='../../images/community/glass.png'></image>
-      </movable-view>
-    </movable-area>
-  </view>
-</view>
 </view>
 
 
@@ -24,19 +32,28 @@
     <template is='userCell' data='{{item}}' />
   </block>
 
+  <view style='width:100%;display:{{isLoadingMoreList ? "flex" : "none"}};flex-direction:column;align-items:center;'>
+
+    <view style='width:700rpx;height:1px;background:#f5f4f9;margin-top:9px;' />
+
+    <view style='height:40px;width:100%;text-align:center;font-size:11pt;line-height:40px;'>
+    {{isloadingListOver ? "没有更多内容了!" : "加载中..."}}
+    </view>
+
+  </view>
 </view>
 
 
 <template name='userCell'>
-  <view class='userListCell'>
+  <view class='userListCell' bindtap='clickedCell' data-user-id='{{item.userId}}'>
       <view class='userListContent'>
-        <image mode='aspectFill' src='{{item.iconUrl}}' />
+        <image mode='aspectFill' src='{{item.avatarUrl}}' />
         <view class='titleContainer'>
           <view class='nameTitleV'>
-            <text>{{item.name}}</text>
+            <text>{{item.nickName}}</text>
           </view>
           <view class='subTitleV'>
-            <text>{{item.detailInfo}}</text>
+            <text>{{item.userTag}}</text>
           </view>
         </view>
       </view>

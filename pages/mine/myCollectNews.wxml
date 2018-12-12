@@ -51,17 +51,17 @@
   <view class='newsCellContainer' bindtap='clickOnNewsCell' data-article-id='{{item.articleId}}'>
 
     <view class='newsCellRight'>
-      <image mode='aspectFill' src='' style='width:100%;height:100%;background:red' lazy-load='{{true}}' />
+      <image mode='aspectFill' src='{{item.baseUrl + item.coverImgName}}' lazy-load='{{true}}' />
     </view>
 
     <view class='newsCellLeft'>
       <view class='newsTitleContainer'>
-        <view class='newsTitle'>哈哈哈</view>
+        <view class='newsTitle'>{{item.title}}</view>
       </view>
       
       <view style='width:100%;display:flex; flex-direction: row-reverse;'>
         <view class='newsTimeComment'>
-          <text space='nbsp' style='height:24px; font-size: 11pt;color: #a1a1a1; float:right;'>时间   0评论
+          <text space='nbsp' style='height:24px; font-size: 11pt;color: #a1a1a1; float:right;'>{{item.time}}   {{item.commendCount}}评论
           </text>
         </view>
       </view> 
